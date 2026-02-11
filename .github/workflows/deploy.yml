@@ -1,0 +1,62 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build application
+        run: npm run build
+      
+      - name: Deploy to Digital Ocean
+        env:
+          DO_TOKEN: ${{ secrets.DO_TOKEN }}
+          DROPLET_IP: ${{ secrets.DROPLET_IP }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "🚀 Starting deployment to Digital Ocean..."
+          
+          # Setup SSH
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $DROPLET_IP >> ~/.ssh/known_hosts
+          
+          # Deploy built files
+          echo "📦 Deploying application files..."
+          rsync -avz --delete dist/ root@$DROPLET_IP:/var/www/yourmark-ai/dist/
+          
+          # Restart nginx
+          echo "🔄 Restarting Nginx..."
+          ssh root@$DROPLET_IP "systemctl restart nginx"
+          
+          echo "✅ Deployment complete!"
+          echo "🌐 Application is live at: http://$DROPLET_IP"
+      
+      - name: Deployment notification
+        if: success()
+        run: |
+          echo "::notice::Deployment successful! Application is live at http://${{ secrets.DROPLET_IP }}"
+      
+      - name: Deployment failed notification
+        if: failure()
+        run: |
+          echo "::error::Deployment failed! Please check the logs."
