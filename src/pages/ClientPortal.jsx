@@ -13,6 +13,17 @@ const ClientPortal = () => {
 
   const demoProjects = [
     {
+      id: 5,
+      clientName: 'Sensorium Clinical Research',
+      projectName: 'New Rose Colored Theme',
+      previewUrl: '/4',
+      status: 'Review',
+      lastUpdated: '2026-01-27',
+      thumbnail: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&h=300&fit=crop',
+      description: 'Warm and welcoming theme, improved content language, expansion to additional audiences. Note: The Sensorium logo depicted is just a placeholder and will be updated as we finalize.',
+      isRoseColored: true
+    },
+    {
       id: 1,
       clientName: 'Sensorium Clinical Research',
       projectName: 'Original Blue Theme',
@@ -20,17 +31,8 @@ const ClientPortal = () => {
       status: 'In Progress',
       lastUpdated: '2026-01-28',
       thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
-      description: 'Original blue theme, improved content language, expansion to additional audiences.'
-    },
-    {
-      id: 2,
-      clientName: 'Sensorium Clinical Research',
-      projectName: 'New Rose Colored Theme',
-      previewUrl: '#',
-      status: 'Review',
-      lastUpdated: '2026-01-27',
-      thumbnail: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&h=300&fit=crop',
-      description: 'Warm and welcoming theme, improved content language, expansion to additional audiences.'
+      description: 'Original blue theme, improved content language, expansion to additional audiences.',
+      isGreyedOut: true
     },
     {
       id: 3,
@@ -41,7 +43,8 @@ const ClientPortal = () => {
       lastUpdated: '2026-01-25',
       thumbnail: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop',
       description: 'Downloadable PDF with comprehensive brand guidelines and vision documentation.',
-      isPDF: true
+      isPDF: true,
+      isGreyedOut: true
     }
   ]
 
@@ -138,7 +141,7 @@ const ClientPortal = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Your Project Previews - SensoriumCR</h1>
+          <h1 className="text-4xl font-bold mb-4">Sensorium Clinical Research</h1>
           <p className="text-xl text-gray-600">
             View and interact with your website projects in development
           </p>
@@ -146,22 +149,22 @@ const ClientPortal = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {demoProjects.map((project) => (
-            <Card key={project.id} className="hover:shadow-lg transition-shadow overflow-hidden">
-              <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-emerald-100 overflow-hidden flex items-center justify-center">
+            <Card key={project.id} className={`hover:shadow-lg transition-shadow overflow-hidden ${project.isGreyedOut ? 'opacity-50' : ''}`}>
+              <div className={`relative h-48 bg-gradient-to-br overflow-hidden flex items-center justify-center ${project.isGreyedOut ? 'from-gray-100 to-gray-200' : project.isRoseColored ? 'from-rose-50 to-rose-100' : 'from-emerald-50 to-emerald-100'}`}>
                 <div className="text-center">
                   {project.isPDF ? (
                     <>
-                      <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-500 text-white mb-2">
+                      <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : 'bg-emerald-500'}`}>
                         <FileText className="h-12 w-12" />
                       </div>
-                      <p className="text-sm font-medium text-emerald-700">PDF Document</p>
+                      <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : 'text-emerald-700'}`}>PDF Document</p>
                     </>
                   ) : (
                     <>
-                      <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-500 text-white mb-2">
+                      <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : 'bg-emerald-500'}`}>
                         <span className="text-4xl font-bold">V{project.id}</span>
                       </div>
-                      <p className="text-sm font-medium text-emerald-700">Version {project.id}</p>
+                      <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : 'text-emerald-700'}`}>Version {project.id}</p>
                     </>
                   )}
                 </div>
@@ -191,17 +194,27 @@ const ClientPortal = () => {
                 
                 <div className="flex gap-2">
                   {project.isPDF ? (
-                    <Button className="flex-1" size="sm">
+                    <Button className="flex-1" size="sm" disabled={project.isGreyedOut}>
                       <Download className="h-4 w-4 mr-2" />
                       Download PDF
                     </Button>
                   ) : (
                     <>
-                      <Button className="flex-1" size="sm">
+                      <Button 
+                        className="flex-1" 
+                        size="sm"
+                        disabled={project.isGreyedOut}
+                        onClick={() => !project.isGreyedOut && project.previewUrl !== '#' && window.open(project.previewUrl, '_blank')}
+                      >
                         <Eye className="h-4 w-4 mr-2" />
                         Preview
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        disabled={project.isGreyedOut}
+                        onClick={() => !project.isGreyedOut && project.previewUrl !== '#' && window.open(project.previewUrl, '_blank')}
+                      >
                         <ExternalLink className="h-4 w-4" />
                       </Button>
                     </>

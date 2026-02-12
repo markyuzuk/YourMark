@@ -54,13 +54,13 @@ const LandingPage = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/get-started">
+            <Link to="/2">
               <Button size="lg" className="text-lg">
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link to="/client-portal">
+            <Link to="/1">
               <Button size="lg" variant="outline" className="text-lg">
                 Client Portal
               </Button>
@@ -159,7 +159,7 @@ const LandingPage = () => {
           <p className="text-xl text-gray-600 mb-8">
             Let's discuss how we can help you achieve your goals with AI, design, and strategic consulting.
           </p>
-          <Link to="/schedule-consultation">
+          <Link to="/3">
             <Button size="lg" className="text-lg">
               Let's Have A Conversation
               <ArrowRight className="ml-2 h-5 w-5" />

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import Logo from './Logo'
 import Button from './ui/Button'
 
 const Navbar = () => {
@@ -8,7 +7,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center">
-            <Logo className="h-10 w-auto" showText={true} />
+            <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+              YourMark.ai
+            </span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -21,7 +22,7 @@ const Navbar = () => {
             <a href="#contact" className="text-gray-700 hover:text-primary transition-colors">
               Contact
             </a>
-            <Link to="/client-portal">
+            <Link to="/1">
               <Button>Client Portal</Button>
             </Link>
           </div>

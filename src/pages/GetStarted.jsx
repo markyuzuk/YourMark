@@ -48,7 +48,7 @@ const GetStarted = () => {
             Transform your business with AI, design, and strategic consulting. 
             Here's how we'll work together to achieve your goals.
           </p>
-          <Link to="/schedule-consultation">
+          <Link to="/3">
             <Button size="lg" className="text-lg">
               Let's Have A Conversation
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -132,7 +132,7 @@ const GetStarted = () => {
                   <span className="text-gray-700">Custom recommendations for your business</span>
                 </li>
               </ul>
-              <Link to="/schedule-consultation">
+              <Link to="/3">
                 <Button size="lg" className="w-full">
                   Schedule Now
                   <ArrowRight className="ml-2 h-5 w-5" />
