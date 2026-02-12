@@ -17,12 +17,28 @@ const ClientPortal = () => {
       id: 5,
       clientName: 'Sensorium Clinical Research',
       projectName: 'New Rose Colored Theme (PDF Review)',
-      previewUrl: '/4',
+      previewUrl: 'http://localhost:5173/public/SensoriumProject1/deployment-package/public/pdf-directory.html',
       status: 'Review',
       lastUpdated: '2026-01-27',
-      thumbnail: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&h=300&fit=crop',
+      thumbnail: '/pdf-table-preview.png',
       description: 'Warm and welcoming theme, improved content language, expansion to additional audiences. Note: The Sensorium logo depicted is just a placeholder and will be updated as we finalize.',
-      isRoseColored: true
+      isRoseColored: true,
+      isExternal: true,
+      useImageIcon: true
+    },
+    {
+      id: 5,
+      versionLabel: 'V5 - Sandbox',
+      clientName: 'Sensorium Clinical Research',
+      projectName: 'Rose Color Sandbox Area',
+      previewUrl: 'http://localhost:5173/public/SensoriumProject1/deployment-package/landing-v4-patient-centric.html',
+      status: 'Review',
+      lastUpdated: '2026-02-12',
+      thumbnail: '/sandbox-preview.png',
+      description: 'Experimental sandbox area for testing and exploring new rose-colored design concepts and creative ideas. Important Note - Research and Insights Area not yet available.',
+      isRoseColored: true,
+      isExternal: true,
+      useImageIcon: true
     },
     {
       id: 1,
@@ -154,23 +170,31 @@ const ClientPortal = () => {
           {demoProjects.map((project) => (
             <Card key={project.id} className={`hover:shadow-lg transition-shadow overflow-hidden ${project.isGreyedOut ? 'opacity-50' : ''}`}>
               <div className={`relative h-48 bg-gradient-to-br overflow-hidden flex items-center justify-center ${project.isGreyedOut ? 'from-gray-100 to-gray-200' : project.isRoseColored ? 'from-rose-50 to-rose-100' : 'from-emerald-50 to-emerald-100'}`}>
-                <div className="text-center">
-                  {project.isPDF ? (
-                    <>
-                      <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : 'bg-emerald-500'}`}>
-                        <FileText className="h-12 w-12" />
-                      </div>
-                      <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : 'text-emerald-700'}`}>PDF Document</p>
-                    </>
-                  ) : (
-                    <>
-                      <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : 'bg-emerald-500'}`}>
-                        <span className="text-4xl font-bold">V{project.id}</span>
-                      </div>
-                      <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : 'text-emerald-700'}`}>Version {project.id}</p>
-                    </>
-                  )}
-                </div>
+                {project.useImageIcon ? (
+                  <img 
+                    src={project.thumbnail} 
+                    alt={project.projectName}
+                    className="w-full h-full object-cover opacity-80"
+                  />
+                ) : (
+                  <div className="text-center">
+                    {project.isPDF || project.isPDFIcon ? (
+                      <>
+                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : 'bg-emerald-500'}`}>
+                          <FileText className="h-12 w-12" />
+                        </div>
+                        <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : 'text-emerald-700'}`}>{project.isPDFIcon ? 'PDF Directory' : 'PDF Document'}</p>
+                      </>
+                    ) : (
+                      <>
+                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : 'bg-emerald-500'}`}>
+                          <span className={`font-bold ${project.versionLabel ? 'text-2xl' : 'text-4xl'}`}>{project.versionLabel || `V${project.id}`}</span>
+                        </div>
+                        <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : 'text-emerald-700'}`}>{project.versionLabel || `Version ${project.id}`}</p>
+                      </>
+                    )}
+                  </div>
+                )}
                 <div className="absolute top-4 right-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(project.status)}`}>
                     {project.status}
@@ -197,28 +221,36 @@ const ClientPortal = () => {
                 
                 <div className="flex gap-2">
                   {project.isPDF ? (
-                    <Button className="flex-1" size="sm" disabled={project.isGreyedOut}>
-                      <Download className="h-4 w-4 mr-2" />
+                    <Button className="flex-1" size="lg" disabled={project.isGreyedOut}>
+                      <Download className="h-5 w-5 mr-2" />
                       Download PDF
                     </Button>
                   ) : (
                     <>
                       <Button 
                         className="flex-1" 
-                        size="sm"
+                        size="lg"
                         disabled={project.isGreyedOut}
-                        onClick={() => !project.isGreyedOut && project.previewUrl !== '#' && navigate(project.previewUrl)}
+                        onClick={() => {
+                          if (!project.isGreyedOut && project.previewUrl !== '#') {
+                            if (project.isExternal) {
+                              window.location.href = project.previewUrl
+                            } else {
+                              navigate(project.previewUrl)
+                            }
+                          }
+                        }}
                       >
-                        <Eye className="h-4 w-4 mr-2" />
+                        <Eye className="h-5 w-5 mr-2" />
                         Preview
                       </Button>
                       <Button 
                         variant="outline" 
-                        size="sm"
+                        size="lg"
                         disabled={project.isGreyedOut}
                         onClick={() => !project.isGreyedOut && project.previewUrl !== '#' && window.open(project.previewUrl, '_blank')}
                       >
-                        <ExternalLink className="h-4 w-4" />
+                        <ExternalLink className="h-5 w-5" />
                       </Button>
                     </>
                   )}

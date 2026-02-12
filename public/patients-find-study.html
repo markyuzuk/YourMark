@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Study - Sensorium Clinical Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f9a8d4',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                        }
+                    },
+                    fontFamily: {
+                        'serif': ['Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans antialiased bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/landing-v4-patient-centric.html" class="flex items-center hover:opacity-80 transition-opacity">
+                        <div class="text-2xl font-bold text-primary-600">Sensorium</div>
+                        <div class="ml-2 text-sm text-gray-600">Clinical Research</div>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/about-us-option2-comprehensive.html" class="text-gray-700 hover:text-primary-600 transition-colors">About</a>
+                    <a href="/for-patients-option3-visual-story.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Patients</a>
+                    <a href="/partnerships.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Sponsors</a>
+                    <a href="/for-site-owners-option2-growth.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Site Owners</a>
+                    <a href="/contact.html" class="bg-primary-600 text-white px-5 py-2 rounded-lg hover:bg-primary-700 transition-colors">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary-600 to-primary-800 text-white py-20 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-serif font-bold mb-6">
+                Find a Clinical Study
+            </h1>
+            <p class="text-xl md:text-2xl text-primary-50 max-w-3xl mx-auto">
+                Search for clinical trials near you. Our Patient Concierges are here to help you find the right study.
+            </p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-3xl p-10 shadow-2xl max-w-4xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Search for Studies</h2>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-3">Condition or Disease</label>
+                        <input type="text" placeholder="e.g., Alzheimer's, Diabetes, Heart Disease" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-lg" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-3">Location (City or Zip Code)</label>
+                        <input type="text" placeholder="Enter your location" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-lg" />
+                    </div>
+                </div>
+                <button class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-10 py-5 rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all font-bold text-lg flex items-center justify-center gap-3 shadow-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    Search Studies
+                </button>
+            </div>
+
+            <!-- Browse by Therapeutic Area -->
+            <div class="max-w-6xl mx-auto mb-16">
+                <h3 class="text-3xl font-bold text-gray-900 text-center mb-10">Browse by Therapeutic Area</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Neuroscience</span>
+                    </button>
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Cardiovascular</span>
+                    </button>
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Metabolic</span>
+                    </button>
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Oncology</span>
+                    </button>
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Gastroenterology</span>
+                    </button>
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Endocrinology</span>
+                    </button>
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Pain Management</span>
+                    </button>
+                    <button class="bg-white border-2 border-gray-200 hover:border-primary-500 hover:bg-gradient-to-br hover:from-primary-50 hover:to-primary-100 rounded-xl p-6 text-center transition-all shadow-md hover:shadow-xl">
+                        <span class="font-bold text-gray-700 text-lg">Other Conditions</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Studies -->
+    <section class="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                    Current Studies
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Sensorium sites conduct trials across multiple therapeutic areas
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">CNS & Neurology</h3>
+                    <p class="text-gray-700 mb-4">Alzheimer's, Parkinson's, depression, anxiety, migraine</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Metabolic Disorders</h3>
+                    <p class="text-gray-700 mb-4">Type 2 diabetes, obesity, metabolic syndrome, NASH</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Cardiology</h3>
+                    <p class="text-gray-700 mb-4">Hypertension, heart failure, atrial fibrillation</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Dermatology</h3>
+                    <p class="text-gray-700 mb-4">Psoriasis, atopic dermatitis, acne, rosacea</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Infectious Diseases</h3>
+                    <p class="text-gray-700 mb-4">Vaccine studies, antiviral therapies, prevention</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Oncology</h3>
+                    <p class="text-gray-700 mb-4">Breast, lung, colorectal, prostate cancers</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                Need Help Finding the Right Study?
+            </h2>
+            <p class="text-xl text-gray-600 mb-10">
+                Our Patient Concierges are here to answer your questions and help you find a study that's right for you.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="tel:1-800-555-0123" class="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-12 py-5 rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all font-bold text-lg shadow-lg">
+                    Call Us: 1-800-555-0123
+                </a>
+                <a href="mailto:patients@sensoriumclinical.com" class="inline-block border-2 border-primary-600 text-primary-600 px-12 py-5 rounded-xl hover:bg-primary-50 transition-all font-bold text-lg">
+                    Email Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+                Ready to Get Started?
+            </h2>
+            <p class="text-xl text-primary-50 mb-10">
+                Join thousands of participants who are advancing medical science while receiving expert care.
+            </p>
+            <a href="/for-patients-option3-visual-story.html" class="inline-block bg-white text-primary-700 px-12 py-5 rounded-xl hover:bg-gray-100 transition-colors font-bold text-lg shadow-2xl">
+                Learn More About Participation
+            </a>
+        </div>
+    </section>
+</body>
+</html>

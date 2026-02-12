@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sensorium Referrals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            200: '#fecaca',
+                            300: '#fca5a5',
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center px-4">
+        <div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Admin Login</h1>
+                <p class="text-gray-600">Sensorium Referral Management</p>
+            </div>
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Username</label>
+                    <input type="text" id="username" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                    <input type="password" id="password" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+                </div>
+                <div id="loginError" class="hidden text-red-600 text-sm"></div>
+                <button type="submit" class="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="hidden min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Referral Dashboard</h1>
+                    <p class="text-sm text-gray-600">Manage patient referrals</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-600">Welcome, <span id="adminUsername" class="font-semibold"></span></span>
+                    <button id="changePasswordBtn" class="text-sm text-primary-600 hover:text-primary-700 font-semibold">Change Password</button>
+                    <button id="logoutBtn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-semibold">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 py-8">
+            <!-- Stats -->
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Total Referrals</p>
+                            <p id="totalReferrals" class="text-3xl font-bold text-gray-900">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">This Week</p>
+                            <p id="weekReferrals" class="text-3xl font-bold text-gray-900">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">This Month</p>
+                            <p id="monthReferrals" class="text-3xl font-bold text-gray-900">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Referrals Table -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-900">All Referrals</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Referrer</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Friend</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Contact</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Message</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="referralsTableBody" class="divide-y divide-gray-200">
+                            <!-- Rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="passwordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Change Password</h2>
+            <form id="changePasswordForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Current Password</label>
+                    <input type="password" id="currentPassword" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">New Password</label>
+                    <input type="password" id="newPassword" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                </div>
+                <div id="passwordError" class="hidden text-red-600 text-sm"></div>
+                <div id="passwordSuccess" class="hidden text-green-600 text-sm"></div>
+                <div class="flex gap-4">
+                    <button type="button" id="cancelPasswordBtn" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg hover:bg-gray-300 transition-colors font-semibold">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold">
+                        Update Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication on load
+        checkAuth();
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/admin/check');
+                const data = await response.json();
+                if (data.authenticated) {
+                    showDashboard(data.username);
+                    loadReferrals();
+                } else {
+                    showLogin();
+                }
+            } catch (error) {
+                showLogin();
+            }
+        }
+
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    showDashboard(data.username);
+                    loadReferrals();
+                } else {
+                    errorDiv.textContent = data.error || 'Login failed';
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Connection error';
+                errorDiv.classList.remove('hidden');
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await fetch('/api/admin/logout', { method: 'POST' });
+            showLogin();
+        });
+
+        // Change password modal
+        document.getElementById('changePasswordBtn').addEventListener('click', () => {
+            document.getElementById('passwordModal').classList.remove('hidden');
+        });
+
+        document.getElementById('cancelPasswordBtn').addEventListener('click', () => {
+            document.getElementById('passwordModal').classList.add('hidden');
+            document.getElementById('changePasswordForm').reset();
+            document.getElementById('passwordError').classList.add('hidden');
+            document.getElementById('passwordSuccess').classList.add('hidden');
+        });
+
+        document.getElementById('changePasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorDiv = document.getElementById('passwordError');
+            const successDiv = document.getElementById('passwordSuccess');
+
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+
+            if (newPassword !== confirmPassword) {
+                errorDiv.textContent = 'New passwords do not match';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                errorDiv.textContent = 'Password must be at least 6 characters';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/admin/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentPassword, newPassword })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    successDiv.textContent = 'Password updated successfully!';
+                    successDiv.classList.remove('hidden');
+                    document.getElementById('changePasswordForm').reset();
+                    setTimeout(() => {
+                        document.getElementById('passwordModal').classList.add('hidden');
+                        successDiv.classList.add('hidden');
+                    }, 2000);
+                } else {
+                    errorDiv.textContent = data.error || 'Failed to update password';
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Connection error';
+                errorDiv.classList.remove('hidden');
+            }
+        });
+
+        // Load referrals
+        async function loadReferrals() {
+            try {
+                const response = await fetch('/api/admin/referrals');
+                const referrals = await response.json();
+                
+                updateStats(referrals);
+                displayReferrals(referrals);
+            } catch (error) {
+                console.error('Error loading referrals:', error);
+            }
+        }
+
+        function updateStats(referrals) {
+            const now = new Date();
+            const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const monthAgo = new Date(now.getFullYear(), now.getMonth(), 1);
+
+            const weekCount = referrals.filter(r => new Date(r.created_at) >= weekAgo).length;
+            const monthCount = referrals.filter(r => new Date(r.created_at) >= monthAgo).length;
+
+            document.getElementById('totalReferrals').textContent = referrals.length;
+            document.getElementById('weekReferrals').textContent = weekCount;
+            document.getElementById('monthReferrals').textContent = monthCount;
+        }
+
+        function displayReferrals(referrals) {
+            const tbody = document.getElementById('referralsTableBody');
+            tbody.innerHTML = '';
+
+            if (referrals.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-8 text-center text-gray-500">No referrals yet</td></tr>';
+                return;
+            }
+
+            referrals.forEach(referral => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-sm text-gray-900">${new Date(referral.created_at).toLocaleDateString()}</td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-semibold text-gray-900">${referral.referrer_name}</div>
+                        <div class="text-sm text-gray-600">${referral.referrer_email}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-semibold text-gray-900">${referral.friend_name}</div>
+                        <div class="text-sm text-gray-600">${referral.friend_email}</div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900">${referral.friend_phone || 'N/A'}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">${referral.message || 'No message'}</td>
+                    <td class="px-6 py-4">
+                        <button onclick="deleteReferral(${referral.id})" class="text-red-600 hover:text-red-700 font-semibold text-sm">
+                            Delete
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function deleteReferral(id) {
+            if (!confirm('Are you sure you want to delete this referral?')) return;
+
+            try {
+                const response = await fetch(`/api/admin/referrals/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    loadReferrals();
+                }
+            } catch (error) {
+                alert('Failed to delete referral');
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('dashboardScreen').classList.add('hidden');
+        }
+
+        function showDashboard(username) {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboardScreen').classList.remove('hidden');
+            document.getElementById('adminUsername').textContent = username;
+        }
+    </script>
+</body>
+</html>

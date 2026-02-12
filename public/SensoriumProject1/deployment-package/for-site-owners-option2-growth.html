@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Site Owners - Sensorium Clinical Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .font-serif {
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/landing-v4-patient-centric.html" class="flex items-center hover:opacity-80 transition-opacity">
+                        <div class="text-2xl font-bold text-primary-600">Sensorium</div>
+                        <div class="ml-2 text-sm text-gray-600">Clinical Research</div>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/about-us-option2-comprehensive.html" class="text-gray-700 hover:text-primary-600 transition-colors">About</a>
+                    <a href="/for-patients-option3-visual-story.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Patients</a>
+                    <a href="/for-sponsors-option3-partnership.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Sponsors</a>
+                    <a href="/for-site-owners-option2-growth.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Site Owners</a>
+                    <a href="/contact.html" class="bg-primary-600 text-white px-5 py-2 rounded-lg hover:bg-primary-700 transition-colors">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-primary-700 via-primary-600 to-primary-400 text-white py-32 px-4 overflow-hidden">
+        <div class="absolute right-0 top-0 bottom-0 w-1/2 opacity-15">
+            <svg class="w-full h-full" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <!-- Strategic Plan Document Icon -->
+                <!-- Document outline -->
+                <rect x="100" y="150" width="200" height="300" rx="10" fill="none" stroke="white" stroke-width="4" opacity="0.6" filter="url(#glow)"/>
+                
+                <!-- Document fold/corner -->
+                <path d="M 260 150 L 260 190 L 300 190 L 300 150 Z" fill="white" opacity="0.4"/>
+                <line x1="260" y1="190" x2="300" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
+                
+                <!-- Title lines at top -->
+                <line x1="120" y1="200" x2="240" y2="200" stroke="white" stroke-width="6" opacity="0.6"/>
+                <line x1="120" y1="220" x2="200" y2="220" stroke="white" stroke-width="4" opacity="0.5"/>
+                
+                <!-- Step 1 with checkmark -->
+                <circle cx="130" cy="260" r="12" fill="none" stroke="white" stroke-width="3" opacity="0.6"/>
+                <path d="M 125 260 L 128 263 L 135 256" stroke="white" stroke-width="3" opacity="0.7" fill="none"/>
+                <line x1="150" y1="260" x2="270" y2="260" stroke="white" stroke-width="3" opacity="0.5"/>
+                
+                <!-- Step 2 with checkmark -->
+                <circle cx="130" cy="310" r="12" fill="none" stroke="white" stroke-width="3" opacity="0.6"/>
+                <path d="M 125 310 L 128 313 L 135 306" stroke="white" stroke-width="3" opacity="0.7" fill="none"/>
+                <line x1="150" y1="310" x2="270" y2="310" stroke="white" stroke-width="3" opacity="0.5"/>
+                
+                <!-- Step 3 with checkmark -->
+                <circle cx="130" cy="360" r="12" fill="none" stroke="white" stroke-width="3" opacity="0.6"/>
+                <path d="M 125 360 L 128 363 L 135 356" stroke="white" stroke-width="3" opacity="0.7" fill="none"/>
+                <line x1="150" y1="360" x2="270" y2="360" stroke="white" stroke-width="3" opacity="0.5"/>
+                
+                <!-- Step 4 (in progress) -->
+                <circle cx="130" cy="410" r="12" fill="none" stroke="white" stroke-width="3" opacity="0.5"/>
+                <line x1="150" y1="410" x2="270" y2="410" stroke="white" stroke-width="3" opacity="0.4"/>
+                
+                <!-- Target/goal icon at bottom -->
+                <circle cx="200" cy="480" r="20" fill="none" stroke="white" stroke-width="3" opacity="0.5"/>
+                <circle cx="200" cy="480" r="12" fill="none" stroke="white" stroke-width="2" opacity="0.6"/>
+                <circle cx="200" cy="480" r="4" fill="white" opacity="0.7"/>
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h1 class="text-6xl md:text-7xl font-serif font-bold mb-8 leading-tight">
+                Where Scale and<br>Humanity Coexist
+            </h1>
+            <p class="text-2xl md:text-3xl text-primary-50 max-w-4xl mb-6 leading-relaxed">
+                The clinical research industry is at a crossroads. As site networks consolidate into massive corporations, the very things that make research work—local trust, stable teams, and patient relationships—are being standardized away.
+            </p>
+            <p class="text-xl text-primary-100 max-w-3xl leading-relaxed">
+                Sensorium was built to solve this. We bring together the operational strength of a national network with the soul of a community practice.
+            </p>
+        </div>
+    </section>
+
+    <!-- The Challenge Section -->
+    <section class="py-24 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                        The Independent Site Challenge
+                    </h2>
+                    <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                        <p>
+                            You're managing HR, negotiating contracts, chasing invoices, marketing for patients, and somehow still trying to run studies.
+                        </p>
+                        <p>
+                            The administrative burden grows every year, but your resources don't.
+                        </p>
+                        <p class="text-xl font-semibold text-primary-600">
+                            Meanwhile, sponsors increasingly prefer networks that deliver scale, speed, and consistency.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500 rounded-2xl p-8 shadow-xl">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">The Traditional Network Problem</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start gap-3">
+                                <span class="text-red-500 font-bold text-xl">×</span>
+                                <span>Rebrand your site under a corporate name</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-red-500 font-bold text-xl">×</span>
+                                <span>Replace your team with centralized staff</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-red-500 font-bold text-xl">×</span>
+                                <span>Turn personal relationships into transactions</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-red-500 font-bold text-xl">×</span>
+                                <span>Lose the culture you've built</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Sensorium Solution -->
+    <section class="py-24 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
+                    The Sensorium Solution
+                </h2>
+                <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+                    Growth without compromise. Infrastructure without loss of identity.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
+                <div class="bg-white rounded-3xl p-10 shadow-xl border-t-4 border-green-500">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">What You Gain</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Centralized Business Development</p>
+                                <p class="text-gray-600">More studies, faster startup, better contracts</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Financial Infrastructure</p>
+                                <p class="text-gray-600">HR, payroll, compliance, invoicing handled</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Technology & Systems</p>
+                                <p class="text-gray-600">CTMS, eReg, CRM implementation and support</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Growth Capital</p>
+                                <p class="text-gray-600">Invest in facilities, technology, and staffing</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Network Equity</p>
+                                <p class="text-gray-600">Share in the collective success of Sensorium</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-3xl p-10 shadow-xl border-t-4 border-primary-600">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">What You Keep</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Your Brand & Reputation</p>
+                                <p class="text-gray-600">Name, logo, local identity stays intact</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Your Team & Culture</p>
+                                <p class="text-gray-600">Staff retention is our priority</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Clinical Autonomy</p>
+                                <p class="text-gray-600">You lead clinical decisions</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Community Relationships</p>
+                                <p class="text-gray-600">Patient trust remains with you</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-bold text-gray-900">Your Legacy</p>
+                                <p class="text-gray-600">What you've built continues to grow</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Built by Industry Veterans -->
+    <section class="py-24 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
+                    Built by Experts Who've Been in the Trenches
+                </h2>
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    Sensorium wasn't built by generalist investors; it was made by veterans of the clinical research, pharma, and CRO industries. We've seen where traditional networks break down: in the high turnover of coordinators and the disengagement of "ghost" investigators.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto mb-16">
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">20+</h3>
+                    <p class="text-gray-600">Years Combined Experience</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">Multiple</h3>
+                    <p class="text-gray-600">Therapeutic Areas</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">Proven</h3>
+                    <p class="text-gray-600">Track Record</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">Culture</h3>
+                    <p class="text-gray-600">First Approach</p>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-gradient-to-r from-blue-50 to-sky-50 border-l-4 border-primary-600 rounded-2xl p-10 shadow-xl">
+                <p class="text-xl text-primary-900 font-medium leading-relaxed text-center">
+                    We apply decades of experience to build systems that actually work for the people doing the work. We know that data quality is a byproduct of team stability, and enrollment is a byproduct of trust.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial Partnership Model -->
+    <section class="py-24 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
+                    A True Partnership Model
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    We're not just a service provider—we're invested in your long-term success.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white rounded-3xl p-10 shadow-xl text-center hover:shadow-2xl transition-shadow">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Collaborative</h3>
+                    <p class="text-gray-700 leading-relaxed text-lg">
+                        We follow your lead on local site dynamics. You know your community better than anyone.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-10 shadow-xl text-center hover:shadow-2xl transition-shadow">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Financial Stability</h3>
+                    <p class="text-gray-700 leading-relaxed text-lg">
+                        De-risk your personal holding while gaining access to growth capital for facilities, technology, and staffing.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-10 shadow-xl text-center hover:shadow-2xl transition-shadow">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Equity Upside</h3>
+                    <p class="text-gray-700 leading-relaxed text-lg">
+                        Participate in the long-term growth of the entire Sensorium network. Your success is our collective success.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who We're Looking For -->
+    <section class="py-24 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-8 text-center">
+                    Who We're Looking For
+                </h2>
+                
+                <p class="text-xl text-gray-700 leading-relaxed mb-12 text-center">
+                    We are clinically agnostic but culturally specific. We seek sites that share our values:
+                </p>
+
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-r from-primary-50 to-white rounded-2xl p-8 shadow-lg border-l-4 border-primary-600">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Patient Care Above All</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Sites where clinical excellence and patient relationships are the foundation of everything.
+                        </p>
+                    </div>
+                    <div class="bg-gradient-to-r from-primary-50 to-white rounded-2xl p-8 shadow-lg border-l-4 border-primary-600">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Community Reputation</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Sites that take pride in their local standing and the trust they've built over years.
+                        </p>
+                    </div>
+                    <div class="bg-gradient-to-r from-primary-50 to-white rounded-2xl p-8 shadow-lg border-l-4 border-primary-600">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Ready to Scale, Not Sell Out</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Sites that want to grow and compete nationally but refuse to become corporate.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <p class="text-2xl font-semibold text-primary-600 leading-relaxed">
+                        This isn't about building a corporate empire. It's about protecting what you've built while giving you the support to grow.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-4 bg-gradient-to-r from-primary-700 via-primary-600 to-primary-400 text-white relative overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <h2 class="text-5xl md:text-6xl font-serif font-bold mb-8">
+                Ready to Explore Growth?
+            </h2>
+            <p class="text-2xl mb-4 text-primary-100 leading-relaxed">
+                No brokers. No pressure. No disruption.
+            </p>
+            <p class="text-xl mb-12 text-primary-100 leading-relaxed">
+                Let's have an honest discussion about whether Sensorium is the right home for the next chapter of your legacy.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="/contact.html" class="inline-block bg-white text-primary-600 px-12 py-6 rounded-xl hover:bg-gray-100 transition-colors font-bold text-xl shadow-2xl">
+                    Start a Confidential Conversation
+                </a>
+                <a href="/about-us-option2-comprehensive.html" class="inline-block border-3 border-white text-white px-12 py-6 rounded-xl hover:bg-primary-700 transition-colors font-bold text-xl">
+                    Learn About Our Experience
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Sensorium</h3>
+                    <p class="text-gray-400">Advancing healthcare through innovative clinical research</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Patients</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/join-clinical-trial.html" class="hover:text-white transition-colors">Find a Study</a></li>
+                        <li><a href="/for-patients-option3-visual-story.html" class="hover:text-white transition-colors">Learn More</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Sponsors</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/for-sponsors-option3-partnership.html" class="hover:text-white transition-colors">Partnerships</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Site Owners</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/for-site-owners-option2-growth.html" class="hover:text-white transition-colors">Join Network</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                © 2026 Sensorium Clinical Research. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

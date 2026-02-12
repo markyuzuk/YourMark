@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensorium Clinical Research - Patient-Centric Landing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .font-serif {
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/landing-v4-patient-centric.html" class="flex items-center hover:opacity-80 transition-opacity">
+                        <div class="text-2xl font-bold text-primary-600">Sensorium</div>
+                        <div class="ml-2 text-sm text-gray-600">Clinical Research</div>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/about-us-option2-comprehensive.html" class="text-gray-700 hover:text-primary-600 transition-colors">About</a>
+                    <a href="/for-patients-option3-visual-story.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Patients</a>
+                    <a href="/partnerships.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Sponsors</a>
+                    <a href="/for-site-owners-option2-growth.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Site Owners</a>
+                    <a href="/contact.html" class="bg-primary-600 text-white px-5 py-2 rounded-lg hover:bg-primary-700 transition-colors">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-primary-600 text-white py-12 px-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight whitespace-nowrap">
+                        The Sensorium Effect
+                    </h1>
+                    <p class="text-xl mb-6 opacity-95">
+                        Most clinical trial sites scale up and lose their soul. Care becomes corporate. Patients become data points. Communities become markets.
+                    </p>
+                    <p class="text-2xl font-bold mb-8">
+                        Not here. We are different.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#patients" class="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors font-semibold text-center">
+                            Find a Clinical Trial
+                        </a>
+                        <a href="#how-we-work" class="inline-block border-2 border-white text-white px-8 py-4 rounded-lg hover:bg-primary-600 transition-colors font-semibold text-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-amber-50 rounded-3xl p-8 shadow-2xl ml-8">
+                    <div class="text-center mb-6">
+                        <p class="text-2xl font-bold text-gray-800">What Makes Us Different</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-rose-100 rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105 shadow-lg group relative overflow-hidden">
+                            <div class="group-hover:opacity-0 transition-opacity duration-300">
+                                <p class="text-primary-700 font-semibold text-xl">Local</p>
+                                <p class="text-primary-700 font-semibold text-xl">Culture</p>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4">
+                                <p class="text-primary-700 font-semibold text-base">Care shaped by the community, not a corporation.</p>
+                            </div>
+                        </div>
+                        <div class="bg-rose-200 rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105 shadow-lg group relative overflow-hidden">
+                            <div class="group-hover:opacity-0 transition-opacity duration-300">
+                                <p class="text-primary-800 font-semibold text-xl">Diverse</p>
+                                <p class="text-primary-800 font-semibold text-xl">Voices</p>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4">
+                                <p class="text-primary-800 font-semibold text-sm">Voices that reflect local patients, not generic averages.</p>
+                            </div>
+                        </div>
+                        <div class="bg-rose-300 rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105 shadow-lg group relative overflow-hidden">
+                            <div class="group-hover:opacity-0 transition-opacity duration-300">
+                                <p class="text-primary-900 font-semibold text-lg">Site Network</p>
+                                <p class="text-primary-900 font-semibold text-lg">Support</p>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4">
+                                <p class="text-primary-900 font-semibold text-sm">Operational strength without local disruption.</p>
+                            </div>
+                        </div>
+                        <div class="bg-primary-400 rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105 shadow-lg group relative overflow-hidden">
+                            <div class="group-hover:opacity-0 transition-opacity duration-300">
+                                <p class="text-white font-semibold text-xl">Better</p>
+                                <p class="text-white font-semibold text-xl">Science</p>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4">
+                                <p class="text-white font-semibold text-base">Quality outcomes through trusted relationships.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Patients Section -->
+    <section id="patients" class="py-20 px-4 bg-gradient-to-br from-rose-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal">
+                    <div class="inline-block bg-primary-100 text-primary-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                        For Patients
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                        Participate in Research That Matters
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Clinical trials are essential to advancing medicine and discovering new treatments. By participating, you contribute to medical research that may help future generations while potentially accessing cutting-edge treatments.
+                    </p>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-1">Access to New Treatments</h3>
+                                <p class="text-gray-600">Access innovative therapies before they're widely available.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-1">Expert Medical Care</h3>
+                                <p class="text-gray-600">Close monitoring and care from experienced medical professionals.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-1">No Cost Treatment</h3>
+                                <p class="text-gray-600">Study-related care and medications typically provided at no cost.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="/patients/find-study" class="inline-block bg-primary-600 text-white px-8 py-4 rounded-lg hover:bg-primary-700 transition-colors font-semibold text-center">
+                            Find a Clinical Trial
+                        </a>
+                        <a href="/for-patients-option3-visual-story.html" class="inline-block border-2 border-primary-600 text-primary-600 px-8 py-4 rounded-lg hover:bg-rose-50 transition-colors font-semibold text-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal">
+                    <div class="bg-white rounded-2xl shadow-2xl p-8">
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-6">Your Rights as a Participant</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-primary-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">You have the right to know all details about the study before joining</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-primary-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Participation is completely voluntary and you can withdraw at any time</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-primary-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Your privacy and medical information will be protected</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-primary-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">You'll be compensated for your time and travel expenses</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-primary-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">All questions will be answered by qualified medical staff</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Sponsors Section -->
+    <section id="sponsors" class="py-20 px-4 bg-gradient-to-br from-rose-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal order-2 md:order-1">
+                    <div class="bg-white rounded-2xl shadow-2xl p-8">
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-6">What You Get</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4 p-4 bg-rose-50 rounded-lg">
+                                <div class="flex-shrink-0 w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Rapid Enrollment</h4>
+                                    <p class="text-sm text-gray-600">Average 30% faster than industry standard</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 p-4 bg-rose-50 rounded-lg">
+                                <div class="flex-shrink-0 w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Quality Execution</h4>
+                                    <p class="text-sm text-gray-600">98% protocol compliance rate</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 p-4 bg-rose-50 rounded-lg">
+                                <div class="flex-shrink-0 w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Diverse Communities</h4>
+                                    <p class="text-sm text-gray-600">Access to trusted local relationships</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal order-1 md:order-2">
+                    <div class="inline-block bg-rose-100 text-primary-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                        For Sponsors & CROs
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                        Accelerate Your Clinical Programs
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Partner with a proven network that delivers exceptional enrollment, quality execution, and patient-centric care across diverse therapeutic areas.
+                    </p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>Better sponsor relationships.</strong> Centralized systems and experienced teams mean faster study launches and consistent quality.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>Access to diverse communities.</strong> Trusted relationships and local knowledge drive better recruitment and retention.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="/sponsors" class="inline-block bg-primary-500 text-white px-8 py-4 rounded-lg hover:bg-primary-600 transition-colors font-semibold text-center">
+                            Partner With Us
+                        </a>
+                        <a href="/sponsors/capabilities" class="inline-block border-2 border-primary-500 text-primary-600 px-8 py-4 rounded-lg hover:bg-rose-50 transition-colors font-semibold text-center">
+                            View Capabilities
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Site Owners Section -->
+    <section id="site-owners" class="py-20 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal">
+                    <div class="inline-block bg-rose-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                        For Site Owners
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                        Scale Without Sacrifice
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Most site networks grow corporate and lose what made them special. We're different. Join Sensorium and get the operational support you need while keeping your local culture, autonomy, and patient relationships intact.
+                    </p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>Operational support.</strong> Business development, finance, HR, and patient enrollment resources—without giving up control of patient care.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong>Your local culture stays intact.</strong> Your patient relationships remain strong. Your team keeps doing what they do best.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="/site-owners" class="inline-block bg-primary-600 text-white px-8 py-4 rounded-lg hover:bg-primary-700 transition-colors font-semibold text-center">
+                            Join Our Network
+                        </a>
+                        <a href="/for-site-owners-option1-benefits.html" class="inline-block border-2 border-primary-600 text-primary-600 px-8 py-4 rounded-lg hover:bg-rose-50 transition-colors font-semibold text-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal">
+                    <div class="bg-white rounded-2xl shadow-2xl p-8">
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-6">Why Sensorium?</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Your site has unique strengths. Maybe it's trust in a specific community. Maybe it's relationships with local physicians. Maybe it's experience with certain patient populations.
+                        </p>
+                        <div class="bg-rose-50 border-l-4 border-primary-500 rounded-lg p-6 mb-6">
+                            <p class="text-primary-900 font-semibold text-lg">
+                                We don't want to change that.
+                            </p>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed">
+                            Sensorium connects independent sites into a network that values what makes each one different. Your local knowledge becomes a competitive advantage, not something to standardize away.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-20 px-4 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+                    Our Values
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Every site is unique. These values connect us.
+                </p>
+            </div>
+
+            <!-- Values in Single Row -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-12">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center scroll-reveal">
+                    <svg class="h-12 w-12 text-primary-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Respect</h3>
+                    <p class="text-gray-600 leading-relaxed">We honor the people, cultures, and communities that make each site unique.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center scroll-reveal">
+                    <svg class="h-12 w-12 text-primary-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Trust</h3>
+                    <p class="text-gray-600 leading-relaxed">We build confidence through honesty, transparency, and doing what we say we'll do.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center scroll-reveal">
+                    <svg class="h-12 w-12 text-primary-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Service</h3>
+                    <p class="text-gray-600 leading-relaxed">We put patients, caregivers, and partners first in everything we do.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center scroll-reveal">
+                    <svg class="h-12 w-12 text-primary-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Dedication</h3>
+                    <p class="text-gray-600 leading-relaxed">We work hard because we care deeply about the outcomes that matter.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center scroll-reveal">
+                    <svg class="h-12 w-12 text-primary-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Joy</h3>
+                    <p class="text-gray-600 leading-relaxed">We find purpose and enjoyment in our work and in the relationships we build.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center scroll-reveal">
+                    <svg class="h-12 w-12 text-primary-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    </svg>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Excellence</h3>
+                    <p class="text-gray-600 leading-relaxed">We strive to be great in every detail, from patient care to scientific rigor.</p>
+                </div>
+            </div>
+
+            <!-- Sensorium Definition Below -->
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl p-8 shadow-lg border-l-4 border-primary-500 scroll-reveal">
+                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                    <p>
+                        <strong class="text-primary-600">In biology, the sensorium is where all five senses come together to create one complete perception of the world.</strong>
+                    </p>
+                    <p>
+                        Clinical research sites work the same way.
+                    </p>
+                    <p>
+                        Each site has its own local culture, shaped by the community it serves and the patients it knows best.
+                    </p>
+                    <p>
+                        Like the five senses, each site provides a unique perspective. Together, they create a complete understanding of how a drug performs across real-world populations—insights that no single site could capture alone.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 px-4 bg-primary-600 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+                Ready to Get Started?
+            </h2>
+            <p class="text-xl mb-10 opacity-95">
+                Whether you're seeking treatment, advancing research, or growing your practice, we're here to support you.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#patients" class="inline-block bg-white text-primary-700 px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
+                    Find a Clinical Trial
+                </a>
+                <a href="/contact.html" class="inline-block border-2 border-white text-white px-8 py-4 rounded-lg hover:bg-primary-700 transition-colors font-semibold">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Sensorium</h3>
+                    <p class="text-gray-400">Advancing healthcare through innovative clinical research</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Patients</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/join-clinical-trial.html" class="hover:text-white transition-colors">Find a Study</a></li>
+                        <li><a href="/for-patients-option3-visual-story.html" class="hover:text-white transition-colors">Learn More</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Sponsors</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/partnerships.html" class="hover:text-white transition-colors">Partnerships</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Site Owners</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/for-site-owners-option2-growth.html" class="hover:text-white transition-colors">Join Network</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                © 2026 Sensorium Clinical Research. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

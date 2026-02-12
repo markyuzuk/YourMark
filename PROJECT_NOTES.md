@@ -549,4 +549,80 @@ ssh root@204.48.31.51 'tail -f /var/log/nginx/access.log'
 
 ---
 
-**Last Updated**: February 11, 2026 at 3:52 PM
+## Session Summary - February 12, 2026
+
+### Tasks Completed
+
+1. **Development Server Started**
+   - Started Vite dev server on http://localhost:5173
+   - Browser preview enabled for testing
+
+2. **PDF Directory Page Redesign**
+   - Redesigned `/public/SensoriumProject1/deployment-package/public/pdf-directory.html`
+   - Changed from card grid layout to clean table format
+   - Implemented rose color gradient progression across sections:
+     - Main Pages: Lightest rose (primary-100) with darkest buttons (primary-600-700)
+     - For Patients: Light rose (primary-200) with dark buttons (primary-500-600)
+     - For Sponsors: Medium rose (primary-300) with medium buttons (primary-400-500)
+     - For Site Owners: Darker rose (primary-400) with lighter buttons (primary-300-400)
+     - Resources: Darkest rose (primary-500) with lightest buttons (primary-200-300)
+   - Updated section header from "Main Pages" to "Home/CTA/About"
+   - Changed footer copyright from Sensorium to YourMark.ai
+
+3. **Client Portal Updates** (`src/pages/ClientPortal.jsx`)
+   - Added new "Rose Color Sandbox Area" tile (V5 - Sandbox)
+   - Updated Version 5 tile to link to new tabular PDF directory
+   - Changed Version 5 icon from text badge to table preview image (`/pdf-table-preview.png`)
+   - Changed V5 - Sandbox icon to landing page screenshot (`/sandbox-preview.png`)
+   - Added important note to V5 - Sandbox description: "Research and Insights Area not yet available"
+   - Increased button sizes from `sm` to `lg` for better visibility
+   - Added 80% opacity to preview images for subtle transparency effect
+   - Both tiles configured with `isExternal: true` for proper navigation
+
+4. **Landing Page Updates (Reverted)**
+   - Temporarily added "Rose Colored Sandbox Area" section to landing page
+   - Section removed per user request
+
+5. **Resources & Insights Links (Reverted)**
+   - Initially investigated broken links in about-us page
+   - Attempted conversions from Next.js to HTML
+   - All changes reverted, links restored to PDF paths
+
+### Files Modified
+
+#### Created/Updated
+- `/public/SensoriumProject1/deployment-package/public/pdf-directory.html` - Complete redesign with table layout
+- `/src/pages/ClientPortal.jsx` - Added V5 - Sandbox tile, updated icons and buttons
+- `/public/sandbox-preview.png` - Landing page screenshot for V5 - Sandbox tile
+- `/public/pdf-table-preview.png` - Table screenshot for Version 5 tile
+
+#### Reverted
+- `/public/resources/library/index.html` - Created then deleted
+- `/public/resources/white-papers/index.html` - Created then deleted
+- `/public/resources/news/index.html` - Created then deleted
+- Landing page sandbox section - Added then removed
+
+### Current Status
+
+#### ✅ Production Ready
+- Client Portal with two active rose-colored tiles
+- Version 5: Links to redesigned tabular PDF directory
+- V5 - Sandbox: Links to landing page with note about unavailable features
+- All buttons enlarged for better UX
+- Preview images with subtle transparency
+- Footer updated with YourMark.ai branding
+
+#### 🔧 Technical Details
+- Dev server: http://localhost:5173
+- Access code: Welcome2026
+- External links configured for static file navigation
+- Image opacity set to 80% for visual consistency
+
+### Next Steps
+- Deploy changes to production (204.48.31.51)
+- Test all links and preview functionality
+- Verify image loading on production server
+
+---
+
+**Last Updated**: February 12, 2026 at 6:30 PM

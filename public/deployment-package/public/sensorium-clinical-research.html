@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensorium Clinical Research - A Next-Generation Clinical Trial Site Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 70px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #0284c7;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            padding: 3rem 1rem;
+        }
+
+        .hero-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: #0284c7;
+        }
+
+        .btn-primary:hover {
+            background-color: #f3f4f6;
+        }
+
+        .btn-secondary {
+            background-color: #0369a1;
+            color: white;
+            border-color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #075985;
+        }
+
+        .hero-visual {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 3rem;
+        }
+
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .puzzle-item {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .puzzle-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 1rem;
+        }
+
+        .bg-light {
+            background-color: #f0f9ff;
+        }
+
+        .bg-gray {
+            background-color: #f9fafb;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            text-align: center;
+            color: #4b5563;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .section-text {
+            font-size: 1.125rem;
+            color: #374151;
+            max-width: 900px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: #0284c7;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .card-text {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .card-center {
+            text-align: center;
+        }
+
+        .card-border-left {
+            border-left: 4px solid #0284c7;
+        }
+
+        /* Value Cards */
+        .value-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            text-align: center;
+            transition: box-shadow 0.2s;
+        }
+
+        .value-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background-color: #dbeafe;
+            border-left: 4px solid #0284c7;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 900px;
+            border-radius: 0.5rem;
+        }
+
+        .highlight-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0369a1;
+            line-height: 1.8;
+        }
+
+        /* Stats */
+        .stats {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 1.125rem;
+            color: #4b5563;
+        }
+
+        .stats strong {
+            color: #111827;
+            font-weight: 700;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: #0284c7;
+            color: white;
+            padding: 5rem 1rem;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: #9ca3af;
+            padding: 3rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #6b7280;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            /* Care Pillars - Stack on mobile */
+            .care-pillars-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            /* Adjust card padding on mobile */
+            .care-pillars-grid > div {
+                padding: 1.5rem !important;
+            }
+            
+            /* Adjust icon size on mobile */
+            .care-pillars-grid h3 {
+                font-size: 1.15rem !important;
+                min-height: auto !important;
+            }
+            
+            /* Adjust text size on mobile */
+            .care-pillars-grid p {
+                font-size: 0.9rem !important;
+            }
+            
+            /* Footer - Stack on mobile */
+            .footer-content {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                text-align: center;
+            }
+            
+            .footer-section {
+                padding: 0 1rem;
+            }
+            
+            .footer-section h3 {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .footer-section p {
+                font-size: 0.95rem;
+            }
+            
+            .footer-bottom {
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+            }
+            
+            /* Mobile Navigation Enhancements */
+            .logo {
+                height: 50px !important;
+            }
+            
+            .nav-container {
+                padding: 0.75rem 1rem !important;
+            }
+            
+            nav {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Offset for sticky nav */
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: #6b7280;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #1f2937;
+        }
+
+        .modal h2 {
+            color: #0284c7;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .modal p {
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Therapeutic Cards Hover Effect */
+        .therapeutic-card {
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 120px;
+        }
+
+        .therapeutic-description {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-top: 0.75rem;
+            line-height: 1.6;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+
+        .therapeutic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            border-left-color: #0284c7;
+        }
+
+        .therapeutic-card:hover .therapeutic-description {
+            opacity: 1;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="sensorium-logo.png" alt="Sensorium Clinical Research" class="logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#what-is-sensorium">About</a></li>
+                <li><a href="#site-network">Network</a></li>
+                <li><a href="#patients">Patients</a></li>
+                <li><a href="#values">Values</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>The Sensorium Effect</h1>
+                <p>As site networks grow, they often become corporate—distant from the patients and communities that built their success. The local character, personal service, and pride that make smaller sites special can fade.</p>
+                <p>Our vision at Sensorium Clinical Research is to combine the scale and support of a site network with the warmth and responsiveness of local sites—what we call the Sensorium Effect.</p>
+                <div class="hero-buttons">
+                    <button onclick="openModal('joinNetworkModal')" class="btn btn-primary">Join Our Network</button>
+                    <button onclick="openModal('partnerModal')" class="btn btn-secondary">Partner With Us</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+                    <!-- Title -->
+                    <text x="300" y="30" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">The Sensorium Effect</text>
+                    
+                    <!-- Top Left Puzzle Piece - Local Culture -->
+                    <g transform="translate(50, 60)">
+                        <path d="M 0,0 L 220,0 
+                                 L 220,55 
+                                 Q 220,65 230,70 Q 240,75 240,85 Q 240,95 230,100 Q 220,105 220,115 
+                                 L 220,140 
+                                 L 110,140 
+                                 Q 100,140 95,150 Q 90,160 80,160 Q 70,160 65,150 Q 60,140 50,140 
+                                 L 0,140 
+                                 L 0,0 Z" 
+                              fill="#0ea5e9" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+                        <text x="110" y="65" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#ffffff" text-anchor="middle">Local</text>
+                        <text x="110" y="95" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#ffffff" text-anchor="middle">Culture</text>
+                    </g>
+                    
+                    <!-- Top Right Puzzle Piece - Diverse Voices -->
+                    <g transform="translate(270, 60)">
+                        <path d="M 0,0 L 250,0 
+                                 L 250,140 
+                                 L 170,140 
+                                 Q 160,140 155,150 Q 150,160 140,160 Q 130,160 125,150 Q 120,140 110,140 
+                                 L 0,140 
+                                 L 0,115 
+                                 Q 0,105 -10,100 Q -20,95 -20,85 Q -20,75 -10,70 Q 0,65 0,55 
+                                 L 0,0 Z" 
+                              fill="#38bdf8" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+                        <text x="125" y="65" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#ffffff" text-anchor="middle">Diverse</text>
+                        <text x="125" y="95" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#ffffff" text-anchor="middle">Voices</text>
+                    </g>
+                    
+                    <!-- Bottom Left Puzzle Piece - Site Network Support -->
+                    <g transform="translate(50, 200)">
+                        <path d="M 0,0 
+                                 L 50,0 
+                                 Q 60,0 65,10 Q 70,20 80,20 Q 90,20 95,10 Q 100,0 110,0 
+                                 L 220,0 
+                                 L 220,55 
+                                 Q 220,65 230,70 Q 240,75 240,85 Q 240,95 230,100 Q 220,105 220,115 
+                                 L 220,140 
+                                 L 0,140 
+                                 L 0,0 Z" 
+                              fill="#0284c7" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+                        <text x="110" y="60" font-family="Arial, sans-serif" font-size="22" font-weight="600" fill="#ffffff" text-anchor="middle">Site Network</text>
+                        <text x="110" y="85" font-family="Arial, sans-serif" font-size="22" font-weight="600" fill="#ffffff" text-anchor="middle">Support</text>
+                    </g>
+                    
+                    <!-- Bottom Right Puzzle Piece - Better Science -->
+                    <g transform="translate(270, 200)">
+                        <path d="M 0,0 
+                                 L 80,0 
+                                 Q 90,0 95,-10 Q 100,-20 110,-20 Q 120,-20 125,-10 Q 130,0 140,0 
+                                 L 250,0 
+                                 L 250,140 
+                                 L 0,140 
+                                 L 0,115 
+                                 Q 0,105 -10,100 Q -20,95 -20,85 Q -20,75 -10,70 Q 0,65 0,55 
+                                 L 0,0 Z" 
+                              fill="#075985" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+                        <text x="125" y="70" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#ffffff" text-anchor="middle">Better</text>
+                        <text x="125" y="100" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#ffffff" text-anchor="middle">Science</text>
+                    </g>
+                    
+                    <!-- Bottom Text -->
+                    <text x="300" y="375" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#ffffff" text-anchor="middle">Together = The Sensorium Site Network</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Main Value is Care Section -->
+    <section class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Our Main Value is Care</h2>
+            <div style="max-width: 1100px; margin: 0 auto;">
+                <p class="section-text" style="text-align: center; max-width: 900px; margin: 0 auto 3rem;">
+                    At Sensorium Clinical Research, everything starts with caring. <strong>Caring for people above all else.</strong> We care about our patients and caregivers, our communities, our employees, and our partners and sponsors. Caring connects us and fuels the Sensorium Effect—uniting our sites and amplifying our impact.
+                </p>
+                
+                <!-- Care Visual with Four Pillars -->
+                <div style="position: relative; margin: 3rem auto;">
+                    <!-- Four Pillars Grid -->
+                    <div class="care-pillars-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; align-items: start;">
+                        <!-- Patients & Caregivers -->
+                        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #38bdf8; position: relative; display: flex; flex-direction: column; height: 100%;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <h3 style="color: #0284c7; font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center;">Patients &amp; Caregivers</h3>
+                            <p style="color: #475569; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+                                Because we're rooted in the communities we serve, our relationships with patients and caregivers run deep. We create a welcoming environment where every visit feels personal and every experience reflects genuine care.
+                            </p>
+                        </div>
+                        
+                        <!-- Communities -->
+                        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #0ea5e9; position: relative; display: flex; flex-direction: column; height: 100%;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <h3 style="color: #0284c7; font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center;">Our Communities</h3>
+                            <p style="color: #475569; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+                                Our sites are part of the communities they serve. Our teams are local people who know, care for, and invest in their neighbors—providing personal, familiar care from true community connection.
+                            </p>
+                        </div>
+                        
+                        <!-- Employees & Site Teams -->
+                        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #0284c7; position: relative; display: flex; flex-direction: column; height: 100%;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #0284c7 0%, #075985 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    <line x1="12" y1="12" x2="12" y2="16"></line>
+                                    <line x1="10" y1="14" x2="14" y2="14"></line>
+                                </svg>
+                            </div>
+                            <h3 style="color: #0284c7; font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center;">Employees &amp; Site Teams</h3>
+                            <p style="color: #475569; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+                                We care for each other — supporting, mentoring, and celebrating one another so we can be our best for the patients and communities who count on us.
+                            </p>
+                        </div>
+                        
+                        <!-- Partners & Sponsors -->
+                        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #075985; position: relative; display: flex; flex-direction: column; height: 100%;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #075985 0%, #0284c7 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                    <path d="M2 17l10 5 10-5"></path>
+                                    <path d="M2 12l10 5 10-5"></path>
+                                </svg>
+                            </div>
+                            <h3 style="color: #0284c7; font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center;">Partners &amp; Sponsors</h3>
+                            <p style="color: #475569; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+                                Our partners benefit from our culture of caring — gaining access to diverse local communities, trusted relationships, and the highest standards of research quality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 3rem;">
+                    <p class="highlight-text">
+                        Strong communities create stronger science. When sites feel valued and supported, they deliver better outcomes for patients, sponsors, and the future of medicine.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. What is Sensorium Section -->
+    <section id="what-is-sensorium">
+        <div class="container">
+            <h2 class="section-title">What is Sensorium?</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <p class="section-text" style="font-size: 1.15rem; line-height: 1.8;">
+                    In biology, the <strong>sensorium</strong> is where all five senses come together to create one complete perception of the world. Your eyes see color, your ears hear sound, your fingers feel texture—but it's only when these senses combine that you truly understand what you're experiencing.
+                </p>
+                
+                <div style="text-align: center; margin: 2.5rem 0;">
+                    <p style="font-size: 1.3rem; font-weight: 600; color: #0284c7; margin: 0;">
+                        Clinical research sites work the same way.
+                    </p>
+                </div>
+                
+                <p class="section-text" style="font-size: 1.15rem; line-height: 1.8;">
+                    Each site has its own local culture, shaped by the community it serves and the patients it knows best. One site may excel at building trust in a Hispanic neighborhood. Another may understand both urban and rural patient experiences. Others may have deep relationships with diverse physicians and caregivers across specialties.
+                </p>
+                
+                <div class="highlight-box" style="margin-top: 2.5rem;">
+                    <p class="highlight-text" style="font-size: 1.2rem;">
+                        Like the five senses, each site provides a unique perspective. Together, they create a complete understanding of how a drug performs across real-world populations—insights that no single site could capture alone or poorly designed site networks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Benefits of a Site Network Section -->
+    <section id="site-network" class="bg-gray">
+        <div class="container">
+            <h2 class="section-title">The Benefit of Sensorium's Site Network</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <p class="section-text" style="font-size: 1.15rem; line-height: 1.8;">
+                    Independent research sites face a challenge: they need operational scale to compete, but they can't lose the local character that makes them effective. Sensorium solves this.
+                </p>
+                
+                <p class="section-text" style="font-size: 1.15rem; line-height: 1.8;">
+                    <strong>Sites gain strength without sacrifice.</strong> Through shared resources in business development, finance, HR, and patient enrollment, Sensorium provides the operational support smaller sites often lack. Site leaders and staff stay focused on what matters most: caring for patients and their communities.
+                </p>
+                
+                <p class="section-text" style="font-size: 1.15rem; line-height: 1.8;">
+                    <strong>Sponsors gain efficiency and quality.</strong> With centralized systems, experienced teams, and consistent processes, studies launch faster, enrollment stays on track, and data quality remains high across every participating site.
+                </p>
+                
+                <div class="highlight-box" style="margin-top: 2.5rem;">
+                    <p class="highlight-text" style="font-size: 1.2rem;">
+                        Most importantly, Sensorium connects local communities and diverse patient voices into a unified network—one that turns regional differences into scientific strength. In Sensorium's model, diversity isn't just represented; it's built into the science itself.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section id="values" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">What Unites Us</h2>
+            <p class="section-subtitle" style="max-width: 900px; margin: 0 auto 3rem; font-size: 1.15rem; line-height: 1.8;">
+                Every site is unique, but we're connected by shared values. These values shape how we work, lead, and care. They're the foundation of the Sensorium Effect—the reason our network grows stronger without losing its local heart.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #0284c7;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 3.5rem; line-height: 1;">🤝</div>
+                        <h3 style="color: #0284c7; font-size: 1.5rem; margin: 0; font-weight: 700;">Respect</h3>
+                    </div>
+                    <p style="color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin: 0;">We honor the people, cultures, and communities that make each site unique.</p>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #0369a1;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 3.5rem; line-height: 1;">🛡️</div>
+                        <h3 style="color: #0284c7; font-size: 1.5rem; margin: 0; font-weight: 700;">Trust</h3>
+                    </div>
+                    <p style="color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin: 0;">We build confidence through honesty, transparency, and doing what we say we'll do.</p>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #0284c7;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 3.5rem; line-height: 1;">💙</div>
+                        <h3 style="color: #0284c7; font-size: 1.5rem; margin: 0; font-weight: 700;">Service</h3>
+                    </div>
+                    <p style="color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin: 0;">We put patients, caregivers, and partners first in everything we do.</p>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #0369a1;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 3.5rem; line-height: 1;">💪</div>
+                        <h3 style="color: #0284c7; font-size: 1.5rem; margin: 0; font-weight: 700;">Dedication</h3>
+                    </div>
+                    <p style="color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin: 0;">We work hard because we care deeply about the outcomes that matter.</p>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #0284c7;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 3.5rem; line-height: 1;">✨</div>
+                        <h3 style="color: #0284c7; font-size: 1.5rem; margin: 0; font-weight: 700;">Joy</h3>
+                    </div>
+                    <p style="color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin: 0;">We find purpose and enjoyment in our work and in the relationships we build.</p>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #0369a1;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 3.5rem; line-height: 1;">🏆</div>
+                        <h3 style="color: #0284c7; font-size: 1.5rem; margin: 0; font-weight: 700;">Excellence</h3>
+                    </div>
+                    <p style="color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin: 0;">We strive to be great in every detail, from patient care to scientific rigor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Therapeutic Areas Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Therapeutic Expertise That Improves Lives</h2>
+            <p class="section-subtitle" style="max-width: 900px; margin: 0 auto 3rem; font-size: 1.15rem; line-height: 1.8;">
+                Sensorium connects patients with experienced investigators and trusted local research sites specializing in high-demand therapeutic areas. Our network makes it easier to find and join clinical trials that advance care and bring new treatments to the communities that need them most. Enroll in a clinical trial today and be part of the science that's shaping the future of medicine.
+            </p>
+            <div class="grid-3">
+                <div class="card card-border-left therapeutic-card">
+                    <h3 class="card-title">CNS & Neurology</h3>
+                    <p class="therapeutic-description">Alzheimer's, Parkinson's, depression, anxiety, schizophrenia, migraine, epilepsy</p>
+                </div>
+                <div class="card card-border-left therapeutic-card">
+                    <h3 class="card-title">Metabolic Disorders</h3>
+                    <p class="therapeutic-description">Type 2 diabetes, obesity, metabolic syndrome, NASH, dyslipidemia</p>
+                </div>
+                <div class="card card-border-left therapeutic-card">
+                    <h3 class="card-title">Cardiology</h3>
+                    <p class="therapeutic-description">Hypertension, heart failure, atrial fibrillation, coronary artery disease</p>
+                </div>
+                <div class="card card-border-left therapeutic-card">
+                    <h3 class="card-title">Dermatology</h3>
+                    <p class="therapeutic-description">Psoriasis, atopic dermatitis, acne, rosacea, vitiligo</p>
+                </div>
+                <div class="card card-border-left therapeutic-card">
+                    <h3 class="card-title">Oncology</h3>
+                    <p class="therapeutic-description">Breast, lung, colorectal, prostate, hematologic malignancies, solid tumors</p>
+                </div>
+                <div class="card card-border-left therapeutic-card">
+                    <h3 class="card-title">Phase I-IV Trials</h3>
+                    <p class="therapeutic-description">First-in-human through post-market studies across all therapeutic areas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patients Section -->
+    <section id="patients" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">For Patients</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <p class="section-text">
+                    Clinical trials are essential to advancing medicine and discovering new treatments. By participating in a clinical trial, you contribute to medical research that may help future generations while potentially accessing cutting-edge treatments.
+                </p>
+                
+                <h3 style="color: #0284c7; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem;">Why Participate in a Clinical Trial?</h3>
+                
+                <div class="grid-2" style="margin-bottom: 2rem;">
+                    <div class="card">
+                        <h4 class="card-title">Access to New Treatments</h4>
+                        <p class="card-text">Gain access to innovative therapies before they're widely available.</p>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-title">Expert Medical Care</h4>
+                        <p class="card-text">Receive close monitoring and care from experienced medical professionals.</p>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-title">Contribute to Science</h4>
+                        <p class="card-text">Help advance medical knowledge and improve treatments for future patients.</p>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-title">No Cost Treatment</h4>
+                        <p class="card-text">Study-related care and medications are typically provided at no cost to participants.</p>
+                    </div>
+                </div>
+
+                <h3 style="color: #0284c7; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem;">What to Expect</h3>
+                
+                <div class="highlight-box" style="margin-bottom: 1.5rem;">
+                    <p class="highlight-text">
+                        Every clinical trial is different, but all are designed with patient safety as the top priority. Before joining a study, you'll receive detailed information about what's involved, and you can ask questions at any time.
+                    </p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid #0284c7; margin-bottom: 2rem;">
+                    <h4 style="color: #0284c7; margin-bottom: 1rem;">Your Rights as a Participant</h4>
+                    <ul style="color: #475569; line-height: 1.8; margin-left: 1.5rem;">
+                        <li>You have the right to know all details about the study before deciding to participate</li>
+                        <li>Participation is completely voluntary—you can withdraw at any time</li>
+                        <li>Your privacy and medical information are protected</li>
+                        <li>You'll receive compensation for your time and travel expenses</li>
+                        <li>All questions will be answered by qualified medical staff</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: #0284c7; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem;">Find a Study Near You</h3>
+                
+                <p class="section-text">
+                    Our network of research sites across the Northeast offers studies in various therapeutic areas. Whether you're interested in participating or just want to learn more, we're here to help.
+                </p>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#contact" class="btn btn-primary" style="display: inline-block;">Contact Us to Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Leadership</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="card">
+                    <h3 class="card-title" style="font-size: 1.75rem; margin-bottom: 0.5rem;">Matt Kiernan</h3>
+                    <p style="color: #0284c7; font-weight: 600; margin-bottom: 1.5rem; font-size: 1.125rem;">Founder & CEO, Sensorium Clinical Research</p>
+                    <p class="card-text" style="margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.8;">
+                        Matt Kiernan is a life sciences entrepreneur who believes that culture is the foundation of every great company. For more than two decades, he has built organizations where people feel respected, supported, and inspired to do meaningful work for their patients, their teams, and their communities.
+                    </p>
+                    <p class="card-text" style="margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.8;">
+                        Before founding Sensorium Clinical Research, Matt led several successful ventures in the life sciences industry, including Pharmica Consulting, where he championed a simple but powerful philosophy: work hard, have fun, be great. That commitment to excellence and empathy shaped a culture that valued service and integrity as much as results.
+                    </p>
+                    <p class="card-text" style="margin-bottom: 0; font-size: 1.05rem; line-height: 1.8;">
+                        His vision is to unite independent research sites across the country through the Sensorium Effect — a connected system built on care, respect, trust, collaboration, dedication, joy, and excellence. By preserving each site's local culture while providing shared support and purpose, Sensorium empowers investigators, uplifts patients, and transforms diversity and compassion into better science.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <h2>Join Sensorium Clinical Research</h2>
+            <p>
+                If you operate an independent clinical research site and are seeking to scale operations while maintaining autonomy, we invite you to explore partnership opportunities with Sensorium.
+            </p>
+            <div class="cta-buttons">
+                <button onclick="openModal('joinNetworkModal')" class="btn btn-primary">Join Our Network</button>
+                <button onclick="openModal('partnerModal')" class="btn btn-secondary">Partner With Us</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" style="grid-template-columns: 2fr 1fr 1fr; max-width: 1000px;">
+            <div class="footer-section">
+                <h3>Sensorium Clinical Research</h3>
+                <p>A next-generation clinical trial site network combining the scale and support of a network with the warmth and responsiveness of local sites.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>matt@sensoriumcr.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#about" style="color: #9ca3af; text-decoration: none;">About Us</a></p>
+                <p><a href="#network" style="color: #9ca3af; text-decoration: none;">Our Network</a></p>
+                <p><a href="#values" style="color: #9ca3af; text-decoration: none;">Our Values</a></p>
+                <p><a href="#contact" style="color: #9ca3af; text-decoration: none;">Contact</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Sensorium Clinical Research. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">Great Research Starts With Great People</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.card, .value-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+
+    <!-- Join Network Modal -->
+    <div id="joinNetworkModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('joinNetworkModal')">&times;</button>
+            <h2>Join Our Network</h2>
+            <p>Tell us about your clinical research site and how you'd like to partner with Sensorium.</p>
+            <div id="joinNetworkSuccess" class="success-message">Thank you! We've received your information and will contact you shortly.</div>
+            <form id="joinNetworkForm" onsubmit="submitForm(event, 'joinNetwork')">
+                <div class="form-group">
+                    <label for="join_name">Full Name *</label>
+                    <input type="text" id="join_name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="join_email">Email Address *</label>
+                    <input type="email" id="join_email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="join_phone">Phone Number</label>
+                    <input type="tel" id="join_phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="join_site_name">Site Name *</label>
+                    <input type="text" id="join_site_name" name="site_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="join_location">Site Location (City, State) *</label>
+                    <input type="text" id="join_location" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="join_therapeutic_areas">Therapeutic Areas</label>
+                    <input type="text" id="join_therapeutic_areas" name="therapeutic_areas" placeholder="e.g., Cardiology, Oncology, Dermatology">
+                </div>
+                <div class="form-group">
+                    <label for="join_message">Tell us about your site and why you're interested *</label>
+                    <textarea id="join_message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Partner Modal -->
+    <div id="partnerModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('partnerModal')">&times;</button>
+            <h2>Partner With Us</h2>
+            <p>Let's discuss how Sensorium can support your clinical research needs.</p>
+            <div id="partnerSuccess" class="success-message">Thank you! We've received your inquiry and will be in touch soon.</div>
+            <form id="partnerForm" onsubmit="submitForm(event, 'partner')">
+                <div class="form-group">
+                    <label for="partner_name">Full Name *</label>
+                    <input type="text" id="partner_name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="partner_email">Email Address *</label>
+                    <input type="email" id="partner_email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="partner_phone">Phone Number</label>
+                    <input type="tel" id="partner_phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="partner_company">Company/Organization *</label>
+                    <input type="text" id="partner_company" name="company" required>
+                </div>
+                <div class="form-group">
+                    <label for="partner_role">Your Role *</label>
+                    <input type="text" id="partner_role" name="role" required>
+                </div>
+                <div class="form-group">
+                    <label for="partner_type">Partnership Interest *</label>
+                    <select id="partner_type" name="partnership_type" required>
+                        <option value="">Select an option</option>
+                        <option value="sponsor">Pharmaceutical/Biotech Sponsor</option>
+                        <option value="cro">Contract Research Organization (CRO)</option>
+                        <option value="investor">Investment/Financial Partnership</option>
+                        <option value="vendor">Vendor/Service Provider</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="partner_message">Tell us about your partnership interest *</label>
+                    <textarea id="partner_message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Submit Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal and Form JavaScript -->
+    <script>
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Form submission
+        async function submitForm(event, formType) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitButton = form.querySelector('.form-submit');
+            const successMessage = form.parentElement.querySelector('.success-message');
+            
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            
+            // Collect form data
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            data.form_type = formType;
+            data.timestamp = new Date().toISOString();
+            
+            try {
+                // Send to PHP backend
+                const response = await fetch('submit-form.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    // Show success message
+                    successMessage.classList.add('show');
+                    form.style.display = 'none';
+                    
+                    // Reset form and close modal after 3 seconds
+                    setTimeout(() => {
+                        form.reset();
+                        form.style.display = 'block';
+                        successMessage.classList.remove('show');
+                        closeModal(formType === 'joinNetwork' ? 'joinNetworkModal' : 'partnerModal');
+                        submitButton.disabled = false;
+                        submitButton.textContent = formType === 'joinNetwork' ? 'Submit Application' : 'Submit Inquiry';
+                    }, 3000);
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (error) {
+                alert('There was an error submitting your form. Please try emailing us directly at matt@sensoriumcr.com');
+                submitButton.disabled = false;
+                submitButton.textContent = formType === 'joinNetwork' ? 'Submit Application' : 'Submit Inquiry';
+            }
+        }
+    </script>
+</body>
+</html>

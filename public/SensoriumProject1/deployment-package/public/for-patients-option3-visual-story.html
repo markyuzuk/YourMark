@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Patients - Option 3: Visual Storytelling | Sensorium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f9a8d4',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                        }
+                    },
+                    fontFamily: {
+                        'serif': ['Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/landing-v4-patient-centric.html" class="flex items-center hover:opacity-80 transition-opacity">
+                        <div class="text-2xl font-bold text-primary-600">Sensorium</div>
+                        <div class="ml-2 text-sm text-gray-600">Clinical Research</div>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/about-us-option2-comprehensive.html" class="text-gray-700 hover:text-primary-600 transition-colors">About</a>
+                    <a href="/for-patients-option3-visual-story.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Patients</a>
+                    <a href="/partnerships.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Sponsors</a>
+                    <a href="/for-site-owners-option2-growth.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Site Owners</a>
+                    <a href="/contact.html" class="bg-primary-600 text-white px-5 py-2 rounded-lg hover:bg-primary-700 transition-colors">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Large Visual -->
+    <section class="relative bg-gradient-to-br from-primary-500 to-primary-700 text-white py-32 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#grid)" />
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-8">
+                    For Patients
+                </div>
+                <h1 class="text-6xl md:text-7xl font-serif font-bold mb-8 leading-tight">
+                    Be Part of Something Bigger
+                </h1>
+                <p class="text-2xl md:text-3xl text-primary-50 leading-relaxed mb-12">
+                    Every breakthrough in medicine started with someone like you choosing to participate.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#learn-more" class="inline-block bg-white text-primary-700 px-10 py-5 rounded-lg hover:bg-gray-100 transition-colors font-bold text-lg">
+                        Learn How It Works
+                    </a>
+                    <a href="/join-clinical-trial.html" class="inline-block border-2 border-white text-white px-10 py-5 rounded-lg hover:bg-primary-600 transition-colors font-bold text-lg">
+                        Find a Study
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Stats Section -->
+    <section class="py-16 px-4 bg-white border-b-2 border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold text-primary-600 mb-2">50K+</div>
+                    <div class="text-gray-600 font-semibold">Patients Enrolled</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-primary-600 mb-2">15+</div>
+                    <div class="text-gray-600 font-semibold">Years of Experience</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-primary-600 mb-2">200+</div>
+                    <div class="text-gray-600 font-semibold">Completed Studies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Participate - Visual Cards -->
+    <section id="learn-more" class="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
+                    Why Participate?
+                </h2>
+                <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+                    Experience elevated care in your own community while contributing to medical breakthroughs
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-400 to-primary-600"></div>
+                    <div class="p-10">
+                        <div class="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Receive New Treatments First</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                            Try new medications and therapies before they're available to the public. Many participants find relief and improvement in their condition.
+                        </p>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Get new treatments years earlier</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>May help improve your symptoms</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>No cost for study-related care</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-400 to-primary-600"></div>
+                    <div class="p-10">
+                        <div class="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Local Expert Care</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                            Receive care from experienced physicians and research specialists right in your own community. Our local medical experts bring years of clinical trial expertise to your neighborhood.
+                        </p>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Trusted local physicians who know your community</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>World-class care close to home</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Personal Patient Concierge for your journey</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-400 to-primary-600"></div>
+                    <div class="p-10">
+                        <div class="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Community Participation</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                            Be part of your community while advancing medical science. Your participation helps researchers develop better treatments and brings cutting-edge healthcare to your neighborhood.
+                        </p>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Contribute to medical breakthroughs</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Help your neighbors and community</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-primary-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Make a difference for future patients</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Clinical Trials Work - Visual Explanation -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
+                    How Sensorium Clinical Trials Work
+                </h2>
+                <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+                    A simple guide to understanding your journey from start to finish
+                </p>
+            </div>
+
+            <!-- Process Flow -->
+            <div class="grid md:grid-cols-5 gap-6 mb-20">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Contact Us</h3>
+                    <p class="text-sm text-gray-600">Call, email, or visit a local site</p>
+                </div>
+
+                <div class="hidden md:flex items-center justify-center">
+                    <svg class="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Screening</h3>
+                    <p class="text-sm text-gray-600">See if the study is right for you</p>
+                </div>
+
+                <div class="hidden md:flex items-center justify-center">
+                    <svg class="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Participate</h3>
+                    <p class="text-sm text-gray-600">Receive treatment & monitoring</p>
+                </div>
+            </div>
+
+            <!-- Detailed Steps -->
+            <div class="space-y-8 max-w-5xl mx-auto">
+                <!-- Step 1: Initial Contact & Screening -->
+                <div class="bg-gradient-to-br from-primary-50 to-white rounded-3xl p-10 shadow-xl">
+                    <div class="flex items-start gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            1
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl font-bold text-gray-900 mb-4">Initial Contact & Screening</h3>
+                            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                                When you reach out, we'll have a friendly conversation about your health history and the study requirements. This helps us determine if the trial might be a good fit for you.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white rounded-xl p-4 border-l-4 border-primary-500">
+                                    <h4 class="font-bold text-gray-900 mb-2">What We'll Ask:</h4>
+                                    <ul class="text-gray-700 space-y-1 text-sm">
+                                        <li>• Your medical history</li>
+                                        <li>• Current medications</li>
+                                        <li>• Your availability</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 border-l-4 border-primary-500">
+                                    <h4 class="font-bold text-gray-900 mb-2">What You'll Learn:</h4>
+                                    <ul class="text-gray-700 space-y-1 text-sm">
+                                        <li>• Study purpose & goals</li>
+                                        <li>• Time commitment</li>
+                                        <li>• Potential benefits & risks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Informed Consent -->
+                <div class="bg-gradient-to-br from-rose-50 to-white rounded-3xl p-10 shadow-xl">
+                    <div class="flex items-start gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-rose-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            2
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl font-bold text-gray-900 mb-4">Informed Consent Process</h3>
+                            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                                Before you join, we'll walk you through every detail of the study. You'll receive a consent form that explains everything in plain language. Take your time, ask questions, and only sign when you're completely comfortable.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Study Participation -->
+                <div class="bg-gradient-to-br from-primary-50 to-white rounded-3xl p-10 shadow-xl">
+                    <div class="flex items-start gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            3
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl font-bold text-gray-900 mb-4">Active Participation</h3>
+                            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                                During the study, you'll visit the research site regularly. Each visit typically includes health checks, treatment administration, and monitoring. Your research team will track your progress and answer any questions.
+                            </p>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-white rounded-xl p-4 text-center border-t-4 border-primary-500">
+                                    <div class="text-3xl font-bold text-primary-600 mb-2">Regular Visits</div>
+                                    <p class="text-sm text-gray-600">Scheduled appointments for treatment & monitoring</p>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 text-center border-t-4 border-primary-500">
+                                    <div class="text-3xl font-bold text-primary-600 mb-2">Health Checks</div>
+                                    <p class="text-sm text-gray-600">Vital signs, lab work, and assessments</p>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 text-center border-t-4 border-primary-500">
+                                    <div class="text-3xl font-bold text-primary-600 mb-2">Support Team</div>
+                                    <p class="text-sm text-gray-600">Doctors, nurses & Patient Concierge</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Follow-Up -->
+                <div class="bg-gradient-to-br from-rose-50 to-white rounded-3xl p-10 shadow-xl">
+                    <div class="flex items-start gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-rose-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            4
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl font-bold text-gray-900 mb-4">Follow-Up & Results</h3>
+                            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                                Your journey doesn't end when the study does. We stay connected to make sure you're doing well and keep you informed about what your participation helped achieve.
+                            </p>
+                            <div class="bg-white rounded-xl p-6 border-l-4 border-rose-500">
+                                <h4 class="font-bold text-gray-900 mb-3">What Happens Next:</h4>
+                                <ul class="text-gray-700 space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-rose-500 font-bold">•</span>
+                                        <span>We check in to make sure you're healthy and feeling good</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-rose-500 font-bold">•</span>
+                                        <span>You'll learn about the study findings and what they mean for patients like you</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-rose-500 font-bold">•</span>
+                                        <span>Your contribution helps shape the future of medicine for your community</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Therapeutic Areas - Visual Grid -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
+                    Current Studies
+                </h2>
+                <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+                    Sensorium sites conduct trials across multiple therapeutic areas
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">CNS & Neurology</h3>
+                    <p class="text-gray-700 mb-4">Alzheimer's, Parkinson's, depression, anxiety, migraine</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Metabolic Disorders</h3>
+                    <p class="text-gray-700 mb-4">Type 2 diabetes, obesity, metabolic syndrome, NASH</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Cardiology</h3>
+                    <p class="text-gray-700 mb-4">Hypertension, heart failure, atrial fibrillation</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Dermatology</h3>
+                    <p class="text-gray-700 mb-4">Psoriasis, atopic dermatitis, acne, rosacea</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Infectious Diseases</h3>
+                    <p class="text-gray-700 mb-4">Vaccine studies, antiviral therapies, prevention</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+                <div class="bg-white rounded-2xl p-8 border-l-4 border-primary-500 shadow-lg hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Oncology</h3>
+                    <p class="text-gray-700 mb-4">Breast, lung, colorectal, prostate cancers</p>
+                    <button class="text-primary-600 font-semibold hover:underline">View Studies →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Refer a Friend Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-gray-900 mb-6">Share the Path to Progress</h2>
+                <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+                    If you know someone looking for new treatment options or a way to give back to science, introduce them to the Sensorium family.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-3xl p-10 shadow-2xl">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-8">Refer a Friend</h3>
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-900 mb-2">Your Name</label>
+                                <input type="text" placeholder="Your name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-900 mb-2">Your Email</label>
+                                <input type="email" placeholder="your@email.com" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                            </div>
+                        </div>
+                        <div class="border-t-2 border-gray-200 pt-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-4">Friend's Information</h4>
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-900 mb-2">Friend's Name</label>
+                                    <input type="text" placeholder="Friend's name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-900 mb-2">Friend's Email</label>
+                                    <input type="email" placeholder="friend@email.com" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-900 mb-2">Message (Optional)</label>
+                                <textarea rows="3" placeholder="Tell us why you think your friend would benefit..." class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-10 py-5 rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all font-bold text-lg shadow-lg">Send Referral</button>
+                    </form>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white border-3 border-primary-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="flex items-start gap-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-900 mb-3">Help Someone You Care About</h4>
+                                <p class="text-gray-600 text-lg">Give them access to cutting-edge treatments and expert medical care.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border-3 border-primary-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="flex items-start gap-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-900 mb-3">Advance Medical Science</h4>
+                                <p class="text-gray-600 text-lg">Every participant helps researchers discover better treatments for future generations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border-3 border-primary-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="flex items-start gap-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-900 mb-3">Share Hope</h4>
+                                <p class="text-gray-600 text-lg">Clinical trials offer hope and new possibilities for people seeking treatment options.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Large CTA Section -->
+    <section class="py-32 px-4 bg-gradient-to-br from-primary-600 to-primary-800 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <pattern id="dots" width="5" height="5" patternUnits="userSpaceOnUse">
+                        <circle cx="2.5" cy="2.5" r="1" fill="white"/>
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#dots)" />
+            </svg>
+        </div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <h2 class="text-5xl md:text-6xl font-serif font-bold mb-8">
+                Ready to Make a Difference?
+            </h2>
+            <p class="text-2xl md:text-3xl text-primary-50 mb-12 leading-relaxed">
+                Join thousands of participants who are advancing medicine while receiving exceptional care.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="/join-clinical-trial.html" class="inline-block bg-white text-primary-700 px-12 py-6 rounded-xl hover:bg-gray-100 transition-colors font-bold text-xl shadow-2xl">
+                    Join a Clinical Trial
+                </a>
+                <a href="/contact" class="inline-block bg-white text-primary-700 px-12 py-6 rounded-xl hover:bg-gray-100 transition-colors font-bold text-xl shadow-2xl">
+                    Talk to Someone
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Sensorium</h3>
+                    <p class="text-gray-400">Advancing healthcare through innovative clinical research</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Patients</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/join-clinical-trial.html" class="hover:text-white transition-colors">Find a Study</a></li>
+                        <li><a href="/for-patients-option3-visual-story.html" class="hover:text-white transition-colors">Learn More</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Sponsors</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/partnerships.html" class="hover:text-white transition-colors">Partnerships</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Site Owners</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/for-site-owners-option2-growth.html" class="hover:text-white transition-colors">Join Network</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                © 2026 Sensorium Clinical Research. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
