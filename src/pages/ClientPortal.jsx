@@ -130,7 +130,9 @@ const ClientPortal = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center">
-              <Logo className="h-10 w-auto" showText={true} />
+              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+                YourMark.ai
+              </span>
             </Link>
             
             <Button variant="outline" onClick={() => setIsAuthenticated(false)}>
