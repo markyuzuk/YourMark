@@ -15,7 +15,7 @@ const ClientPortal = () => {
     {
       id: 5,
       clientName: 'Sensorium Clinical Research',
-      projectName: 'New Rose Colored Theme',
+      projectName: 'New Rose Colored Theme (PDF Review)',
       previewUrl: '/4',
       status: 'Review',
       lastUpdated: '2026-01-27',
