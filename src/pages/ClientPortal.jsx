@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Lock, ExternalLink, Eye, Calendar, FileText, Download } from 'lucide-react'
 import Logo from '../components/Logo'
 import Button from '../components/ui/Button'
@@ -7,6 +7,7 @@ import Input from '../components/ui/Input'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/Card'
 
 const ClientPortal = () => {
+  const navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [accessCode, setAccessCode] = useState('')
   const [error, setError] = useState('')
@@ -204,7 +205,7 @@ const ClientPortal = () => {
                         className="flex-1" 
                         size="sm"
                         disabled={project.isGreyedOut}
-                        onClick={() => !project.isGreyedOut && project.previewUrl !== '#' && window.open(project.previewUrl, '_blank')}
+                        onClick={() => !project.isGreyedOut && project.previewUrl !== '#' && navigate(project.previewUrl)}
                       >
                         <Eye className="h-4 w-4 mr-2" />
                         Preview
