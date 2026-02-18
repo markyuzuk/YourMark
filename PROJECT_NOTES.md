@@ -626,3 +626,50 @@ ssh root@204.48.31.51 'tail -f /var/log/nginx/access.log'
 ---
 
 **Last Updated**: February 12, 2026 at 6:30 PM
+
+---
+
+## Session Summary - February 18, 2026
+
+### Tasks Completed
+
+1. **Client Portal Image Opacity Update**
+   - Removed 80% opacity from preview images in tiles
+   - Changed `opacity-80` class back to full opacity for better image visibility
+   - File: `/src/pages/ClientPortal.jsx`
+
+2. **About Us Page - Resources & Insights Section (Attempted & Reverted)**
+   - Initially added FAQs card to Resources & Insights section
+   - Updated tagline to include "frequently asked questions"
+   - Changed grid from 3 to 4 columns (md:grid-cols-2 lg:grid-cols-4)
+   - Added rose-colored FAQs card with question mark icon
+   - **Reverted all changes** per user request back to original 3-card layout
+   - File: `/public/SensoriumProject1/deployment-package/about-us-option2-comprehensive.html`
+
+3. **Tagline Brainstorming**
+   - Provided 7 alternative tagline options for site network messaging
+   - Focused on balancing network strength with community authenticity
+   - Emphasized contrast with standardized/corporate networks
+
+### Files Modified
+
+#### Modified (Reverted to Original)
+- `/public/SensoriumProject1/deployment-package/about-us-option2-comprehensive.html` - No net changes (added then removed FAQs)
+- `/src/pages/ClientPortal.jsx` - Removed opacity-80 class from preview images
+
+### Current Status
+
+#### ✅ Active
+- Dev server running on http://localhost:5173
+- Client Portal accessible at /1 with access code: Welcome2026
+- About Us page maintains original 3-card Resources & Insights layout
+- Preview images display at full opacity
+
+#### 📝 Notes
+- User exploring tagline options for site network messaging
+- Emphasis on community connection vs. standardized networks
+- FAQs section considered but not implemented at this time
+
+---
+
+**Last Updated**: February 18, 2026 at 1:32 PM

@@ -174,7 +174,7 @@ const ClientPortal = () => {
                   <img 
                     src={project.thumbnail} 
                     alt={project.projectName}
-                    className="w-full h-full object-cover opacity-80"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
                   <div className="text-center">
