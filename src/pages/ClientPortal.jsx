@@ -18,7 +18,7 @@ const ClientPortal = () => {
       versionLabel: 'V5 - Sandbox',
       clientName: 'Sensorium Clinical Research',
       projectName: 'Rose Color Sandbox Area',
-      previewUrl: 'http://localhost:5173/rosesandbox/index.html',
+      previewUrl: 'https://yourmark.ai/rosesandbox/index.html',
       status: 'Review',
       lastUpdated: '2026-02-19',
       thumbnail: '/sandbox-preview.png',
