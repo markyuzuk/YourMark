@@ -1,0 +1,13 @@
+# Allow access to login.php and logout.php without authentication
+<Files "login.php">
+    Require all granted
+</Files>
+
+<Files "logout.php">
+    Require all granted
+</Files>
+
+# Deny direct access to check-auth.php
+<Files "check-auth.php">
+    Require all denied
+</Files>

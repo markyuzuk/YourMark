@@ -15,30 +15,31 @@ const ClientPortal = () => {
   const demoProjects = [
     {
       id: 5,
+      versionLabel: 'V5 - Sandbox',
       clientName: 'Sensorium Clinical Research',
-      projectName: 'New Rose Colored Theme (PDF Review)',
-      previewUrl: 'http://localhost:5173/public/SensoriumProject1/deployment-package/public/pdf-directory.html',
+      projectName: 'Rose Color Sandbox Area',
+      previewUrl: 'http://localhost:5173/rosesandbox/index.html',
       status: 'Review',
-      lastUpdated: '2026-01-27',
-      thumbnail: '/pdf-table-preview.png',
-      description: 'Warm and welcoming theme, improved content language, expansion to additional audiences. Note: The Sensorium logo depicted is just a placeholder and will be updated as we finalize.',
+      lastUpdated: '2026-02-19',
+      thumbnail: '/sandbox-preview.png',
+      description: 'Experimental sandbox area for testing and exploring new rose-colored design concepts and creative ideas. Preview the latest RoseSandbox website design.',
       isRoseColored: true,
       isExternal: true,
       useImageIcon: true
     },
     {
       id: 5,
-      versionLabel: 'V5 - Sandbox',
       clientName: 'Sensorium Clinical Research',
-      projectName: 'Rose Color Sandbox Area',
-      previewUrl: 'http://localhost:5173/public/SensoriumProject1/deployment-package/landing-v4-patient-centric.html',
+      projectName: 'New Rose Colored Theme (PDF Review)',
+      previewUrl: '#',
       status: 'Review',
-      lastUpdated: '2026-02-12',
-      thumbnail: '/sandbox-preview.png',
-      description: 'Experimental sandbox area for testing and exploring new rose-colored design concepts and creative ideas. Important Note - Research and Insights Area not yet available.',
-      isRoseColored: true,
-      isExternal: true,
-      useImageIcon: true
+      lastUpdated: '2026-01-27',
+      thumbnail: '/pdf-table-preview.png',
+      description: 'Warm and welcoming theme, improved content language, expansion to additional audiences. Note: The Sensorium logo depicted is just a placeholder and will be updated as we finalize.',
+      isRoseColored: false,
+      isExternal: false,
+      useImageIcon: true,
+      isGreyedOut: true
     },
     {
       id: 1,
@@ -94,7 +95,7 @@ const ClientPortal = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center mb-6">
-              <Logo className="h-10 w-auto" showText={true} />
+              <span className="text-4xl font-bold text-emerald-600">YourMark.ai</span>
             </Link>
             <h1 className="text-3xl font-bold mb-2">Client Portal</h1>
             <p className="text-gray-600">Enter your access code to view your project previews</p>
@@ -161,14 +162,68 @@ const ClientPortal = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-4">Sensorium Clinical Research</h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 mb-8">
             View and interact with your website projects in development
           </p>
+          
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 border border-rose-100 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to the Sensorium Clinical Research Version 5 Website Preview</h2>
+              <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4">
+                <p>
+                  This complete redesign was built around a core principle that sets Sensorium apart in the clinical research industry: <strong>"Most clinical trial sites scale up and lose their soul. Care becomes corporate. Patients become data points. Communities become markets. Not here. We are different."</strong>
+                </p>
+                <p>
+                  Every design decision—from the warm rose color palette representing care and compassion, to the patient-centric messaging throughout—reinforces this commitment to maintaining local culture and community-focused care while scaling operations. The site serves four distinct audiences (patients, sponsors, site owners, and the general public) with tailored content that speaks directly to their needs while maintaining a cohesive brand identity that emphasizes trust, transparency, and human-centered care.
+                </p>
+                <p>
+                  The design philosophy prioritizes clarity over complexity, featuring a modern yet approachable aesthetic with clean typography, strategic gradient treatments that guide the eye naturally, and a fully responsive layout optimized for both desktop and mobile experiences. Built with HTML5 and Tailwind CSS, the site includes 14 interconnected pages covering everything from the company's origin story and leadership team to detailed information for each audience segment, therapeutic area listings for clinical trials, white papers showcasing industry expertise, and comprehensive FAQ resources.
+                </p>
+                <p>
+                  Each page has been carefully crafted to build trust through transparency, educate visitors about the clinical research process, and ultimately invite them to become part of the Sensorium community—whether as a patient participant, pharmaceutical sponsor, or independent site owner looking to join the network.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-100 shadow-sm">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Design Principles</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="text-gray-700"><strong>Make it Punchy</strong> - Bold headlines and clear value propositions</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="text-gray-700"><strong>Tell the Culture Story</strong> - Emphasize community and human connection</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="text-gray-700"><strong>Clear Messaging</strong> - Direct communication without jargon</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="text-gray-700"><strong>Avoid Stock Photos</strong> - Use authentic imagery that reflects real people</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="text-gray-700"><strong>Be Authentic</strong> - Genuine voice and transparent approach</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="text-gray-700"><strong>Mobile Friendly</strong> - Fully responsive design for all devices</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="text-gray-700"><strong>Easy Access to Studies</strong> - Streamlined navigation to trial information</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {demoProjects.map((project) => (
-            <Card key={project.id} className={`hover:shadow-lg transition-shadow overflow-hidden ${project.isGreyedOut ? 'opacity-50' : ''}`}>
+            <Card key={project.id} className={`hover:shadow-lg transition-shadow overflow-hidden flex flex-col ${project.isGreyedOut ? 'opacity-50' : ''}`}>
               <div className={`relative h-48 bg-gradient-to-br overflow-hidden flex items-center justify-center ${project.isGreyedOut ? 'from-gray-100 to-gray-200' : project.isRoseColored ? 'from-rose-50 to-rose-100' : 'from-emerald-50 to-emerald-100'}`}>
                 {project.useImageIcon ? (
                   <img 
@@ -209,7 +264,7 @@ const ClientPortal = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent>
+              <CardContent className="flex-grow flex flex-col">
                 <p className="text-sm text-gray-600 mb-4">
                   {project.description}
                 </p>
@@ -219,41 +274,51 @@ const ClientPortal = () => {
                   Updated {project.lastUpdated}
                 </div>
                 
-                <div className="flex gap-2">
-                  {project.isPDF ? (
-                    <Button className="flex-1" size="lg" disabled={project.isGreyedOut}>
-                      <Download className="h-5 w-5 mr-2" />
-                      Download PDF
-                    </Button>
-                  ) : (
-                    <>
-                      <Button 
-                        className="flex-1" 
-                        size="lg"
-                        disabled={project.isGreyedOut}
-                        onClick={() => {
-                          if (!project.isGreyedOut && project.previewUrl !== '#') {
-                            if (project.isExternal) {
-                              window.location.href = project.previewUrl
-                            } else {
-                              navigate(project.previewUrl)
+                <div className="mt-auto">
+                  <div className="flex gap-2">
+                    {project.isPDF ? (
+                      <Button className="flex-1" size="lg" disabled={project.isGreyedOut}>
+                        <Download className="h-5 w-5 mr-2" />
+                        Download PDF
+                      </Button>
+                    ) : (
+                      <>
+                        <Button 
+                          className="flex-1" 
+                          size="lg"
+                          disabled={project.isGreyedOut}
+                          onClick={() => {
+                            if (!project.isGreyedOut && project.previewUrl !== '#') {
+                              if (project.isExternal) {
+                                window.location.href = project.previewUrl
+                              } else {
+                                navigate(project.previewUrl)
+                              }
                             }
-                          }
-                        }}
-                      >
-                        <Eye className="h-5 w-5 mr-2" />
-                        Preview
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="lg"
-                        disabled={project.isGreyedOut}
-                        onClick={() => !project.isGreyedOut && project.previewUrl !== '#' && window.open(project.previewUrl, '_blank')}
-                      >
-                        <ExternalLink className="h-5 w-5" />
-                      </Button>
-                    </>
-                  )}
+                          }}
+                        >
+                          <Eye className="h-5 w-5 mr-2" />
+                          Preview
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="lg"
+                          disabled={project.isGreyedOut}
+                          onClick={() => {
+                            if (!project.isGreyedOut && project.previewUrl !== '#') {
+                              if (project.isExternal) {
+                                window.open(project.previewUrl, '_blank')
+                              } else {
+                                window.open(project.previewUrl, '_blank')
+                              }
+                            }
+                          }}
+                        >
+                          <ExternalLink className="h-5 w-5" />
+                        </Button>
+                      </>
+                    )}
+                  </div>
                 </div>
               </CardContent>
             </Card>
