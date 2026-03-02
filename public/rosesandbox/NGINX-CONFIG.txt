@@ -1,0 +1,31 @@
+NGINX CONFIGURATION FOR SENSORIUM
+==================================
+
+If you need to configure Nginx, create this file:
+/etc/nginx/sites-available/sensorium
+
+Content:
+--------
+server {
+    listen 80;
+    server_name _;
+    
+    root /var/www/sensorium;
+    index index.html;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|pdf)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}
+
+Then run:
+---------
+sudo ln -sf /etc/nginx/sites-available/sensorium /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo systemctl restart nginx

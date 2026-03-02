@@ -1,0 +1,57 @@
+SENSORIUM CLINICAL RESEARCH - CLIENT REVIEW DEPLOYMENT
+======================================================
+
+This package contains all files needed for client review.
+
+MANUAL DEPLOYMENT INSTRUCTIONS:
+--------------------------------
+
+Option 1: Upload via FTP/SFTP
+1. Connect to your server using an FTP client (FileZilla, Cyberduck, etc.)
+2. Upload ALL files and folders from this directory to your web server's root directory
+   (usually /var/www/html or /var/www/sensorium)
+3. Ensure the images/ folder is uploaded completely
+
+Option 2: Upload via SCP (Command Line)
+1. Open terminal
+2. Run: scp -r client-review-package/* username@your-server-ip:/var/www/sensorium/
+3. Replace 'username' and 'your-server-ip' with your actual server details
+
+Option 3: Copy to Droplet via SSH
+1. SSH into your server: ssh username@your-server-ip
+2. Create directory: sudo mkdir -p /var/www/sensorium
+3. Set permissions: sudo chown -R $USER:$USER /var/www/sensorium
+4. Exit SSH
+5. From your local machine: scp -r client-review-package/* username@your-server-ip:/var/www/sensorium/
+6. SSH back in and configure Nginx (see NGINX-CONFIG.txt)
+
+PAGES INCLUDED:
+---------------
+- index.html (Homepage)
+- about-us-option2-comprehensive.html
+- for-patients-option3-visual-story.html
+- for-sponsors-option3-partnership.html
+- for-site-owners-option2-growth.html
+- join-clinical-trial.html
+- contact.html
+- faq.html
+- Sensorium-Whitepaper-4Phase-Model.pdf
+
+AFTER DEPLOYMENT:
+-----------------
+Your client can access the site at:
+- Homepage: http://YOUR_SERVER_IP
+- About Us: http://YOUR_SERVER_IP/about-us-option2-comprehensive.html
+- For Patients: http://YOUR_SERVER_IP/for-patients-option3-visual-story.html
+- For Sponsors: http://YOUR_SERVER_IP/for-sponsors-option3-partnership.html
+- For Site Owners: http://YOUR_SERVER_IP/for-site-owners-option2-growth.html
+- Join Trial: http://YOUR_SERVER_IP/join-clinical-trial.html
+- Contact: http://YOUR_SERVER_IP/contact.html
+- FAQ: http://YOUR_SERVER_IP/faq.html
+- Whitepaper: http://YOUR_SERVER_IP/Sensorium-Whitepaper-4Phase-Model.pdf
+
+TROUBLESHOOTING:
+----------------
+- If images don't load, ensure the images/ folder was uploaded
+- If pages show 404 errors, check file permissions (should be 644 for files, 755 for directories)
+- If Nginx shows errors, check the configuration in NGINX-CONFIG.txt
