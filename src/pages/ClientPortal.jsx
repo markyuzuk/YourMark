@@ -33,13 +33,13 @@ const ClientPortal = () => {
       versionLabel: '',
       clientName: 'Sensorium Clinical Research',
       projectName: 'Rose Color Sandbox Area',
-      previewUrl: 'https://preview.yourmark.ai/',
+      previewUrl: '/preview',
       status: 'Review',
       lastUpdated: '2026-02-19',
       thumbnail: '/sandbox-preview.png',
       description: 'Experimental sandbox area for testing and exploring new rose-colored design concepts and creative ideas. Preview the latest RoseSandbox website design.',
       isRoseColored: true,
-      isExternal: true,
+      isExternal: false,
       useImageIcon: false
     },
     {

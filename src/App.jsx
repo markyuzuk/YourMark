@@ -5,6 +5,7 @@ import GetStarted from './pages/GetStarted'
 import ScheduleConsultation from './pages/ScheduleConsultation'
 import PdfDirectory from './pages/PdfDirectory'
 import PdfViewer from './pages/PdfViewer'
+import Preview from './pages/Preview'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/3" element={<ScheduleConsultation />} />
         <Route path="/4" element={<PdfDirectory />} />
         <Route path="/4/:id" element={<PdfViewer />} />
+        <Route path="/preview" element={<Preview />} />
       </Routes>
     </Router>
   )
