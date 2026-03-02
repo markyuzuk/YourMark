@@ -168,7 +168,7 @@ const ClientPortal = () => {
           
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 border border-rose-100 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to the Sensorium Clinical Research Version 5 Website Preview</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to the Sensorium Clinical Research Website Preview</h2>
               <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4">
                 <p>
                   This complete redesign was built around a core principle that sets Sensorium apart in the clinical research industry: <strong>"Most clinical trial sites scale up and lose their soul. Care becomes corporate. Patients become data points. Communities become markets. Not here. We are different."</strong>
@@ -178,6 +178,9 @@ const ClientPortal = () => {
                 </p>
                 <p>
                   The design philosophy prioritizes clarity over complexity, featuring a modern yet approachable aesthetic with clean typography, strategic gradient treatments that guide the eye naturally, and a fully responsive layout optimized for both desktop and mobile experiences. Built with HTML5 and Tailwind CSS, the site includes 14 interconnected pages covering everything from the company's origin story and leadership team to detailed information for each audience segment, therapeutic area listings for clinical trials, white papers showcasing industry expertise, and comprehensive FAQ resources.
+                </p>
+                <p>
+                  This design purposefully did not use stock images but will evolve with real images of the sites and people to help provide authenticity, as well as be different from the other digital presences to help drive the core message of "we are different." This intentional approach ensures that every visual element reinforces the genuine, human-centered nature of Sensorium's work.
                 </p>
                 <p>
                   Each page has been carefully crafted to build trust through transparency, educate visitors about the clinical research process, and ultimately invite them to become part of the Sensorium community—whether as a patient participant, pharmaceutical sponsor, or independent site owner looking to join the network.
