@@ -33,28 +33,14 @@ const ClientPortal = () => {
       versionLabel: 'V5 - Sandbox',
       clientName: 'Sensorium Clinical Research',
       projectName: 'Rose Color Sandbox Area',
-      previewUrl: 'https://yourmark.ai/rosesandbox/index.html',
+      previewUrl: 'https://preview.yourmark.ai/',
       status: 'Review',
       lastUpdated: '2026-02-19',
-      thumbnail: '/rosesandbox/images/SensoriumLogo words.jpg',
+      thumbnail: '/sandbox-preview.png',
       description: 'Experimental sandbox area for testing and exploring new rose-colored design concepts and creative ideas. Preview the latest RoseSandbox website design.',
       isRoseColored: true,
       isExternal: true,
-      useImageIcon: true
-    },
-    {
-      id: 5,
-      clientName: 'Sensorium Clinical Research',
-      projectName: 'New Rose Colored Theme (PDF Review)',
-      previewUrl: '#',
-      status: 'Review',
-      lastUpdated: '2026-01-27',
-      thumbnail: '/pdf-table-preview.png',
-      description: 'Warm and welcoming theme, improved content language, expansion to additional audiences. Note: The Sensorium logo depicted is just a placeholder and will be updated as we finalize.',
-      isRoseColored: false,
-      isExternal: false,
-      useImageIcon: true,
-      isGreyedOut: true
+      useImageIcon: false
     },
     {
       id: 1,
