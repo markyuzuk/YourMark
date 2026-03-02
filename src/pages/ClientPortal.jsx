@@ -30,7 +30,7 @@ const ClientPortal = () => {
   const demoProjects = [
     {
       id: 5,
-      versionLabel: 'V5 - Sandbox',
+      versionLabel: '',
       clientName: 'Sensorium Clinical Research',
       projectName: 'Rose Color Sandbox Area',
       previewUrl: 'https://preview.yourmark.ai/',
@@ -47,7 +47,7 @@ const ClientPortal = () => {
       clientName: 'Sensorium Clinical Research',
       projectName: 'Original Blue Theme',
       previewUrl: '#',
-      status: 'In Progress',
+      status: 'Completed',
       lastUpdated: '2026-01-28',
       thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
       description: 'Original blue theme, improved content language, expansion to additional audiences.',
@@ -63,7 +63,13 @@ const ClientPortal = () => {
       thumbnail: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop',
       description: 'Downloadable PDF with comprehensive brand guidelines and vision documentation.',
       isPDF: true,
-      isGreyedOut: true
+      isGreyedOut: true,
+      links: [
+        { label: 'Brand Guidelines', url: '#' },
+        { label: 'Vision Document', url: '#' },
+        { label: 'Style Guide', url: '#' },
+        { label: 'Asset Library', url: '#' }
+      ]
     }
   ]
 
@@ -304,6 +310,20 @@ const ClientPortal = () => {
                 <p className="text-sm text-gray-600 mb-4">
                   {project.description}
                 </p>
+                
+                {project.links && (
+                  <div className="mb-4 space-y-2">
+                    {project.links.map((link, idx) => (
+                      <a
+                        key={idx}
+                        href={link.url}
+                        className="block text-sm text-primary hover:underline"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
                 
                 <div className="flex items-center text-xs text-gray-500 mb-4">
                   <Calendar className="h-4 w-4 mr-1" />
