@@ -219,6 +219,36 @@ const ClientPortal = () => {
               </ul>
             </div>
           </div>
+
+          <div className="mt-8 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 border border-amber-100 shadow-sm">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Website Development To-Do List</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center w-6 h-6 bg-amber-500 text-white rounded-full mr-3 flex-shrink-0 text-sm font-bold">1</span>
+                <span className="text-gray-700 text-lg"><strong>Put whitepapers in new template and add to white papers section</strong></span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center w-6 h-6 bg-amber-500 text-white rounded-full mr-3 flex-shrink-0 text-sm font-bold">2</span>
+                <span className="text-gray-700 text-lg"><strong>Create whitepapers section</strong></span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center w-6 h-6 bg-amber-500 text-white rounded-full mr-3 flex-shrink-0 text-sm font-bold">3</span>
+                <span className="text-gray-700 text-lg"><strong>Make website accessible for me and Thurston</strong></span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center w-6 h-6 bg-amber-500 text-white rounded-full mr-3 flex-shrink-0 text-sm font-bold">4</span>
+                <span className="text-gray-700 text-lg"><strong>Edit Thurston section, if needed</strong></span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center w-6 h-6 bg-amber-500 text-white rounded-full mr-3 flex-shrink-0 text-sm font-bold">5</span>
+                <span className="text-gray-700 text-lg"><strong>Click on all links</strong></span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center w-6 h-6 bg-amber-500 text-white rounded-full mr-3 flex-shrink-0 text-sm font-bold">6</span>
+                <span className="text-gray-700 text-lg"><strong>One of the banners has a long tagline and sub tagline that we need to shorten</strong></span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
