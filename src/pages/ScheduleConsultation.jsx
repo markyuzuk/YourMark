@@ -268,24 +268,6 @@ const ScheduleConsultation = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 border-emerald-200">
-                <CardContent className="pt-6">
-                  <h3 className="font-semibold text-lg mb-2">Questions?</h3>
-                  <p className="text-sm text-gray-700 mb-4">
-                    Feel free to reach out directly if you have any questions before scheduling.
-                  </p>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center">
-                      <Mail className="h-4 w-4 text-emerald-600 mr-2" />
-                      <span>contact@yourmark.ai</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Phone className="h-4 w-4 text-emerald-600 mr-2" />
-                      <span>+1 (555) 123-4567</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>
