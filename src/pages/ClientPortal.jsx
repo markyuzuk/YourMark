@@ -139,9 +139,20 @@ const ClientPortal = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-20">
           <h1 className="text-4xl font-bold mb-4">Sensorium Clinical Research</h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 mb-8">
             View and interact with your website projects in development
           </p>
+          
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-2 flex items-center">
+              <Lock className="h-5 w-5 mr-2 text-primary" />
+              Secure Preview Access
+            </h3>
+            <p className="text-gray-700">
+              All project previews are password-protected and encrypted. Your access is logged for security purposes. 
+              If you have any questions or need assistance, please contact your project manager.
+            </p>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
@@ -181,7 +192,7 @@ const ClientPortal = () => {
                 </div>
               </div>
               
-              <CardHeader className="pt-8">
+              <CardHeader className="pt-14">
                 <CardTitle className="text-xl">{project.projectName}</CardTitle>
                 <CardDescription className="text-sm font-medium text-primary">
                   {project.clientName}
@@ -358,17 +369,6 @@ const ClientPortal = () => {
               </div>
             </div>
 
-        </div>
-
-        <div className="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-2 flex items-center">
-            <Lock className="h-5 w-5 mr-2 text-primary" />
-            Secure Preview Access
-          </h3>
-          <p className="text-gray-700">
-            All project previews are password-protected and encrypted. Your access is logged for security purposes. 
-            If you have any questions or need assistance, please contact your project manager.
-          </p>
         </div>
       </div>
 
