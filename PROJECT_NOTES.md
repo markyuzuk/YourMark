@@ -1,5 +1,126 @@
 # Project Notes
 
+## Production Deployment - April 13, 2026
+
+### Sensorium Clinical Research Demo Sites & Client Portal Updates
+
+#### Deployment Information
+- **Domain**: https://www.yourmark.ai
+- **Deployment Date**: April 13, 2026
+- **Deployment Method**: SSH via deploy-existing.sh script
+- **SSL Certificate**: Let's Encrypt (auto-renewing)
+- **Status**: ✅ Successfully Deployed
+
+#### What Was Deployed
+
+**Sensorium Demo Sites:**
+- Complete Rose-themed demo site (`/rose-demo/`)
+- Complete Blue-themed demo site (`/blue-demo/`)
+- 20+ HTML pages per theme including:
+  - Landing pages (patient-centric)
+  - About Us (comprehensive)
+  - Origin Story pages
+  - Our People (leadership team)
+  - FAQ pages
+  - Careers, Contact, Partnerships
+  - For Patients, For Sponsors, For Site Owners pages
+- All images and assets properly organized in `/images/` folders
+- Logo images: `rose-thumbnail.png` and `blue-thumbnail.png`
+
+**Client Portal Enhancements:**
+- Demo cards now display actual screenshot thumbnails instead of circular badges
+- Reorganized layout: demo cards on left (2/3 width), Design Principles on right (1/3 width)
+- Added "Option 1" and "Option 2" labels to demo titles
+- Updated version labels: "Rose Colored Version" and "Midnight Blue Version"
+- Increased whitespace between page heading and demo cards (mb-20)
+- Design Principles panel with sticky positioning
+- Demos open in new window with 80% zoom level
+
+**Bug Fixes:**
+- Fixed all internal navigation links to use correct `/rose-demo/` and `/blue-demo/` paths
+- Corrected logo image paths on all pages
+- Fixed Origin Story button links (now points to actual origin-story.html pages)
+- Fixed Our People button links (now points to actual our-people.html pages)
+- Fixed FAQ links on about pages
+- Ensured all images load correctly with proper paths
+
+#### Deployment Process
+
+1. **SSH Key Setup:**
+   - Added SSH public key to Digital Ocean droplet via console
+   - Key: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEOjkHvozPsE1h3h9HwXW5dkAkB6wa1yLTenoAgB06tp`
+
+2. **Build & Deploy:**
+   ```bash
+   npm run build  # Build production version
+   export DROPLET_IP=204.48.31.51
+   ./deploy-existing.sh  # Deploy to server
+   ```
+
+3. **Domain Configuration:**
+   - Updated Nginx config to serve `yourmark.ai` and `www.yourmark.ai`
+   - Installed SSL certificate via certbot
+   - Enabled HTTPS with automatic redirect
+
+4. **Git Commit:**
+   ```bash
+   git add -A
+   git commit -m "feat: Complete Sensorium demo fixes and Client Portal enhancements"
+   git push origin main
+   ```
+
+#### Live URLs
+
+**Production Site:**
+- Main: https://www.yourmark.ai
+- Client Portal: https://www.yourmark.ai/1 (Access code: `Welcome2026`)
+
+**Demo Sites:**
+- Rose Demo: https://www.yourmark.ai/rose-demo/landing-v4-patient-centric.html
+- Blue Demo: https://www.yourmark.ai/blue-demo/landing-v4-patient-centric.html
+
+#### Future Deployment Instructions
+
+To deploy updates in the future:
+
+1. **Make changes locally and test:**
+   ```bash
+   npm run dev  # Test locally at http://localhost:5173
+   ```
+
+2. **Commit changes to Git:**
+   ```bash
+   git add -A
+   git commit -m "Description of changes"
+   git push origin main
+   ```
+
+3. **Deploy to production:**
+   ```bash
+   export DROPLET_IP=204.48.31.51
+   ./deploy-existing.sh
+   ```
+
+The deployment script will:
+- Pull latest code from GitHub
+- Install dependencies
+- Build production version
+- Update Nginx configuration
+- Restart web server
+
+#### SSH Connection Troubleshooting
+
+If SSH connection fails:
+1. Verify server is running in Digital Ocean console
+2. Check SSH key is in server's `~/.ssh/authorized_keys`
+3. Test connection: `ssh root@204.48.31.51`
+4. If needed, add key via Digital Ocean console:
+   ```bash
+   echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEOjkHvozPsE1h3h9HwXW5dkAkB6wa1yLTenoAgB06tp markyuzuk@gmail.com" >> ~/.ssh/authorized_keys
+   ```
+
+---
+
 ## GitHub Repository Setup - February 11, 2026
 
 ### Repository Information
