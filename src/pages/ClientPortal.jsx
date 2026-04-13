@@ -324,8 +324,8 @@ const ClientPortal = () => {
                     <span className="text-white font-bold text-sm">5</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Be Authentic</h4>
-                    <p className="text-sm text-gray-600">Genuine voice and transparent approach</p>
+                    <h4 className="font-bold text-gray-900 mb-1">Be Different, Stand Out</h4>
+                    <p className="text-sm text-gray-600">Unique approach that sets you apart</p>
                   </div>
                 </div>
                 <div className="flex items-start group">
