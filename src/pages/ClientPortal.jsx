@@ -181,7 +181,7 @@ const ClientPortal = () => {
                 </div>
               </div>
               
-              <CardHeader>
+              <CardHeader className="pt-8">
                 <CardTitle className="text-xl">{project.projectName}</CardTitle>
                 <CardDescription className="text-sm font-medium text-primary">
                   {project.clientName}
