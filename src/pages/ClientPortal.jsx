@@ -14,47 +14,32 @@ const ClientPortal = () => {
 
   const demoProjects = [
     {
-      id: 5,
-      versionLabel: '',
-      clientName: 'Sensorium Clinical Research',
-      projectName: 'Rose Color Sandbox Area',
-      previewUrl: 'https://preview.yourmark.ai/',
-      status: 'Review',
-      lastUpdated: '2026-02-19',
-      thumbnail: '/sandbox-preview.png',
-      description: 'Experimental sandbox area for testing and exploring new rose-colored design concepts and creative ideas. Preview the latest RoseSandbox website design.',
-      isRoseColored: true,
-      isExternal: true,
-      useImageIcon: false
-    },
-    {
       id: 1,
       clientName: 'Sensorium Clinical Research',
-      projectName: 'Original Blue Theme',
-      previewUrl: '#',
-      status: 'Completed',
-      lastUpdated: '2026-01-28',
-      thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
-      description: 'Original blue theme, improved content language, expansion to additional audiences.',
-      isGreyedOut: true
+      projectName: 'Rose Theme Demo - Option 1',
+      previewUrl: '/rose-demo/landing-v4-patient-centric.html',
+      status: 'Review',
+      lastUpdated: '2026-04-13',
+      thumbnail: '/rose-demo/images/rose-thumbnail.png',
+      description: 'Complete rose-themed website design with patient-centric messaging and warm, approachable aesthetic.',
+      isRoseColored: true,
+      isExternal: true,
+      useImageIcon: true,
+      versionLabel: 'Rose Colored Version'
     },
     {
-      id: 3,
+      id: 2,
       clientName: 'Sensorium Clinical Research',
-      projectName: 'Brand/Vision',
-      previewUrl: '#',
-      status: 'Completed',
-      lastUpdated: '2026-01-25',
-      thumbnail: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop',
-      description: 'Downloadable PDF with comprehensive brand guidelines and vision documentation.',
-      isPDF: true,
-      isGreyedOut: true,
-      links: [
-        { label: 'Brand Guidelines', url: '#' },
-        { label: 'Vision Document', url: '#' },
-        { label: 'Style Guide', url: '#' },
-        { label: 'Asset Library', url: '#' }
-      ]
+      projectName: 'Blue Theme Demo - Option 2',
+      previewUrl: '/blue-demo/landing-v4-patient-centric.html',
+      status: 'Review',
+      lastUpdated: '2026-04-13',
+      thumbnail: '/blue-demo/images/blue-thumbnail.png',
+      description: 'Complete blue-themed website design with patient-centric messaging and warm, approachable aesthetic.',
+      isBlueColored: true,
+      isExternal: true,
+      useImageIcon: true,
+      versionLabel: 'Midnight Blue Version'
     }
   ]
 
@@ -152,69 +137,18 @@ const ClientPortal = () => {
       </nav>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12">
+        <div className="mb-20">
           <h1 className="text-4xl font-bold mb-4">Sensorium Clinical Research</h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-gray-600">
             View and interact with your website projects in development
           </p>
-          
-          <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 border border-rose-100 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to the Sensorium Clinical Research Website Preview</h2>
-              <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4">
-                <p>
-                  This complete redesign was built around a core principle that sets Sensorium apart in the clinical research industry: <strong>"Most clinical trial sites scale up and lose their soul. Care becomes corporate. Patients become data points. Communities become markets. Not here. We are different."</strong>
-                </p>
-                <p>
-                  Every design decision—from the warm rose color palette to the patient-centric messaging—reinforces this commitment to maintaining local culture and community-focused care while scaling operations. The site serves four distinct audiences with tailored content while maintaining a cohesive brand identity that emphasizes trust, transparency, and human-centered care. Built with HTML5 and Tailwind CSS, the site includes 14 interconnected pages with a modern, approachable aesthetic optimized for both desktop and mobile experiences.
-                </p>
-                <p>
-                  This design purposefully did not use stock images but will evolve with real images of the sites and people to provide authenticity and reinforce the "we are different" message. Each page has been carefully crafted to build trust through transparency, educate visitors about the clinical research process, and invite them to become part of the Sensorium community.
-                </p>
-              </div>
-            </div>
-
-          <div className="mt-8 grid lg:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-100 shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Design Principles</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-gray-700"><strong>Make it Punchy</strong> - Bold headlines and clear value propositions</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-gray-700"><strong>Tell the Culture Story</strong> - Emphasize community and human connection</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-gray-700"><strong>Clear Messaging</strong> - Direct communication without jargon</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-gray-700"><strong>Avoid Stock Photos</strong> - Use authentic imagery that reflects real people</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-gray-700"><strong>Be Authentic</strong> - Genuine voice and transparent approach</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-gray-700"><strong>Mobile Friendly</strong> - Fully responsive design for all devices</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-gray-700"><strong>Easy Access to Studies</strong> - Streamlined navigation to trial information</span>
-                </li>
-              </ul>
-            </div>
-
-          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+          <div className="lg:col-span-2 grid md:grid-cols-2 gap-8">
           {demoProjects.map((project) => (
             <Card key={project.id} className={`hover:shadow-lg transition-shadow overflow-hidden flex flex-col ${project.isGreyedOut ? 'opacity-50' : ''}`}>
-              <div className={`relative h-48 bg-gradient-to-br overflow-hidden flex items-center justify-center ${project.isGreyedOut ? 'from-gray-100 to-gray-200' : project.isRoseColored ? 'from-rose-50 to-rose-100' : 'from-emerald-50 to-emerald-100'}`}>
+              <div className={`relative h-48 bg-gradient-to-br overflow-hidden flex items-center justify-center ${project.isGreyedOut ? 'from-gray-100 to-gray-200' : project.isRoseColored ? 'from-rose-50 to-rose-100' : project.isBlueColored ? 'from-blue-50 to-blue-100' : 'from-emerald-50 to-emerald-100'}`}>
                 {project.useImageIcon ? (
                   <img 
                     src={project.thumbnail} 
@@ -225,17 +159,17 @@ const ClientPortal = () => {
                   <div className="text-center">
                     {project.isPDF || project.isPDFIcon ? (
                       <>
-                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : 'bg-emerald-500'}`}>
+                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : project.isBlueColored ? 'bg-blue-500' : 'bg-emerald-500'}`}>
                           <FileText className="h-12 w-12" />
                         </div>
-                        <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : 'text-emerald-700'}`}>{project.isPDFIcon ? 'PDF Directory' : 'PDF Document'}</p>
+                        <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : project.isBlueColored ? 'text-blue-700' : 'text-emerald-700'}`}>{project.isPDFIcon ? 'PDF Directory' : 'PDF Document'}</p>
                       </>
                     ) : (
                       <>
-                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : 'bg-emerald-500'}`}>
+                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-white mb-2 ${project.isGreyedOut ? 'bg-gray-400' : project.isRoseColored ? 'bg-rose-500' : project.isBlueColored ? 'bg-blue-500' : 'bg-emerald-500'}`}>
                           <span className={`font-bold ${project.versionLabel ? 'text-2xl' : 'text-4xl'}`}>{project.versionLabel || `V${project.id}`}</span>
                         </div>
-                        <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : 'text-emerald-700'}`}>{project.versionLabel || `Version ${project.id}`}</p>
+                        <p className={`text-sm font-medium ${project.isGreyedOut ? 'text-gray-500' : project.isRoseColored ? 'text-rose-700' : project.isBlueColored ? 'text-blue-700' : 'text-emerald-700'}`}>{project.versionLabel || `Version ${project.id}`}</p>
                       </>
                     )}
                   </div>
@@ -294,7 +228,12 @@ const ClientPortal = () => {
                           onClick={() => {
                             if (!project.isGreyedOut && project.previewUrl !== '#') {
                               if (project.isExternal) {
-                                window.location.href = project.previewUrl
+                                const newWindow = window.open(project.previewUrl, '_blank');
+                                if (newWindow) {
+                                  newWindow.addEventListener('load', () => {
+                                    newWindow.document.body.style.zoom = '0.8';
+                                  });
+                                }
                               } else {
                                 navigate(project.previewUrl)
                               }
@@ -327,6 +266,98 @@ const ClientPortal = () => {
               </CardContent>
             </Card>
           ))}
+          </div>
+
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-lg sticky top-24">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">Design Principles</h3>
+              <div className="space-y-4">
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">1</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Make it Punchy</h4>
+                    <p className="text-sm text-gray-600">Bold headlines and clear value propositions</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">2</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Tell the Culture Story</h4>
+                    <p className="text-sm text-gray-600">Emphasize community and human connection</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">3</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Clear Messaging</h4>
+                    <p className="text-sm text-gray-600">Direct communication without jargon</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">4</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Avoid Stock Photos</h4>
+                    <p className="text-sm text-gray-600">Use authentic imagery that reflects real people</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">5</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Be Authentic</h4>
+                    <p className="text-sm text-gray-600">Genuine voice and transparent approach</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">6</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Mobile Friendly</h4>
+                    <p className="text-sm text-gray-600">Fully responsive design for all devices</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">7</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Easy Access to Studies</h4>
+                    <p className="text-sm text-gray-600">Streamlined navigation to trial information</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="bg-white rounded-3xl p-10 border border-gray-200 shadow-lg">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 pb-4 border-b border-gray-200">Welcome to the Sensorium Clinical Research Website Preview</h2>
+              <div className="space-y-6">
+                <div className="bg-gradient-to-r from-rose-50 to-pink-50 border-l-4 border-rose-400 rounded-r-xl p-6">
+                  <p className="text-lg text-gray-800 leading-relaxed italic">
+                    This complete redesign was built around a core principle that sets Sensorium apart in the clinical research industry: <strong className="text-rose-700 not-italic">"Most clinical trial sites scale up and lose their soul. Care becomes corporate. Patients become data points. Communities become markets. Not here. We are different."</strong>
+                  </p>
+                </div>
+                <p className="text-base text-gray-700 leading-relaxed">
+                  Every design decision—from the warm rose color palette to the patient-centric messaging—reinforces this commitment to maintaining local culture and community-focused care while scaling operations. The site serves four distinct audiences with tailored content while maintaining a cohesive brand identity that emphasizes trust, transparency, and human-centered care. Built with HTML5 and Tailwind CSS, the site includes 14 interconnected pages with a modern, approachable aesthetic optimized for both desktop and mobile experiences.
+                </p>
+                <p className="text-base text-gray-700 leading-relaxed">
+                  This design purposefully did not use stock images but will evolve with real images of the sites and people to provide authenticity and reinforce the "we are different" message. Each page has been carefully crafted to build trust through transparency, educate visitors about the clinical research process, and invite them to become part of the Sensorium community.
+                </p>
+              </div>
+            </div>
+
         </div>
 
         <div className="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6">

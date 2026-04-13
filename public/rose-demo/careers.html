@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Sensorium Clinical Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 70px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #1f2937;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0284c7;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .bg-light {
+            background-color: #f9fafb;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #0284c7;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: #6b7280;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .section-text {
+            font-size: 1.125rem;
+            color: #4b5563;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Values Grid */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 3rem auto;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #0284c7;
+        }
+
+        .value-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            color: #0284c7;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .value-card p {
+            color: #4b5563;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Positions Grid */
+        .positions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .position-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #0284c7;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .position-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .position-card h3 {
+            color: #0284c7;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .position-card .location {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .position-card .description {
+            color: #4b5563;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .position-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .position-card li {
+            color: #4b5563;
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .position-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0284c7;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0284c7;
+            border: 2px solid #0284c7;
+        }
+
+        .btn-secondary:hover {
+            background: #0284c7;
+            color: white;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            border-left: 4px solid #0284c7;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .highlight-text {
+            color: #0c4a6e;
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: #9ca3af;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="sensorium-clinical-research.html">
+                    <img src="sensorium-logo.png" alt="Sensorium Clinical Research" class="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="sensorium-clinical-research.html#home">Home</a></li>
+                <li><a href="sensorium-clinical-research.html#what-is-sensorium">About</a></li>
+                <li><a href="sensorium-clinical-research.html#site-network">Network</a></li>
+                <li><a href="sensorium-clinical-research.html#patients">Patients</a></li>
+                <li><a href="sensorium-clinical-research.html#values">Values</a></li>
+                <li><a href="sensorium-clinical-research.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Join Our Team</h1>
+            <p>Help us build the future of clinical research—where local care meets network strength, and every voice matters.</p>
+        </div>
+    </section>
+
+    <!-- Why Work Here Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Why Work at Sensorium?</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <p class="section-text">
+                    At Sensorium Clinical Research, we're building something different: a site network that preserves what makes small sites special while providing the support and scale they need to thrive.
+                </p>
+                <p class="section-text">
+                    We believe in <strong>respect, trust, service, dedication, joy, and excellence</strong>. These aren't just words on a wall—they guide how we work, how we treat each other, and how we serve our patients and partners.
+                </p>
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        If you want to make a real difference in clinical research—where your work directly impacts patients, communities, and the future of medicine—we'd love to hear from you.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="bg-light">
+        <div class="container">
+            <h2 class="section-title">What Drives Us</h2>
+            <p class="section-subtitle">
+                Our values aren't just principles—they're how we show up every day.
+            </p>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="icon">🤝</div>
+                    <h3>Respect</h3>
+                    <p>We honor the people, cultures, and communities that make each site unique.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🛡️</div>
+                    <h3>Trust</h3>
+                    <p>We build confidence through honesty, transparency, and doing what we say we'll do.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">💙</div>
+                    <h3>Service</h3>
+                    <p>We put patients, caregivers, and partners first in everything we do.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">💪</div>
+                    <h3>Dedication</h3>
+                    <p>We work hard because we care deeply about the outcomes that matter.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">✨</div>
+                    <h3>Joy</h3>
+                    <p>We find purpose and enjoyment in our work and in the relationships we build.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🏆</div>
+                    <h3>Excellence</h3>
+                    <p>We strive to be great in every detail, from patient care to scientific rigor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Open Positions</h2>
+            <p class="section-subtitle">
+                We're growing and looking for talented people to join our team.
+            </p>
+            <div class="positions-grid">
+                <div class="position-card">
+                    <h3>Clinical Research Coordinator</h3>
+                    <p class="location">📍 Philadelphia, PA | Remote Options Available</p>
+                    <p class="description">
+                        Support clinical trial operations, patient recruitment, and site coordination across our network.
+                    </p>
+                    <ul>
+                        <li>2+ years clinical research experience</li>
+                        <li>Strong organizational skills</li>
+                        <li>Patient-focused mindset</li>
+                    </ul>
+                    <a href="mailto:matt@sensoriumcr.com?subject=Application: Clinical Research Coordinator" class="btn btn-primary">Apply Now</a>
+                </div>
+
+                <div class="position-card">
+                    <h3>Site Network Manager</h3>
+                    <p class="location">📍 Philadelphia, PA | Hybrid</p>
+                    <p class="description">
+                        Build relationships with independent sites and help them succeed within our network.
+                    </p>
+                    <ul>
+                        <li>5+ years in clinical research operations</li>
+                        <li>Experience managing site relationships</li>
+                        <li>Strong communication skills</li>
+                    </ul>
+                    <a href="mailto:matt@sensoriumcr.com?subject=Application: Site Network Manager" class="btn btn-primary">Apply Now</a>
+                </div>
+
+                <div class="position-card">
+                    <h3>Business Development Associate</h3>
+                    <p class="location">📍 Remote | Travel Required</p>
+                    <p class="description">
+                        Help sponsors and CROs discover the Sensorium difference and bring new studies to our network.
+                    </p>
+                    <ul>
+                        <li>3+ years in clinical research BD</li>
+                        <li>Proven track record in sales</li>
+                        <li>Understanding of sponsor needs</li>
+                    </ul>
+                    <a href="mailto:matt@sensoriumcr.com?subject=Application: Business Development Associate" class="btn btn-primary">Apply Now</a>
+                </div>
+
+                <div class="position-card">
+                    <h3>Patient Recruitment Specialist</h3>
+                    <p class="location">📍 Various Locations</p>
+                    <p class="description">
+                        Connect with diverse communities and help patients find clinical trials that could change their lives.
+                    </p>
+                    <ul>
+                        <li>Experience in community outreach</li>
+                        <li>Bilingual skills a plus</li>
+                        <li>Passion for patient care</li>
+                    </ul>
+                    <a href="mailto:matt@sensoriumcr.com?subject=Application: Patient Recruitment Specialist" class="btn btn-primary">Apply Now</a>
+                </div>
+
+                <div class="position-card">
+                    <h3>Quality Assurance Manager</h3>
+                    <p class="location">📍 Philadelphia, PA | Hybrid</p>
+                    <p class="description">
+                        Ensure excellence across our network with consistent quality standards and site support.
+                    </p>
+                    <ul>
+                        <li>5+ years in clinical QA</li>
+                        <li>Knowledge of GCP and regulations</li>
+                        <li>Audit experience preferred</li>
+                    </ul>
+                    <a href="mailto:matt@sensoriumcr.com?subject=Application: Quality Assurance Manager" class="btn btn-primary">Apply Now</a>
+                </div>
+
+                <div class="position-card">
+                    <h3>Data Manager</h3>
+                    <p class="location">📍 Remote</p>
+                    <p class="description">
+                        Manage clinical trial data systems and ensure data quality across multiple studies and sites.
+                    </p>
+                    <ul>
+                        <li>3+ years in clinical data management</li>
+                        <li>EDC system experience</li>
+                        <li>Attention to detail</li>
+                    </ul>
+                    <a href="mailto:matt@sensoriumcr.com?subject=Application: Data Manager" class="btn btn-primary">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Don't See Your Role Section -->
+    <section class="bg-light">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Don't See Your Role?</h2>
+            <p class="section-subtitle">
+                We're always looking for talented people who share our values. Send us your resume and tell us how you'd like to contribute to the Sensorium Effect.
+            </p>
+            <a href="mailto:matt@sensoriumcr.com?subject=General Career Inquiry" class="btn btn-primary" style="font-size: 1.125rem;">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sensorium Clinical Research</h3>
+                <p>A next-generation clinical trial site network combining the scale and support of a network with the warmth and responsiveness of local sites.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Regional Offices</h3>
+                <p><strong>Philadelphia, PA</strong></p>
+                <p>Northeast Corridor Hub</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>matt@sensoriumcr.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="sensorium-clinical-research.html#what-is-sensorium" style="color: #9ca3af; text-decoration: none;">About Us</a></p>
+                <p><a href="sensorium-clinical-research.html#site-network" style="color: #9ca3af; text-decoration: none;">Our Network</a></p>
+                <p><a href="sensorium-clinical-research.html#values" style="color: #9ca3af; text-decoration: none;">Our Values</a></p>
+                <p><a href="sensorium-clinical-research.html#contact" style="color: #9ca3af; text-decoration: none;">Contact</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Sensorium Clinical Research. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Sensorium Clinical Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Nunito', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', ui-sans-serif, system-ui, -apple-system, sans-serif;
+        }
+        .font-serif {
+            font-family: 'Nunito', ui-sans-serif, system-ui, -apple-system, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between" style="min-height: 80px; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div class="flex items-center">
+                    <a href="/rose-demo/home.html" class="flex items-center hover:opacity-80 transition-opacity">
+                        <img src="/rose-demo/images/BrightRoseSensoriumCRLogo.jpg" alt="Sensorium Clinical Research" style="height: 70px;">
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/rose-demo/about-us-option2-comprehensive.html" class="text-gray-700 hover:text-primary-600 transition-colors">About</a>
+                    <a href="/rose-demo/for-patients-option3-visual-story.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Patients</a>
+                    <a href="/rose-demo/for-sponsors-option3-partnership.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Sponsors</a>
+                    <a href="/rose-demo/for-site-owners-option2-growth.html" class="text-gray-700 hover:text-primary-600 transition-colors">For Site Owners</a>
+                    <a href="/rose-demo/join-a-study.html" class="bg-primary-600 text-white px-5 py-2 rounded-lg hover:bg-primary-700 transition-colors">Find a Study</a>
+                    <a href="/rose-demo/contact.html" class="bg-primary-600 text-white px-5 py-2 rounded-lg hover:bg-primary-700 transition-colors">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-primary-700 via-primary-600 via-50% to-primary-300 text-white py-20 px-4">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h1 class="text-6xl md:text-7xl font-serif font-bold mb-6 leading-tight">
+                Frequently Asked Questions
+            </h1>
+            <p class="text-2xl text-primary-50 max-w-3xl leading-relaxed whitespace-nowrap">
+                Common questions about participating in clinical research with Sensorium.
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ Section with Accordion -->
+    <section class="py-24 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <!-- Expand/Collapse All Button -->
+            <div class="flex justify-end mb-6">
+                <button id="expandCollapseBtn" onclick="toggleAllAccordions()" class="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold shadow-lg">
+                    Expand All
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- FAQ 1 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq1')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What is clinical research?</h3>
+                        <svg id="faq1-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq1" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Clinical research is how we discover new medical possibilities. At Sensorium Clinical Research, it means working with volunteers to study new ways to detect, treat, or prevent conditions affecting our communities. These studies help us improve care and advance treatment options.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq2')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What is a clinical study?</h3>
+                        <svg id="faq2-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq2" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            A clinical study is a structured medical investigation that helps us answer key questions about how treatments work. Whether it's a new medication or an improved therapy, these studies aim to improve patient outcomes and public health.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq3')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What is the purpose of clinical studies?</h3>
+                        <svg id="faq3-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq3" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Our goal is to determine if a treatment is safe and effective. Clinical studies are designed to see how a treatment impacts health over time, and whether it can improve how we treat diseases. These studies often take years, but they pave the way for better care.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq4')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What are the different types of clinical studies?</h3>
+                        <svg id="faq4-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq4" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                            There are several types:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li>Treatment studies test new therapies or combinations</li>
+                            <li>Prevention studies explore how to stop illnesses from occurring</li>
+                            <li>Diagnostic studies help refine how diseases are identified</li>
+                            <li>Screening studies improve early detection</li>
+                            <li>Quality of life studies enhance day-to-day living for patients with chronic illness</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq5')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Who sponsors clinical studies?</h3>
+                        <svg id="faq5-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq5" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Sponsors can include pharmaceutical companies, government agencies, hospitals, and independent organizations. Sensorium Clinical Research also collaborates with local and national partners to ensure every study is responsibly managed.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq6')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What is informed consent?</h3>
+                        <svg id="faq6-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq6" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Informed consent is the process where participants learn all about the study before joining. You'll receive full details about what to expect, including potential risks and benefits. At Sensorium, we ensure all questions are answered and that your decision is voluntary and well-informed.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq7')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What is a protocol?</h3>
+                        <svg id="faq7-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq7" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            A protocol is the official blueprint for how a clinical study is conducted. It outlines who can participate, what tests and procedures will be performed, how long the study will last, and what outcomes we're evaluating. At Sensorium Clinical Research, our team follows these protocols carefully to ensure your safety and to gather reliable, meaningful results from each study.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq8')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What is a placebo?</h3>
+                        <svg id="faq8-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq8" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            A placebo is a substance that looks like the treatment being tested but has no active ingredients. It's often used in clinical studies to compare how effective the new treatment really is. If you're placed in a group receiving a placebo, you'll still receive close medical attention and regular check-ins from our team at Sensorium. Your participation is essential to helping us discover what truly works.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 9 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq9')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What is an IRB?</h3>
+                        <svg id="faq9-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq9" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            An Institutional Review Board (IRB) is an independent committee made up of medical and non-medical professionals. Their role is to carefully review and approve every clinical study before it begins. The IRB ensures that the research plan is ethical, the risks are minimized, and participants are fully informed. At Sensorium Clinical Research, we never begin a study until it's been reviewed and approved by an IRB to protect your rights and safety.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 10 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq10')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What are the benefits and risks of participating?</h3>
+                        <svg id="faq10-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq10" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                            Participating in a clinical study offers the chance to actively contribute to advancements in medicine. You may gain early access to promising treatments, receive additional medical attention from experienced professionals, and play a key role in improving healthcare for future generations. Some studies may also offer compensation for time and travel.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            However, every study carries potential risks. This could include side effects from the treatment or receiving a placebo instead of an active medication. At Sensorium Clinical Research, we ensure that you are fully informed and supported throughout the process, so you can decide what's best for your health.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 11 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq11')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Is it safe?</h3>
+                        <svg id="faq11-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq11" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Your safety is always our top priority. Clinical research at Sensorium follows strict ethical and regulatory standards set by government agencies. Every study is guided by a detailed protocol to ensure participants are treated with care and respect. All personal health information is kept confidential, and our team closely monitors every step of the process to protect your well-being.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 12 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq12')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">How do I get started?</h3>
+                        <svg id="faq12-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq12" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            The first step is to reach out to our team. We'll guide you through a quick pre-screening process to see if you meet the study's criteria. If you qualify, you'll be invited to our clinic to review the study details and provide your informed consent. We'll answer all your questions so you feel confident about joining. If you move forward, you'll sign a consent form and become part of the study team.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 13 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq13')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What questions should I ask before joining?</h3>
+                        <svg id="faq13-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq13" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                            Before you join a study, it's important to ask the right questions:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li>What is the study's goal?</li>
+                            <li>Has the treatment been tested before?</li>
+                            <li>Will I receive a placebo or the actual treatment?</li>
+                            <li>How long will the study last?</li>
+                            <li>What will I need to do as a participant?</li>
+                            <li>Will I receive compensation?</li>
+                            <li>Can I still see my regular doctor?</li>
+                            <li>Will there be follow-up after the study?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FAQ 14 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq14')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What are my rights as a participant?</h3>
+                        <svg id="faq14-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq14" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                            When you join a clinical study, you have rights, and we take those seriously:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li>To be informed that you're part of a study</li>
+                            <li>To understand the purpose, risks, and expectations</li>
+                            <li>To know what will happen and for how long</li>
+                            <li>To be aware of any side effects or discomforts</li>
+                            <li>To keep your personal information private</li>
+                            <li>To leave the study at any time, for any reason</li>
+                            <li>To receive a full explanation before signing anything</li>
+                            <li>To receive a copy of your consent form</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FAQ 15 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq15')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Can I change my mind?</h3>
+                        <svg id="faq15-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq15" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Absolutely. Participation is 100% voluntary at every stage. You can withdraw at any time, for any reason.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 16 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq16')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Can I still see my regular doctor?</h3>
+                        <svg id="faq16-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq16" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Only with your permission. We're happy to coordinate care if you choose. We work alongside your primary care physician to ensure your health remains the top priority.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 17 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq17')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Where do ideas for clinical studies come from?</h3>
+                        <svg id="faq17-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq17" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Ideas for studies come from doctors, scientists, and patient needs. We explore questions like: Can we treat a condition better? Can we reduce side effects? Can we improve quality of life? Studies begin in the lab, move to testing in small groups, and expand if results are promising.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 18 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq18')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">How is a clinical study designed?</h3>
+                        <svg id="faq18-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq18" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Each study follows a carefully designed plan called a protocol. At Sensorium Clinical Research, our expert team and sponsors develop these plans to ensure participant safety and reliable data. Participants are guided through every step, with their experience and care as a top priority.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 19 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq19')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Why should I participate in a clinical trial?</h3>
+                        <svg id="faq19-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq19" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Clinical trials offer access to promising new treatments and the chance to contribute to medical breakthroughs. Participants help future patients and support the advancement of care. While not all volunteers qualify, each one plays a critical role in the research process.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 20 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq20')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">What happens after I enroll?</h3>
+                        <svg id="faq20-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq20" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Once enrolled, our team will monitor your health and guide you through each phase of the study. Visits, tests, and treatments follow the approved protocol. You may stay in contact with our team even after the study ends, depending on the study's design.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 21 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq21')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Do I have to pay for anything?</h3>
+                        <svg id="faq21-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq21" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            No. All study-related care is covered by the sponsor.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 22 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq22')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Who oversees the study?</h3>
+                        <svg id="faq22-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq22" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Every study is reviewed by an independent ethics board and monitored by licensed physicians.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 23 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq23')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Will I be compensated?</h3>
+                        <svg id="faq23-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq23" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Yes. Each study offers stipend payments for time and travel.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 24 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq24')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">How long do appointments take?</h3>
+                        <svg id="faq24-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq24" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Most appointments take 1–3 hours; you'll get a schedule in advance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 25 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq25')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Why are clinical studies important?</h3>
+                        <svg id="faq25-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq25" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Clinical studies are the reason today's treatments exist. By joining a study at Sensorium, you're helping move medicine forward—whether it's finding safer drugs, improving care for future generations, or creating more options for people living with chronic conditions. Your participation may directly impact your health and will definitely help others.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 26 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq26')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">Where can I find more information?</h3>
+                        <svg id="faq26-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq26" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            For more in-depth information, you can visit <a href="https://www.clinicaltrials.gov" target="_blank" class="text-primary-600 hover:underline">ClinicalTrials.gov</a>, a government resource with details on active studies. If you're interested in studies happening at Sensorium Clinical Research, we're here to help—just contact us and we'll walk you through everything you need to know.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 27 -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <button onclick="toggleAccordion('faq27')" class="w-full text-left p-8 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h3 class="text-2xl font-bold text-gray-900 pr-4">At Sensorium, what should I expect?</h3>
+                        <svg id="faq27-icon" class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="faq27" class="hidden px-8 pb-8">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                            At Sensorium, we make sure you have all the answers. You'll also have the right to:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li>Know you're in a clinical study</li>
+                            <li>Understand the purpose and duration</li>
+                            <li>Be informed of risks and side effects</li>
+                            <li>Keep your personal information private</li>
+                            <li>Leave the study at any time</li>
+                            <li>Ask questions and make an informed decision</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact CTA -->
+            <div class="text-center mt-16 bg-gradient-to-br from-primary-50 to-white rounded-2xl p-12 shadow-lg">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Still have questions?</h3>
+                <p class="text-lg text-gray-600 mb-8">
+                    Our team is here to help you understand clinical research and find the right study for you.
+                </p>
+                <a href="/rose-demo/contact.html" class="inline-block bg-primary-600 text-white px-10 py-4 rounded-lg hover:bg-primary-700 transition-colors font-semibold text-lg shadow-lg">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Sensorium</h3>
+                    <p class="text-gray-400">Company Culture. Local Culture. Clinical Excellence.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Patients</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/rose-demo/join-a-study.html" class="hover:text-white transition-colors">Find a Study</a></li>
+                        <li><a href="/rose-demo/for-patients-option3-visual-story.html" class="hover:text-white transition-colors">Learn More</a></li>
+                        <li><a href="/rose-demo/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Sponsors</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/rose-demo/for-sponsors-option3-partnership.html" class="hover:text-white transition-colors">Partnerships</a></li>
+                        <li><a href="/rose-demo/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">For Site Owners</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/rose-demo/for-site-owners-option2-growth.html" class="hover:text-white transition-colors">Join Network</a></li>
+                        <li><a href="/rose-demo/contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>© Sensorium Clinical Research. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        function toggleAllAccordions() {
+            const button = document.getElementById('expandCollapseBtn');
+            const allExpanded = button.textContent.trim() === 'Collapse All';
+            
+            // Toggle all 27 FAQs
+            for (let i = 1; i <= 27; i++) {
+                const content = document.getElementById('faq' + i);
+                const icon = document.getElementById('faq' + i + '-icon');
+                
+                if (allExpanded) {
+                    // Collapse all
+                    content.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                } else {
+                    // Expand all
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            }
+            
+            // Toggle button text
+            button.textContent = allExpanded ? 'Expand All' : 'Collapse All';
+        }
+    </script>
+</body>
+</html>
