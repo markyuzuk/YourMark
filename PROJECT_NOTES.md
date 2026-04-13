@@ -33,6 +33,8 @@
 - Added "Option 1" and "Option 2" labels to demo titles
 - Updated version labels: "Rose Colored Version" and "Midnight Blue Version"
 - Increased whitespace between page heading and demo cards (mb-20)
+- Increased spacing between thumbnails and titles (pt-14, approximately 1/2 inch)
+- Moved "Secure Preview Access" box to top of page (below page title)
 - Design Principles panel with sticky positioning
 - Demos open in new window with 80% zoom level
 
@@ -118,6 +120,64 @@ If SSH connection fails:
    ```bash
    echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEOjkHvozPsE1h3h9HwXW5dkAkB6wa1yLTenoAgB06tp markyuzuk@gmail.com" >> ~/.ssh/authorized_keys
    ```
+
+#### SSL Configuration
+
+**IMPORTANT:** The `deploy-existing.sh` script now includes SSL configuration to prevent HTTPS from breaking on deployment.
+
+**SSL Certificate Details:**
+- Certificate Provider: Let's Encrypt
+- Domains: `yourmark.ai` and `www.yourmark.ai`
+- Certificate Path: `/etc/letsencrypt/live/yourmark.ai/fullchain.pem`
+- Private Key Path: `/etc/letsencrypt/live/yourmark.ai/privkey.pem`
+- Auto-renewal: Enabled via certbot
+- Expires: July 12, 2026 (auto-renews 30 days before)
+
+**The deploy script automatically:**
+- Configures both HTTP (port 80) and HTTPS (port 443) server blocks
+- Sets up HTTP to HTTPS redirect
+- Points to Let's Encrypt SSL certificates
+- Preserves SSL configuration on every deployment
+
+**If SSL breaks after deployment:**
+This should not happen anymore, but if it does:
+```bash
+ssh root@204.48.31.51
+cat > /etc/nginx/sites-available/yourmark-ai <<'NGINX'
+server {
+    listen 80;
+    server_name yourmark.ai www.yourmark.ai;
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name yourmark.ai www.yourmark.ai;
+    
+    ssl_certificate /etc/letsencrypt/live/yourmark.ai/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yourmark.ai/privkey.pem;
+    
+    root /var/www/yourmark-ai/dist;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_vary on;
+    gzip_min_length 1024;
+}
+NGINX
+
+nginx -t && systemctl restart nginx
+```
 
 ---
 
