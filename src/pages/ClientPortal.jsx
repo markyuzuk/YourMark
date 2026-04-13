@@ -11,21 +11,6 @@ const ClientPortal = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [accessCode, setAccessCode] = useState('')
   const [error, setError] = useState('')
-  const [todoItems, setTodoItems] = useState([
-    { id: 1, text: 'Put whitepapers in new template and add to white papers section', completed: false },
-    { id: 2, text: 'Create whitepapers section', completed: false },
-    { id: 3, text: 'Make website accessible for me and Thurston', completed: false },
-    { id: 4, text: 'Edit Thurston section, if needed', completed: false },
-    { id: 5, text: 'Testing/QA - Click on all links', completed: false },
-    { id: 6, text: 'One of the banners has a long tagline and sub tagline that we need to shorten', completed: false }
-  ])
-  const [comments, setComments] = useState('')
-
-  const toggleTodo = (id) => {
-    setTodoItems(todoItems.map(item => 
-      item.id === id ? { ...item, completed: !item.completed } : item
-    ))
-  }
 
   const demoProjects = [
     {
@@ -223,37 +208,6 @@ const ClientPortal = () => {
               </ul>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100 shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Website Development To-Do List</h3>
-              <div className="grid lg:grid-cols-3 gap-4">
-                <div className="lg:col-span-2">
-                  <ul className="space-y-3">
-                    {todoItems.map((item) => (
-                      <li key={item.id} className="flex items-start">
-                        <input
-                          type="checkbox"
-                          checked={item.completed}
-                          onChange={() => toggleTodo(item.id)}
-                          className="mt-1 mr-3 w-5 h-5 text-amber-600 bg-white border-amber-300 rounded focus:ring-amber-500 focus:ring-2 cursor-pointer flex-shrink-0"
-                        />
-                        <span className={`text-gray-700 ${item.completed ? 'line-through text-gray-400' : ''}`}>
-                          <strong>{item.text}</strong>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="lg:col-span-1">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Comments</label>
-                  <textarea
-                    value={comments}
-                    onChange={(e) => setComments(e.target.value)}
-                    placeholder="Add your comments here..."
-                    className="w-full h-full min-h-[200px] p-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none"
-                  />
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
