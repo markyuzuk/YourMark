@@ -40,6 +40,20 @@ const ClientPortal = () => {
       isExternal: true,
       useImageIcon: true,
       versionLabel: 'Midnight Blue Version'
+    },
+    {
+      id: 3,
+      clientName: 'Sensorium Clinical Research',
+      projectName: 'Light Rose Theme Demo - Option 3',
+      previewUrl: '/light-rose-demo/landing-v4-patient-centric.html',
+      status: 'Review',
+      lastUpdated: '2026-04-13',
+      thumbnail: '/light-rose-demo/images/light-rose-thumbnail.png',
+      description: 'Lighter rose-themed design with grey accent boxes and softer color palette for a refined, modern aesthetic.',
+      isLightRoseColored: true,
+      isExternal: true,
+      useImageIcon: true,
+      versionLabel: 'Light Rose Version'
     }
   ]
 
@@ -159,7 +173,7 @@ const ClientPortal = () => {
           <div className="lg:col-span-2 grid md:grid-cols-2 gap-8">
           {demoProjects.map((project) => (
             <Card key={project.id} className={`hover:shadow-lg transition-shadow overflow-hidden flex flex-col ${project.isGreyedOut ? 'opacity-50' : ''}`}>
-              <div className={`relative h-48 bg-gradient-to-br overflow-hidden flex items-center justify-center ${project.isGreyedOut ? 'from-gray-100 to-gray-200' : project.isRoseColored ? 'from-rose-50 to-rose-100' : project.isBlueColored ? 'from-blue-50 to-blue-100' : 'from-emerald-50 to-emerald-100'}`}>
+              <div className={`relative h-48 bg-gradient-to-br overflow-hidden flex items-center justify-center ${project.isGreyedOut ? 'from-gray-100 to-gray-200' : project.isRoseColored ? 'from-rose-50 to-rose-100' : project.isBlueColored ? 'from-blue-50 to-blue-100' : project.isLightRoseColored ? 'from-rose-100 to-rose-200' : 'from-emerald-50 to-emerald-100'}`}>
                 {project.useImageIcon ? (
                   <img 
                     src={project.thumbnail} 
@@ -284,44 +298,8 @@ const ClientPortal = () => {
               <h3 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">Design Principles</h3>
               <div className="space-y-4">
                 <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold text-sm">1</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Make it Punchy</h4>
-                    <p className="text-sm text-gray-600">Bold headlines and clear value propositions</p>
-                  </div>
-                </div>
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="text-white font-bold text-sm">2</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Tell the Culture Story</h4>
-                    <p className="text-sm text-gray-600">Emphasize community and human connection</p>
-                  </div>
-                </div>
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="text-white font-bold text-sm">3</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Clear Messaging</h4>
-                    <p className="text-sm text-gray-600">Direct communication without jargon</p>
-                  </div>
-                </div>
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="text-white font-bold text-sm">4</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Avoid Stock Photos</h4>
-                    <p className="text-sm text-gray-600">Use authentic imagery that reflects real people</p>
-                  </div>
-                </div>
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                    <span className="text-white font-bold text-sm">5</span>
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-900 mb-1">Be Different, Stand Out</h4>
@@ -329,7 +307,43 @@ const ClientPortal = () => {
                   </div>
                 </div>
                 <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">2</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Make it Punchy</h4>
+                    <p className="text-sm text-gray-600">Bold headlines and clear value propositions</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">3</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Tell the Culture Story</h4>
+                    <p className="text-sm text-gray-600">Emphasize community and human connection</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">4</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Clear Messaging</h4>
+                    <p className="text-sm text-gray-600">Direct communication without jargon</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-sm">5</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Avoid Stock Photos</h4>
+                    <p className="text-sm text-gray-600">Use authentic imagery that reflects real people</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold text-sm">6</span>
                   </div>
                   <div>
@@ -338,7 +352,7 @@ const ClientPortal = () => {
                   </div>
                 </div>
                 <div className="flex items-start group">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold text-sm">7</span>
                   </div>
                   <div>
