@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - Sensorium Clinical Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .invoice-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 30px;
+        }
+
+        .logo-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .logo-section p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .invoice-title {
+            text-align: right;
+        }
+
+        .invoice-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .invoice-number {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .header-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .detail-box h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .detail-box p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .invoice-body {
+            padding: 40px;
+        }
+
+        .billing-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .billing-box h3 {
+            color: #059669;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .billing-box p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .executive-summary {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .executive-summary h3 {
+            color: #059669;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .executive-summary p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .items-table thead {
+            background: #f0fdf4;
+        }
+
+        .items-table th {
+            padding: 15px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #059669;
+            font-weight: 600;
+            border-bottom: 2px solid #10b981;
+        }
+
+        .items-table th:last-child,
+        .items-table td:last-child {
+            text-align: right;
+        }
+
+        .items-table tbody tr {
+            border-bottom: 1px solid #e5e7eb;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .items-table td {
+            padding: 15px 15px;
+            font-size: 14px;
+            color: #333;
+            vertical-align: top;
+        }
+
+        .package-title {
+            font-weight: 700;
+            color: #059669;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .package-subtitle {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .deliverables-list {
+            margin-top: 10px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .deliverables-list li {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 3px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .deliverables-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .deliverables-list.two-columns {
+            column-count: 2;
+            column-gap: 20px;
+        }
+
+        .deliverables-list.two-columns li {
+            break-inside: avoid;
+        }
+
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .totals-box {
+            width: 350px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 14px;
+        }
+
+        .total-row.subtotal {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .total-row.grand-total {
+            border-top: 2px solid #10b981;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .notes-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #f0fdf4;
+        }
+
+        .notes-section h3 {
+            color: #059669;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .notes-section p, .notes-section ul {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .notes-section ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .notes-section li {
+            margin-bottom: 5px;
+        }
+
+        .highlight-box {
+            background: #f0fdf4;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            color: #059669;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .highlight-box li {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.8;
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .highlight-box li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .invoice-footer {
+            background: #f9fafb;
+            padding: 30px 40px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .footer-content {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-highlight {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .invoice-container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top,
+            .header-details,
+            .billing-section {
+                grid-template-columns: 1fr;
+            }
+
+            .invoice-title {
+                text-align: left;
+                margin-top: 20px;
+            }
+
+            .totals-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="invoice-header">
+            <div class="header-top">
+                <div class="logo-section">
+                    <h1>YourMark.ai</h1>
+                    <p>Transform Your Business With AI & Design</p>
+                </div>
+                <div class="invoice-title">
+                    <h2>INVOICE</h2>
+                    <p class="invoice-number">#SCR-2026-001</p>
+                </div>
+            </div>
+            <div class="header-details">
+                <div class="detail-box">
+                    <h3>Invoice Date</h3>
+                    <p>April 16, 2026</p>
+                </div>
+                <div class="detail-box">
+                    <h3>Due Date</h3>
+                    <p>May 16, 2026</p>
+                </div>
+                <div class="detail-box">
+                    <h3>Project Duration</h3>
+                    <p>Nov 2025 - April 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="invoice-body">
+            <!-- Billing Information -->
+            <div class="billing-section">
+                <div class="billing-box">
+                    <h3>From</h3>
+                    <p>
+                        <strong>YourMark.ai</strong><br>
+                        Contact: Mark Yuzuk<br>
+                        MarkYuzuk@YourMark.ai<br>
+                        610-580-7008
+                    </p>
+                </div>
+                <div class="billing-box">
+                    <h3>Bill To</h3>
+                    <p>
+                        <strong>Sensorium Clinical Research</strong><br>
+                        Contact: Matt Kiernan<br>
+                        matt@sensoriumcr.com<br>
+                        610-945-4364
+                    </p>
+                </div>
+            </div>
+
+            <!-- Executive Summary -->
+            <div class="executive-summary">
+                <h3>Executive Summary</h3>
+                <p>Comprehensive design and web development services across multiple phases including brand identity development, complete website architecture, 14 design iterations, hosting infrastructure, and ongoing support. This engagement focused on elevating the quality, clarity, and impact of core messaging through extensive content and copy development. Services included content strategy, messaging refinement, and creation of high-quality copy designed to strengthen brand positioning, and improve audience engagement across patients, sponsors and site owners.</p>
+            </div>
+
+            <!-- Items Table -->
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th style="width: 75%;">Description</th>
+                        <th style="text-align: right; width: 25%;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="package-title">PHASE 1: Version 1 - Original Blue Design (SensoriumCR.com)</div>
+                            <div class="package-subtitle">Complete Website Development - Initial Concept</div>
+                            <ul class="deliverables-list">
+                                <li><strong>Note:</strong> Quick turnaround to support corp dev efforts</li>
+                                <li>Website Architecture & UX Design</li>
+                                <li>10 Core Website Pages (fully responsive)</li>
+                                <li>Technical Development (HTML5/CSS3/JavaScript)</li>
+                                <li>8 Major Content Iterations</li>
+                                <li>Infrastructure setup</li>
+                                <li>Mobile experience optimization</li>
+                                <li>SEO-friendly structure & accessibility compliance</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <span style="text-decoration: line-through; color: #999; font-size: 13px;">$7,945.00</span><br>
+                            <strong>$5,800.00</strong><br>
+                            <span style="color: #059669; font-size: 12px; font-style: italic;">(27% discount applied)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="package-title">PHASE 2: Version 2 - Rose and Midnight Blue Design (Update Sensoriumcr.com on launch date)</div>
+                            <div class="package-subtitle">Extended Design Exploration & Multiple Mockups</div>
+                            <ul class="deliverables-list two-columns">
+                                <li>Brand Vision and Guidelines</li>
+                                <li>12 Different Logo designs</li>
+                                <li>Rose and Midnight Blue Color Scheme Development</li>
+                                <li>43 Unique Homepage Design Variations</li>
+                                <li>Content strategy and messaging framework development</li>
+                                <li>Copywriting and messaging refinement (14 iterations)</li>
+                                <li>10 Gradient Hero Series (various color combinations)</li>
+                                <li>Navy, Grey, Silver, and Colored Box Variations</li>
+                                <li>Modified CTA Section Variations (8 versions)</li>
+                                <li>42+ High-Resolution PNG Mockups</li>
+                                <li>Side-by-Side Comparison Charts</li>
+                                <li>Interactive Comparison Pages</li>
+                                <li>Multiple Design Review Sessions & Rationale Documentation</li>
+                                <li>Web Hosting Setup (DigitalOcean)</li>
+                                <li>DNS Management & SSL Certificate Installation</li>
+                                <li>Automated Deployment System & Version Control</li>
+                                <li>Password Protection System</li>
+                                <li>HubSpot CRM Integration & BD Admin Portal Setup</li>
+                                <li>HubSpot 2-Way Spreadsheet Form Design & Development</li>
+                                <li>Whitepaper Design Development (4-Phase Model), Branded Sensorium PPT Template</li>
+                                <li>20+ Automation Scripts & Development Tools</li>
+                                <li>Bug Fixes & Cross-Browser Testing</li>
+                                <li>Complete Documentation & Training</li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: top; padding-top: 20px;">
+                            <div style="text-align: right;">
+                                <span style="text-decoration: line-through; color: #999; font-size: 13px;">$43,727.00</span><br>
+                                <strong style="font-size: 16px;">$24,050.00</strong><br>
+                                <span style="color: #059669; font-size: 12px; font-style: italic; display: block; margin-top: 4px;">(45% discount applied)</span>
+                                <span style="color: #666; font-size: 10px; font-style: italic; display: block; margin-top: 6px; line-height: 1.3; max-width: 200px; margin-left: auto;">*Increased Discount reflects YourMark.ai investment in AI "Brain" capability</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Totals -->
+            <div class="totals-section">
+                <div class="totals-box">
+                    <div class="total-row subtotal">
+                        <span>Subtotal</span>
+                        <span>$29,850.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax (0%)</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total Due</span>
+                        <span>$29,850.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Included Services -->
+            <div class="notes-section">
+                <h3>Included Services & Support</h3>
+                <ul>
+                    <li>All Source Files (HTML, CSS, JavaScript, images, scripts)</li>
+                    <li>Complete Documentation (Technical and user guides)</li>
+                    <li>Training Session (1-hour website management training)</li>
+                    <li>Mobile Optimization (Responsive design for all devices)</li>
+                    <li>Browser Compatibility (Chrome, Firefox, Safari, Edge)</li>
+                    <li>Security Setup (SSL, password protection, daily backups)</li>
+                </ul>
+            </div>
+
+            <!-- Payment Terms -->
+            <div class="notes-section">
+                <h3>Payment Terms</h3>
+                <p>
+                    <strong>Payment Due:</strong> Net 30 days from invoice date (May 16, 2026)<br>
+                    <strong>Accepted Payment Methods:</strong> Wire Transfer, Check<br>
+                    <strong>Late Payment Fee:</strong> 1.5% per month on overdue balance
+                </p>
+            </div>
+
+            <!-- Payment Instructions -->
+            <div class="notes-section">
+                <h3>Payment Instructions</h3>
+                <p>
+                    Contact your account representative <strong>Mark Yuzuk</strong> to setup payment details.
+                </p>
+            </div>
+
+            <!-- Notes -->
+            <div class="notes-section">
+                <h3>Notes</h3>
+                <p>
+                    This comprehensive package represents a complete digital transformation for Sensorium Clinical Research, including professional brand identity that positions the company as a leader in clinical research, extensive design exploration with 43 unique variations, production-ready website with 10 fully functional pages optimized for user engagement, and enterprise-grade infrastructure with hosting, security, and automated deployment.
+                </p>
+                <p style="margin-top: 15px;">
+                    All deliverables have been completed and are available in the project directory and live at <strong>https://preview.yourmark.ai</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="invoice-footer">
+            <div class="footer-content">
+                <p>
+                    <strong>Thank you for your business!</strong><br><br>
+                    We're proud to have partnered with Sensorium Clinical Research on this comprehensive branding and website development project. The extensive design exploration and robust technical foundation will serve your organization well for years to come.<br><br>
+                    For questions about this invoice, please contact your account representative <span class="footer-highlight">Mark Yuzuk</span>.<br>
+                    <span class="footer-highlight">www.yourmark.ai</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
