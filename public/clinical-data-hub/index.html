@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinical Data Hub — Phase 3 Endometriosis Program | YourMark.ai</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f4f6f8; color:#1f2937; }
+  .container { max-width:1280px; margin:0 auto; padding:0 24px 60px; }
+
+  header { background:#0b1f2a; color:#fff; padding:22px 0; border-bottom:4px solid #10b981; }
+  .header-inner { max-width:1280px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .brand { display:flex; align-items:center; gap:12px; }
+  .brand-mark { width:40px; height:40px; background:#10b981; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; color:#0b1f2a; }
+  .brand-text h1 { font-size:19px; font-weight:700; }
+  .brand-text span { font-size:12px; color:#9fb3c0; display:block; }
+  .badges { display:flex; gap:8px; }
+  .badge { font-size:11px; font-weight:600; padding:5px 10px; border-radius:20px; letter-spacing:.4px; }
+  .badge-live { background:#10b981; color:#06281e; }
+  .badge-mock { background:#243b49; color:#9fb3c0; border:1px solid #37505f; }
+
+  .page-title { margin:28px 0 6px; font-size:28px; font-weight:800; color:#0b1f2a; }
+  .page-sub { color:#5b6b77; font-size:14px; margin-bottom:24px; max-width:900px; line-height:1.55; }
+
+  .card { background:#fff; border:1px solid #e3e8ee; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(16,24,40,.04); }
+  .card h2 { font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:#0b1f2a; margin-bottom:14px; }
+  .card .hint { font-size:12px; color:#7b8a97; margin-top:8px; }
+
+  /* pipeline */
+  .pipeline { display:flex; align-items:stretch; gap:10px; flex-wrap:wrap; }
+  .pipe-sources { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; flex:2.2; }
+  .study-chip { border:1px solid #e3e8ee; border-radius:10px; padding:10px 12px; cursor:pointer; transition:.15s; background:#fff; }
+  .study-chip:hover { border-color:#10b981; transform:translateY(-1px); }
+  .study-chip.active { border-color:#10b981; box-shadow:0 0 0 2px rgba(16,185,129,.2); }
+  .study-chip .sid { font-weight:700; font-size:13px; display:flex; align-items:center; gap:6px; }
+  .study-chip .sid::before { content:''; width:10px; height:10px; border-radius:3px; background:var(--c); display:inline-block; }
+  .study-chip .sname { font-size:11px; color:#5b6b77; margin:3px 0 6px; }
+  .src-badges { display:flex; gap:4px; flex-wrap:wrap; }
+  .src { font-size:10px; font-weight:600; padding:2px 7px; border-radius:4px; }
+  .src-api { background:#e0f2fe; color:#0369a1; }
+  .src-file { background:#fef3c7; color:#92400e; }
+  .pipe-arrow { display:flex; align-items:center; color:#10b981; font-size:22px; font-weight:800; padding:0 2px; }
+  .pipe-node { flex:1; min-width:170px; background:#0b1f2a; color:#fff; border-radius:10px; padding:16px; display:flex; flex-direction:column; justify-content:center; }
+  .pipe-node h3 { font-size:13px; color:#10b981; text-transform:uppercase; letter-spacing:.6px; margin-bottom:6px; }
+  .pipe-node p { font-size:12px; color:#b8c8d4; line-height:1.5; }
+
+  /* filters */
+  .filters { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:18px 0; }
+  .filters label { font-size:12px; font-weight:700; color:#5b6b77; text-transform:uppercase; letter-spacing:.5px; }
+  select { padding:8px 12px; border:1px solid #d5dde5; border-radius:8px; font-size:13px; background:#fff; color:#1f2937; min-width:190px; }
+
+  /* kpis */
+  .kpis { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:18px; }
+  .kpi { background:#fff; border:1px solid #e3e8ee; border-radius:12px; padding:16px 18px; }
+  .kpi .lbl { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:#7b8a97; }
+  .kpi .val { font-size:30px; font-weight:800; color:#0b1f2a; margin:4px 0 2px; }
+  .kpi .sub { font-size:11px; color:#7b8a97; }
+  .kpi.green .val { color:#059669; } .kpi.red .val { color:#dc2626; } .kpi.blue .val { color:#0284c7; }
+
+  /* charts */
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .legend { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:10px; }
+  .legend span { font-size:11px; color:#5b6b77; display:flex; align-items:center; gap:5px; }
+  .legend i { width:10px; height:10px; border-radius:3px; display:inline-block; }
+  svg text { font-family:inherit; }
+
+  /* table */
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; padding:8px 10px; font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:#7b8a97; border-bottom:2px solid #e3e8ee; }
+  td { padding:8px 10px; border-bottom:1px solid #eef1f5; }
+  .path { display:flex; gap:4px; align-items:center; flex-wrap:wrap; }
+  .pill { font-size:10.5px; font-weight:700; padding:2px 7px; border-radius:4px; color:#fff; }
+  .status { font-size:11px; font-weight:600; padding:3px 8px; border-radius:10px; }
+  .st-active { background:#d1fae5; color:#065f46; } .st-done { background:#e0f2fe; color:#075985; } .st-drop { background:#fee2e2; color:#991b1b; }
+
+  .note-strip { background:#fefce8; border:1px solid #fde68a; border-radius:10px; padding:14px 18px; font-size:13px; color:#713f12; margin-top:18px; line-height:1.6; }
+
+  /* password gate */
+  #gate { position:fixed; inset:0; background:#0b1f2a; z-index:99; display:flex; align-items:center; justify-content:center; }
+  .gate-box { background:#fff; border-radius:14px; padding:34px 38px; width:360px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+  .gate-box .gm { width:52px; height:52px; background:#10b981; border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:26px; color:#0b1f2a; margin:0 auto 14px; }
+  .gate-box h2 { font-size:18px; color:#0b1f2a; margin-bottom:4px; }
+  .gate-box p { font-size:12.5px; color:#7b8a97; margin-bottom:18px; }
+  .gate-box input { width:100%; padding:11px 14px; border:1.5px solid #d5dde5; border-radius:8px; font-size:14px; margin-bottom:12px; }
+  .gate-box button { width:100%; padding:11px; border:none; border-radius:8px; background:#059669; color:#fff; font-size:14px; font-weight:700; cursor:pointer; }
+  .gate-box button:hover { background:#047857; }
+  .gate-err { color:#dc2626; font-size:12px; margin-top:8px; min-height:14px; }
+
+  /* agentic layer */
+  .agents { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .agent { border:1px solid #e3e8ee; border-left:4px solid #10b981; border-radius:10px; padding:14px; }
+  .agent h4 { font-size:13px; color:#0b1f2a; margin-bottom:5px; display:flex; align-items:center; gap:7px; }
+  .agent h4 .dot { width:8px; height:8px; border-radius:50%; background:#10b981; }
+  .agent p { font-size:12px; color:#5b6b77; line-height:1.55; }
+  .qa-bar { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .qa-q { font-size:12px; font-weight:600; padding:7px 13px; border-radius:20px; border:1.5px solid #10b981; color:#047857; background:#fff; cursor:pointer; transition:.15s; }
+  .qa-q:hover { background:#ecfdf5; }
+  .qa-a { display:none; margin-top:12px; background:#f0fdf9; border:1px solid #a7f3d0; border-radius:10px; padding:13px 16px; font-size:13.5px; color:#064e3b; line-height:1.6; }
+  .qa-a.show { display:block; }
+  .qa-a b { color:#047857; }
+  footer { text-align:center; padding:26px 0 10px; color:#7b8a97; font-size:12px; }
+  @media (max-width:960px){ .kpis{grid-template-columns:repeat(2,1fr);} .grid{grid-template-columns:1fr;} .pipe-sources{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+
+<div id="gate" style="display:none;">
+  <div class="gate-box">
+    <div class="gm">Y</div>
+    <h2>Clinical Data Hub</h2>
+    <p>Private demo · Enter password to continue</p>
+    <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
+    <button onclick="tryGate()">Unlock</button>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark">Y</div>
+      <div class="brand-text">
+        <h1>Clinical Data Hub</h1>
+        <span>Phase 3 Endometriosis Program · Case-Study Prototype · YourMark.ai</span>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge badge-live">LIVE PROTOTYPE</span>
+      <span class="badge badge-mock">MOCKED DATA — ALL SOURCES</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <h2 class="page-title">Executive Program View</h2>
+  <p class="page-sub">One connected data layer across six active studies. Subject, site, visit and lab data are ingested from separate platforms — via API where available, file extracts where not — resolved into a single linked subject model, and aggregated into program-level enrollment and drop-off answers in seconds.</p>
+
+  <!-- Unified data foundation -->
+  <div class="card" style="margin-bottom:18px;">
+    <h2>Unified Data Foundation — 6 Studies, Mixed Ingestion</h2>
+    <div class="pipeline">
+      <div class="pipe-sources" id="studyChips"></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">
+        <h3>Linked Subject Model</h3>
+        <p id="pipeStats">—</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" style="background:#059669;">
+        <h3 style="color:#06281e;">Executive View</h3>
+        <p style="color:#eafff6;">Enrollment · Drop-off · Program totals — answers in minutes, no manual pulls</p>
+      </div>
+    </div>
+    <p class="hint">Click a study chip to filter the entire dashboard.</p>
+  </div>
+
+  <!-- Agentic layer -->
+  <div class="card" style="margin-bottom:18px;">
+    <h2>The Agentic Layer — Three Agents Do the Work</h2>
+    <div class="agents">
+      <div class="agent">
+        <h4><span class="dot"></span>Ingestion Agent</h4>
+        <p>Watches every source — polls APIs where they exist, picks up file extracts where they don't — normalizes subject, site, visit and lab events into one canonical schema.</p>
+      </div>
+      <div class="agent">
+        <h4><span class="dot"></span>Identity Resolution Agent</h4>
+        <p>Every incoming subject record is matched against the master index — same person, different platform ID → linked to a single SUBJ record across studies.</p>
+      </div>
+      <div class="agent">
+        <h4><span class="dot"></span>Insight Agent</h4>
+        <p>Answers program questions in natural language against the linked model — no manual pulls, no pivot tables. Try it:</p>
+      </div>
+    </div>
+    <div class="qa-bar">
+      <button class="qa-q" data-q="drop">Which study has the highest drop-off?</button>
+      <button class="qa-q" data-q="site">Which site enrolls fastest?</button>
+      <button class="qa-q" data-q="movers">How many subjects moved between studies?</button>
+      <button class="qa-q" data-q="last">Enrollments last month?</button>
+    </div>
+    <div class="qa-a" id="qaAnswer"></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <label>Study</label>
+    <select id="studyFilter"><option value="all">All 6 studies</option></select>
+    <label>Site</label>
+    <select id="siteFilter"><option value="all">All 10 sites</option></select>
+    <span id="recordCount" style="font-size:12px;color:#7b8a97;margin-left:auto;"></span>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis" id="kpis"></div>
+
+  <!-- Charts -->
+  <div class="grid">
+    <div class="card">
+      <h2>Enrollment Rate — Subjects / Month by Study</h2>
+      <div class="legend" id="enrollLegend"></div>
+      <div id="enrollChart"></div>
+    </div>
+    <div class="card">
+      <h2>Cumulative Drop-off % Over Time</h2>
+      <div class="legend" id="dropLegend"></div>
+      <div id="dropChart"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Drop-off Rate by Study</h2>
+      <div id="dropByStudy"></div>
+    </div>
+    <div class="card">
+      <h2>Enrollment by Site</h2>
+      <div id="bySite"></div>
+    </div>
+  </div>
+
+  <!-- Cross-study matching -->
+  <div class="card">
+    <h2>Subjects Matched Across Studies — One Person, One Record</h2>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>Master ID</th><th>Study Path (each platform has its own ID)</th><th>Site</th><th>Program Status</th></tr></thead>
+      <tbody id="moverRows"></tbody>
+    </table>
+    </div>
+    <p class="hint">Different source systems assign different subject IDs — the hub resolves them to a single master record so each subject is counted once across the program.</p>
+  </div>
+
+  <div class="note-strip">
+    <strong>About this prototype:</strong> All data is generated mock data for demonstration. The pattern shown — mixed API/file ingestion → subject matching → one linked model → executive Q&A — is stack-agnostic and was built with plain HTML/JS to keep it dependency-free.
+  </div>
+
+  <footer>YourMark.ai · Clinical Data Hub Prototype · Mocked data across all six studies</footer>
+</div>
+
+<script>
+/* ============ Seeded RNG → deterministic mock data ============ */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R = mulberry32(20261015);
+const ri=(a,b)=>Math.floor(R()*(b-a+1))+a, pick=arr=>arr[Math.floor(R()*arr.length)];
+
+const MONTHS=[];{const d=new Date(2025,0,1);for(let i=0;i<22;i++){MONTHS.push(d.toLocaleString('en',{month:'short'})+" '"+String(d.getFullYear()).slice(2));d.setMonth(d.getMonth()+1);}}
+const NOW_IDX=21;
+
+const STUDIES=[
+ {id:'ENDO-301',name:'Pivotal Trial A',      color:'#059669',src:[['EDC','api'],['IRT','api']],          n:96, m:[0,10],  drop:.14},
+ {id:'ENDO-302',name:'Pivotal Trial B',      color:'#0284c7',src:[['EDC','api'],['ePRO','file']],        n:88, m:[2,12],  drop:.16},
+ {id:'ENDO-303',name:'Open-Label Extension', color:'#7c3aed',src:[['CTMS','file'],['ePRO','file']],      n:52, m:[8,17],  drop:.11, movers:.65},
+ {id:'ENDO-304',name:'PK/PD Sub-Study',      color:'#d97706',src:[['Lab','api'],['Clin','file']],        n:24, m:[3,8],   drop:.08},
+ {id:'ENDO-305',name:'Safety Extension',     color:'#dc2626',src:[['Safety','file'],['IRT','api']],      n:38, m:[10,19], drop:.13, movers:.6},
+ {id:'ENDO-306',name:'Long-Term Extension',  color:'#0d9488',src:[['EDC','api'],['Lab','file']],         n:64, m:[12,21], drop:.09, movers:.7},
+];
+const SITES=[{id:'SITE-01',name:'Boston Clinical Research'},{id:'SITE-02',name:'Austin Research Partners'},{id:'SITE-03',name:'Chicago Trials Group'},{id:'SITE-04',name:'Denver Medical Studies'},{id:'SITE-05',name:'Atlanta Research Unit'},{id:'SITE-06',name:'Portland Clinical Center'},{id:'SITE-07',name:'Philadelphia Site Network'},{id:'SITE-08',name:'Phoenix Research Institute'},{id:'SITE-09',name:'Miami Trials Alliance'},{id:'SITE-10',name:'Seattle Clinical Hub'}];
+const SITE_W=[1.4,1.2,1.15,1.1,1.05,1,.95,.9,.75,.6];
+const sitePick=()=>{let t=SITE_W.reduce((a,b)=>a+b),r=R()*t;for(let i=0;i<10;i++){if((r-=SITE_W[i])<0)return SITES[i].id}return' SITE-10'.trim()};
+const REASONS=['Adverse event','Withdrew consent','Lost to follow-up','Physician decision','Protocol deviation'];
+
+/* generate subjects */
+const subjects=[]; let masterSeq=0; const masters={};
+function newMaster(studyId,studySeq){const id='SUBJ-'+String(++masterSeq).padStart(4,'0');masters[id]={studies:[]};return id}
+function monthWeight(i,st){const[s,e]=st.m;if(i<s||i>e)return 0;const w=(e-s+1);const peak=s+w*.45;return 1+2.2*Math.exp(-Math.pow(i-peak,2)/(w*.28))}
+STUDIES.forEach(st=>{
+  const curIdx=STUDIES.findIndex(x=>x.id===st.id);
+  const moverPool=Object.keys(masters).filter(id=>masters[id].studies.some(s=>STUDIES.findIndex(x=>x.id===s.study)<curIdx));
+  let moverCount=Math.round(st.n*(st.movers||0));
+  for(let k=0;k<st.n;k++){
+    let master;
+    if(k<moverCount&&moverPool.length){master=moverPool.splice(Math.floor(R()*moverPool.length),1)[0]}
+    else{master='SUBJ-'+String(++masterSeq).padStart(4,'0');masters[master]={studies:[]}}
+    // enrollment month
+    let wsum=0;for(let i=0;i<NOW_IDX;i++)wsum+=monthWeight(i,st);
+    let r=R()*wsum,mi=st.m[0];for(let i=st.m[0];i<NOW_IDX;i++){r-=monthWeight(i,st);if(r<=0){mi=i;break}}
+    const dropped=R()<st.drop;
+    const dropIdx=dropped?Math.min(mi+ri(2,8),NOW_IDX):null;
+    masters[master].studies.push({study:st.id,seq:k+1});
+    subjects.push({master,studyId:st.id,studySeq:st.id.split('-')[1]+'-'+String(k+1).padStart(3,'0'),site:sitePick(),enrollIdx:mi,status:dropped?'Dropped Out':(mi<st.m[1]-2?'Completed':'Enrolled'),dropIdx,reason:dropped?pick(REASONS):null});
+  }
+});
+const studyColor=id=>STUDIES.find(s=>s.id===id).color;
+const studyName=id=>STUDIES.find(s=>s.id===id).name;
+
+/* ============ Rendering ============ */
+const NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+let fStudy='all',fSite='all';
+
+function filtered(){return subjects.filter(s=>(fStudy==='all'||s.studyId===fStudy)&&(fSite==='all'||s.site===fSite))}
+
+function kpis(){
+  const f=filtered();
+  const uniq=new Set(f.map(s=>s.master)).size;
+  const act=f.filter(s=>s.status==='Enrolled').length;
+  const done=f.filter(s=>s.status==='Completed').length;
+  const drop=f.filter(s=>s.status==='Dropped Out').length;
+  const last=f.filter(s=>s.enrollIdx===NOW_IDX-1).length;
+  $('kpis').innerHTML=[
+    ['Unique subjects',uniq,'across program',''],
+    ['Currently enrolled',act,'active in a study','green'],
+    ['Completed',done,'finished participation','blue'],
+    ['Drop-off rate',(f.length?Math.round(drop/f.length*100):0)+'%',drop+' drop-outs','red'],
+    ['Enrolled last mo.',last,MONTHS[NOW_IDX-1],''],
+  ].map(k=>`<div class="kpi ${k[3]}"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div><div class="sub">${k[2]}</div></div>`).join('');
+  $('recordCount').textContent=f.length+' study-subject records · '+uniq+' unique subjects';
+  $('pipeStats').textContent=uniq+' unique subjects resolved from '+f.length+' records across 6 studies · every subject matched across studies';
+}
+
+/* stacked enrollment bars */
+function enrollChart(){
+  const f=filtered();
+  const data=MONTHS.map((m,i)=>{const o={m};STUDIES.forEach(st=>o[st.id]=0);f.forEach(s=>{if(s.enrollIdx===i)o[s.studyId]++});return o});
+  const W=560,H=250,pl=36,pb=30,pt=8;
+  const max=Math.max(...data.map(d=>STUDIES.reduce((a,st)=>a+d[st.id],0)),1);
+  const bw=(W-pl-8)/MONTHS.length;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  for(let g=0;g<=4;g++){const y=pt+(H-pt-pb)*(1-g/4),v=Math.round(max*g/4);
+    s+=`<line x1="${pl}" y1="${y}" x2="${W-4}" y2="${y}" stroke="#eef1f5"/><text x="${pl-6}" y="${y+4}" font-size="10" fill="#7b8a97" text-anchor="end">${v}</text>`}
+  data.forEach((d,i)=>{let y0=H-pb;const x=pl+4+i*bw;
+    STUDIES.forEach(st=>{const h=(d[st.id]/max)*(H-pt-pb);if(h>0){s+=`<rect x="${x}" y="${y0-h}" width="${bw-3}" height="${h}" fill="${st.color}" rx="1.5"><title>${st.id}: ${d[st.id]} enrolled in ${d.m}</title></rect>`;y0-=h}});
+    if(i%3===0)s+=`<text x="${x+bw/2}" y="${H-12}" font-size="9.5" fill="#7b8a97" text-anchor="middle">${d.m}</text>`});
+  s+='</svg>';$('enrollChart').innerHTML=s;
+  $('enrollLegend').innerHTML=STUDIES.filter(st=>fStudy==='all'||st.id===fStudy).map(st=>`<span><i style="background:${st.color}"></i>${st.id}</span>`).join('');
+}
+
+/* cumulative drop-off lines */
+function dropChart(){
+  const f=filtered();
+  const W=560,H=250,pl=38,pb=30,pt=10,yl=[0,10,20,30];
+  const x=i=>pl+4+i*(W-pl-12)/(NOW_IDX);
+  const y=v=>pt+(H-pt-pb)*(1-v/30);
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  yl.forEach(v=>{s+=`<line x1="${pl}" y1="${y(v)}" x2="${W-8}" y2="${y(v)}" stroke="#eef1f5"/><text x="${pl-6}" y="${y(v)+4}" font-size="10" fill="#7b8a97" text-anchor="end">${v}%</text>`});
+  for(let i=0;i<=NOW_IDX;i+=3)s+=`<text x="${x(i)}" y="${H-12}" font-size="9.5" fill="#7b8a97" text-anchor="middle">${MONTHS[i]}</text>`;
+  STUDIES.filter(st=>fStudy==='all'||st.id===fStudy).forEach(st=>{
+    const recs=f.filter(x=>x.studyId===st.id);
+    if(!recs.length)return;
+    let cum=0,pts=[];
+    for(let i=0;i<=NOW_IDX;i++){cum+=recs.filter(s2=>s2.dropIdx===i).length;pts.push([x(i),y(cum/recs.length*100)])}
+    s+=`<polyline points="${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}" fill="none" stroke="${st.color}" stroke-width="2.2" stroke-linejoin="round"/>`;
+    const last=pts[pts.length-1];
+    s+=`<circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="${st.color}"><title>${st.id}: ${(Math.round(recs.filter(r=>r.status==='Dropped Out').length/recs.length*100))}% cumulative</title></circle>`;
+  });
+  s+='</svg>';$('dropChart').innerHTML=s;
+  $('dropLegend').innerHTML=STUDIES.filter(st=>fStudy==='all'||st.id===fStudy).map(st=>`<span><i style="background:${st.color}"></i>${st.id}</span>`).join('');
+}
+
+/* horizontal bars helper */
+function hbar(el,items,max,color){
+  const W=560,rh=30,pad=170;
+  let s=`<svg viewBox="0 0 ${W} ${items.length*rh+10}" width="100%">`;
+  items.forEach((it,i)=>{const w=(it.v/max)*(W-pad-70);const y=i*rh+6;
+    s+=`<text x="0" y="${y+14}" font-size="11.5" fill="#37424d" font-weight="600">${it.label}</text>`;
+    s+=`<rect x="${pad}" y="${y}" width="${Math.max(w,1.5)}" height="18" rx="4" fill="${it.color||color}"><title>${it.title||it.label+': '+it.txt}</title></rect>`;
+    s+=`<text x="${pad+Math.max(w,1.5)+7}" y="${y+14}" font-size="11.5" fill="#37424d" font-weight="700">${it.txt}</text>`});
+  $(''+el).innerHTML=s+'</svg>';
+}
+
+function sideCharts(){
+  const f=filtered();
+  const byStudy=STUDIES.filter(st=>fStudy==='all'||st.id===fStudy).map(st=>{
+    const recs=f.filter(s=>s.studyId===st.id);
+    const d=recs.filter(s=>s.status==='Dropped Out').length;
+    return{label:st.id,v:recs.length?d/recs.length*100:0,txt:(recs.length?Math.round(d/recs.length*100):0)+'%  ('+d+')',color:st.color,title:st.name+': '+(recs.length?Math.round(d/recs.length*100):0)+'% drop-off ('+d+' of '+recs.length+')'};
+  });
+  hbar('dropByStudy',byStudy,Math.max(...byStudy.map(b=>b.v),1),'#dc2626');
+  const sm={};f.forEach(s=>sm[s.site]=(sm[s.site]||0)+1);
+  const siteRows=SITES.map(t=>({label:t.name.replace(' Research','').replace(' Clinical','').replace(' Trials',''),v:sm[t.id]||0,txt:sm[t.id]||0})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v);
+  hbar('bySite',siteRows,Math.max(...siteRows.map(b=>b.v),1),'#059669');
+}
+
+/* static chrome */
+function init(){
+  $('studyChips').innerHTML=STUDIES.map(st=>`
+    <div class="study-chip" data-s="${st.id}" style="--c:${st.color}">
+      <div class="sid">${st.id}</div>
+      <div class="sname">${st.name}</div>
+      <div class="src-badges">${st.src.map(x=>`<span class="src src-${x[1]}">${x[0]} · ${x[1].toUpperCase()}</span>`).join('')}</div>
+    </div>`).join('');
+  document.querySelectorAll('.study-chip').forEach(c=>c.onclick=()=>{
+    const id=c.dataset.s;fStudy=fStudy===id?'all':id;
+    $('studyFilter').value=fStudy;
+    document.querySelectorAll('.study-chip').forEach(x=>x.classList.toggle('active',x.dataset.s===fStudy));
+    render();
+  });
+  const sf=$('studyFilter');STUDIES.forEach(st=>{const o=document.createElement('option');o.value=st.id;o.textContent=st.id+' — '+st.name;sf.appendChild(o)});
+  sf.onchange=()=>{fStudy=sf.value;document.querySelectorAll('.study-chip').forEach(x=>x.classList.toggle('active',x.dataset.s===fStudy));render()};
+  const xf=$('siteFilter');SITES.forEach(t=>{const o=document.createElement('option');o.value=t.id;o.textContent=t.name;xf.appendChild(o)});
+  xf.onchange=()=>{fSite=xf.value;render()};
+
+  /* movers table */
+  const movers=Object.entries(masters).filter(([id,m])=>m.studies.length>1).slice(0,12);
+  $('moverRows').innerHTML=movers.map(([id,m])=>{
+    const recs=subjects.filter(s=>s.master===id);
+    const site=SITES.find(t=>t.id===recs[0].site).name;
+    const path=m.studies.map(s=>`<span class="pill" style="background:${studyColor(s.study)}">${s.study}</span>`).join('<span style="color:#9aa7b1">→</span>');
+    const anyDrop=recs.some(r=>r.status==='Dropped Out'),anyActive=recs.some(r=>r.status==='Enrolled');
+    const st=anyActive?['st-active','Enrolled']:anyDrop?['st-drop','Dropped Out']:['st-done','Completed'];
+    return`<tr><td style="font-weight:700">${id}</td><td><div class="path">${path}</div></td><td>${site}</td><td><span class="status ${st[0]}">${st[1]}</span></td></tr>`;
+  }).join('');
+}
+/* password gate (demo-level protection) */
+function tryGate(){
+  const v=$('gatePw').value;
+  if(v===atob('ZW5kbzIwMjY=')){sessionStorage.setItem('cdh_auth','1');$('gate').style.display='none'}
+  else{$('gateErr').textContent='Incorrect password';$('gatePw').value=''}
+}
+if(sessionStorage.getItem('cdh_auth')!=='1'){$('gate').style.display='flex'}
+$('gatePw').addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
+
+/* Insight Agent — live answers computed against the linked model */
+const QA={
+  drop(){
+    const rows=STUDIES.map(st=>{const r=subjects.filter(s=>s.studyId===st.id);const d=r.filter(s=>s.status==='Dropped Out').length;return{st,d,r:r.length,p:d/r*100}}).sort((a,b)=>b.p-a.p);
+    const w=rows[0];
+    return`<b>${w.st.id} — ${w.st.name}</b> has the highest drop-off at <b>${w.p.toFixed(1)}%</b> (${w.d} of ${w.r} subjects). See the cumulative drop-off chart — its curve steepens mid-study, flagging where retention attention is needed.`;
+  },
+  site(){
+    const c={};subjects.forEach(s=>c[s.site]=(c[s.site]||0)+1);
+    const top=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];
+    const nm=SITES.find(t=>t.id===top[0]).name;
+    return`<b>${nm} (${top[0]})</b> leads program enrollment with <b>${top[1]} subject records</b> across studies — ${(top[1]/subjects.length*100).toFixed(0)}% of all records. Site-level trend is in the "Enrollment by Site" chart below.`;
+  },
+  movers(){
+    const n=Object.values(masters).filter(m=>m.studies.length>1).length;
+    const uniq=Object.keys(masters).length;
+    return`<b>${n} subjects</b> appear in two or more studies — resolved to a single master ID each by the Identity Resolution Agent. That's ${(n/uniq*100).toFixed(0)}% of the ${uniq} unique subjects. Sample study paths are in the table below.`;
+  },
+  last(){
+    const n=subjects.filter(s=>s.enrollIdx===NOW_IDX-1).length;
+    const c={};subjects.filter(s=>s.enrollIdx===NOW_IDX-1).forEach(s=>c[s.studyId]=(c[s.studyId]||0)+1);
+    const top=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];
+    return`<b>${n} new enrollments</b> in ${MONTHS[NOW_IDX-1]}${top?`, led by <b>${top[0]}</b> (${top[1]})`:''}. The stacked chart below shows the full enrollment curve across the program.`;
+  }
+};
+document.querySelectorAll('.qa-q').forEach(b=>b.onclick=()=>{const a=$('qaAnswer');a.innerHTML=QA[b.dataset.q]();a.classList.add('show')});
+
+function render(){kpis();enrollChart();dropChart();sideCharts()}
+init();render();
+</script>
+</body>
+</html>
