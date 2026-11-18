@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Case Study — Clinical Data Hub | YourMark.ai</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; background:#dfe7ec; color:#33424e; display:flex; justify-content:center; padding:24px; }
+  .page { width:8.5in; height:11in; background:#fff; box-shadow:0 4px 24px rgba(0,0,0,.15); display:flex; flex-direction:column; }
+
+  .topbar { display:flex; align-items:center; justify-content:space-between; padding:16px 34px; border-bottom:3px solid #10b981; }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .brand-mark { width:32px; height:32px; background:#10b981; border-radius:9px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; color:#0b1f2a; }
+  .brand-name { font-weight:800; font-size:15px; color:#0b1f2a; }
+  .brand-name span { color:#059669; }
+  .doc-tag { font-size:9.5px; font-weight:800; letter-spacing:2.5px; color:#047857; background:#ecfdf5; border:1px solid #a7f3d0; padding:5px 13px; border-radius:20px; text-transform:uppercase; }
+
+  .title-block { padding:22px 34px 16px; }
+  .title-block h1 { font-size:26px; color:#0b1f2a; letter-spacing:-.4px; line-height:1.15; }
+  .title-block p { font-size:12px; color:#059669; font-weight:700; margin-top:5px; }
+
+  .cols { display:flex; gap:22px; padding:0 34px; flex:1; }
+  .col-left { width:37%; }
+  .col-right { width:63%; }
+
+  .band { background:#0b1f2a; color:#fff; font-size:10.5px; font-weight:800; letter-spacing:2px; text-transform:uppercase; padding:8px 14px; border-radius:6px 6px 0 0; }
+  .band.green { background:#059669; }
+
+  .sit { border:1px solid #e3e8ee; border-top:none; border-radius:0 0 10px 10px; overflow:hidden; background:#fbfcfd; }
+  .sit-sec { padding:11px 15px; border-bottom:1px solid #eef1f5; }
+  .sit-sec:last-child { border-bottom:none; }
+  .sit-sec h4 { font-size:9.5px; font-weight:800; letter-spacing:1.5px; color:#059669; text-transform:uppercase; margin-bottom:6px; }
+  .sit-sec li { font-size:10.5px; line-height:1.45; margin-left:14px; margin-bottom:4px; color:#41505c; }
+  .sit-sec li:last-child { margin-bottom:0; }
+  .needs li { font-weight:600; color:#0b1f2a; }
+
+  .probs { display:flex; flex-direction:column; gap:12px; padding-bottom:2px; }
+  .prob { border:1px solid #dbe3ea; border-radius:10px; padding:12px 15px; display:flex; gap:13px; }
+  .prob-num { width:28px; height:28px; min-width:28px; border-radius:50%; background:#059669; color:#fff; font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+  .prob-body { flex:1; }
+  .prob-body h3 { font-size:13.5px; color:#0b1f2a; margin-bottom:7px; }
+  .prob-cols { display:flex; gap:14px; }
+  .pc { flex:1; }
+  .pc h5 { font-size:8.5px; font-weight:800; letter-spacing:1px; color:#7b8a97; text-transform:uppercase; margin-bottom:4px; }
+  .pc p { font-size:10px; line-height:1.45; color:#5b6b77; }
+  .pc li { font-size:10px; line-height:1.45; margin-left:13px; margin-bottom:3px; color:#33424e; }
+  .pc li:last-child { margin-bottom:0; }
+  .pc.solved h5 { color:#059669; }
+
+  .agents-box { border:1px solid #a7f3d0; background:#f6fdf9; border-radius:10px; padding:12px 15px; margin-top:12px; }
+  .agents-box h4 { font-size:9.5px; font-weight:800; letter-spacing:1.5px; color:#059669; text-transform:uppercase; margin-bottom:8px; }
+  .agent-rows { display:flex; gap:10px; }
+  .agent-mini { flex:1; background:#fff; border:1px solid #d9f3e6; border-radius:8px; padding:8px 10px; }
+  .agent-mini b { font-size:10px; color:#0b1f2a; display:block; margin-bottom:3px; }
+  .agent-mini p { font-size:9px; line-height:1.4; color:#5b6b77; }
+
+  .stats-band { display:flex; gap:14px; margin:18px 34px 0; }
+  .stat { flex:1; border:1px solid #e3e8ee; border-top:3px solid #10b981; border-radius:8px; padding:12px 14px; text-align:center; }
+  .stat b { display:block; font-size:21px; color:#0b1f2a; letter-spacing:-.5px; }
+  .stat span { font-size:9.5px; color:#7b8a97; font-weight:600; line-height:1.35; display:block; margin-top:3px; }
+
+  .bottom-strip { display:flex; margin:14px 34px 0; border-radius:10px; overflow:hidden; border:1px solid #dbe3ea; }
+  .bs { flex:1; display:flex; align-items:center; gap:10px; padding:11px 15px; }
+  .bs .pill-h { font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; padding:5px 10px; border-radius:5px; white-space:nowrap; }
+  .bs.data .pill-h { background:#e0f2fe; color:#075985; }
+  .bs.demo .pill-h { background:#0b1f2a; color:#10b981; }
+  .bs p { font-size:10.5px; color:#41505c; line-height:1.35; }
+  .bs.demo b { color:#047857; }
+
+  .page-footer { margin-top:auto; padding:14px 34px; font-size:9px; color:#9aa7b1; display:flex; justify-content:space-between; }
+
+  @media print {
+    body { background:#fff; padding:0; }
+    .page { box-shadow:none; width:100%; height:100vh; }
+  }
+  @page { size:letter; margin:0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="brand"><div class="brand-mark">Y</div><div class="brand-name">YourMark<span>.ai</span></div></div>
+    <div class="doc-tag">Case Study</div>
+  </div>
+
+  <div class="title-block">
+    <h1>Clinical Data Hub for a Phase 3 Program</h1>
+    <p>Endometriosis · Six active studies · One connected data layer</p>
+  </div>
+
+  <div class="cols">
+    <!-- LEFT: client situation -->
+    <div class="col-left">
+      <div class="band">Client Situation</div>
+      <div class="sit">
+        <div class="sit-sec">
+          <h4>The Program</h4>
+          <ul>
+            <li>Clinical operations team at a biopharma company in Phase 3</li>
+            <li>Six active studies in endometriosis, from pivotal trials to a long-term extension</li>
+            <li>Some subjects move from one study into another</li>
+          </ul>
+        </div>
+        <div class="sit-sec">
+          <h4>The Data</h4>
+          <ul>
+            <li>Subject, site, visit and lab data each sit on a different platform</li>
+            <li>Some platforms have an API; others only send file extracts</li>
+            <li>Data is split across studies and within each study</li>
+          </ul>
+        </div>
+        <div class="sit-sec needs">
+          <h4>What the Team Needs</h4>
+          <ul>
+            <li>One connected data layer across all six studies</li>
+            <li>An executive view of enrollment and drop-off across the program</li>
+            <li>Answers in minutes, without manual data pulls</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: problems to solve -->
+    <div class="col-right">
+      <div class="band green">Problems to Solve</div>
+      <div class="probs" style="margin-top:12px;">
+        <div class="prob">
+          <div class="prob-num">01</div>
+          <div class="prob-body">
+            <h3>Unified Data Foundation</h3>
+            <div class="prob-cols">
+              <div class="pc">
+                <h5>Pain Point</h5>
+                <p>Subject, site, visit and lab data sit on separate platforms, within and across six studies. Some have an API and some don't — and subjects who move between studies are hard to follow.</p>
+              </div>
+              <div class="pc solved">
+                <h5>Solve For</h5>
+                <ul>
+                  <li>Ingest every source, through API or file</li>
+                  <li>One linked data model across all six studies</li>
+                  <li>Each subject matched across studies</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="prob">
+          <div class="prob-num">02</div>
+          <div class="prob-body">
+            <h3>Executive Program View</h3>
+            <div class="prob-cols">
+              <div class="pc">
+                <h5>Pain Point</h5>
+                <p>Each study reports on its own, so leaders have no single view of how the program is enrolling or where subjects are dropping off.</p>
+              </div>
+              <div class="pc solved">
+                <h5>Solve For</h5>
+                <ul>
+                  <li>Enrollment rate by study, site and month</li>
+                  <li>Drop-off rate by study and over time</li>
+                  <li>Total subjects in study, across the program</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agents-box">
+        <h4>The YourMark Approach — Three Agents Do the Work</h4>
+        <div class="agent-rows">
+          <div class="agent-mini"><b>Ingestion Agent</b><p>Polls APIs and picks up file extracts; normalizes every source into one canonical schema.</p></div>
+          <div class="agent-mini"><b>Identity Resolution Agent</b><p>Links the same subject across platforms and studies into a single master record.</p></div>
+          <div class="agent-mini"><b>Insight Agent</b><p>Answers program questions in plain language against the linked model — no manual pulls.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-band">
+    <div class="stat"><b>6 → 1</b><span>studies unified into a single linked data model</span></div>
+    <div class="stat"><b>362</b><span>subject records ingested across APIs &amp; files</span></div>
+    <div class="stat"><b>~230</b><span>unique subjects resolved — counted once</span></div>
+    <div class="stat"><b>10</b><span>sites ranked on enrollment &amp; retention</span></div>
+    <div class="stat"><b>Minutes</b><span>from question to answer — no manual pulls</span></div>
+  </div>
+
+  <div class="bottom-strip">
+    <div class="bs data">
+      <span class="pill-h">Data you can use</span>
+      <p>Mocked data across all six studies — 362 subject records, 10 sites, ~230 unique subjects matched across studies.</p>
+    </div>
+    <div class="bs demo">
+      <span class="pill-h">Live demo</span>
+      <p><b>yourmark.ai/clinical-data-hub/</b> — interactive prototype with study/site filters and program Q&amp;A.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Prepared by YourMark.ai — AI, Design &amp; Management Consulting</span>
+    <span>Confidential · For evaluation purposes</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - YourMark.ai</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .invoice-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 30px;
+        }
+
+        .logo-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .logo-section p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .invoice-title {
+            text-align: right;
+        }
+
+        .invoice-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .invoice-number {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .header-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .detail-box h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .detail-box p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .invoice-body {
+            padding: 40px;
+        }
+
+        .billing-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .billing-box h3 {
+            color: #059669;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .billing-box p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .items-table thead {
+            background: #f0fdf4;
+        }
+
+        .items-table th {
+            padding: 15px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #059669;
+            font-weight: 600;
+            border-bottom: 2px solid #10b981;
+        }
+
+        .items-table th:last-child,
+        .items-table td:last-child {
+            text-align: right;
+        }
+
+        .items-table tbody tr {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .items-table td {
+            padding: 15px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .item-description {
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .totals-box {
+            width: 300px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 14px;
+        }
+
+        .total-row.subtotal {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .total-row.grand-total {
+            border-top: 2px solid #10b981;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .notes-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f0fdf4;
+        }
+
+        .notes-section h3 {
+            color: #059669;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .notes-section p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .invoice-footer {
+            background: #f9fafb;
+            padding: 30px 40px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .footer-content {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-highlight {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .invoice-container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top,
+            .header-details,
+            .billing-section {
+                grid-template-columns: 1fr;
+            }
+
+            .invoice-title {
+                text-align: left;
+                margin-top: 20px;
+            }
+
+            .totals-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="invoice-header">
+            <div class="header-top">
+                <div class="logo-section">
+                    <h1>YourMark.ai</h1>
+                    <p>Professional Services</p>
+                </div>
+                <div class="invoice-title">
+                    <h2>INVOICE</h2>
+                    <p class="invoice-number">#INV-2026-001</p>
+                </div>
+            </div>
+            <div class="header-details">
+                <div class="detail-box">
+                    <h3>Invoice Date</h3>
+                    <p>April 20, 2026</p>
+                </div>
+                <div class="detail-box">
+                    <h3>Due Date</h3>
+                    <p>May 20, 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="invoice-body">
+            <!-- Billing Information -->
+            <div class="billing-section">
+                <div class="billing-box">
+                    <h3>From</h3>
+                    <p>
+                        <strong>YourMark.ai</strong><br>
+                        123 Business Street<br>
+                        Suite 100<br>
+                        City, State 12345<br>
+                        contact@yourmark.ai<br>
+                        (555) 123-4567
+                    </p>
+                </div>
+                <div class="billing-box">
+                    <h3>Bill To</h3>
+                    <p>
+                        <strong>Client Name</strong><br>
+                        Company Name<br>
+                        456 Client Avenue<br>
+                        City, State 67890<br>
+                        client@email.com<br>
+                        (555) 987-6543
+                    </p>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: right;">Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Website Design & Development</strong>
+                            <div class="item-description">Custom website design with responsive layout and modern UI/UX</div>
+                        </td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: right;">$5,000.00</td>
+                        <td>$5,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Branding & Logo Design</strong>
+                            <div class="item-description">Complete brand identity package including logo variations</div>
+                        </td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: right;">$2,500.00</td>
+                        <td>$2,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Content Creation</strong>
+                            <div class="item-description">Professional copywriting and content strategy</div>
+                        </td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: right;">$150.00</td>
+                        <td>$1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>SEO Optimization</strong>
+                            <div class="item-description">On-page SEO and technical optimization</div>
+                        </td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: right;">$1,000.00</td>
+                        <td>$1,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Totals -->
+            <div class="totals-section">
+                <div class="totals-box">
+                    <div class="total-row subtotal">
+                        <span>Subtotal</span>
+                        <span>$10,000.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax (0%)</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total Due</span>
+                        <span>$10,000.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="notes-section">
+                <h3>Payment Information</h3>
+                <p>
+                    Please make payment within 30 days of invoice date. Payment can be made via bank transfer, check, or online payment portal.<br><br>
+                    <strong>Bank Details:</strong><br>
+                    Bank Name: Example Bank<br>
+                    Account Number: 123456789<br>
+                    Routing Number: 987654321<br>
+                    Account Name: YourMark.ai LLC
+                </p>
+            </div>
+
+            <div class="notes-section">
+                <h3>Terms & Conditions</h3>
+                <p>
+                    Payment is due within 30 days of invoice date. Late payments may incur a 1.5% monthly interest charge. 
+                    All work is performed according to the terms outlined in our service agreement. 
+                    Thank you for your business!
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="invoice-footer">
+            <div class="footer-content">
+                <p>
+                    Thank you for your business!<br>
+                    For questions about this invoice, please contact <span class="footer-highlight">billing@yourmark.ai</span><br>
+                    <span class="footer-highlight">www.yourmark.ai</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

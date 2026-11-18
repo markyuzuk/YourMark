@@ -173,18 +173,18 @@
             font-weight: 700;
             color: #059669;
             font-size: 15px;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .package-subtitle {
             color: #666;
             font-size: 13px;
-            margin-bottom: 12px;
             font-style: italic;
+            margin-bottom: 8px;
         }
 
         .deliverables-list {
-            margin-top: 10px;
+            margin-top: 8px;
             padding-left: 0;
             list-style: none;
         }
@@ -192,8 +192,8 @@
         .deliverables-list li {
             color: #666;
             font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 3px;
+            line-height: 1.4;
+            margin-bottom: 2px;
             padding-left: 20px;
             position: relative;
         }
@@ -218,7 +218,9 @@
         .totals-section {
             display: flex;
             justify-content: flex-end;
-            margin-top: 30px;
+            margin-top: 15px;
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         .totals-box {
@@ -228,19 +230,20 @@
         .total-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            font-size: 14px;
+            padding: 6px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 15px;
         }
 
         .total-row.subtotal {
-            border-bottom: 1px solid #e5e7eb;
+            font-weight: 600;
         }
 
         .total-row.grand-total {
             border-top: 2px solid #10b981;
-            margin-top: 10px;
-            padding-top: 15px;
-            font-size: 20px;
+            margin-top: 6px;
+            padding-top: 10px;
+            font-size: 18px;
             font-weight: 700;
             color: #059669;
         }
@@ -445,9 +448,7 @@
                             </ul>
                         </td>
                         <td>
-                            <span style="text-decoration: line-through; color: #999; font-size: 13px;">$7,945.00</span><br>
-                            <strong>$5,800.00</strong><br>
-                            <span style="color: #059669; font-size: 12px; font-style: italic;">(27% discount applied)</span>
+                            <strong>$12,985.00</strong>
                         </td>
                     </tr>
                     <tr>
@@ -481,12 +482,7 @@
                             </ul>
                         </td>
                         <td style="vertical-align: top; padding-top: 20px;">
-                            <div style="text-align: right;">
-                                <span style="text-decoration: line-through; color: #999; font-size: 13px;">$43,727.00</span><br>
-                                <strong style="font-size: 16px;">$24,050.00</strong><br>
-                                <span style="color: #059669; font-size: 12px; font-style: italic; display: block; margin-top: 4px;">(45% discount applied)</span>
-                                <span style="color: #666; font-size: 10px; font-style: italic; display: block; margin-top: 6px; line-height: 1.3; max-width: 200px; margin-left: auto;">*Increased Discount reflects YourMark.ai investment in AI "Brain" capability</span>
-                            </div>
+                            <strong style="font-size: 16px;">$37,165.00</strong>
                         </td>
                     </tr>
                 </tbody>
@@ -495,9 +491,17 @@
             <!-- Totals -->
             <div class="totals-section">
                 <div class="totals-box">
+                    <div class="total-row">
+                        <span>Price before discount</span>
+                        <span>$50,150.00</span>
+                    </div>
+                    <div class="total-row" style="color: #059669;">
+                        <span>Discount (33%)</span>
+                        <span>-$16,550.00</span>
+                    </div>
                     <div class="total-row subtotal">
                         <span>Subtotal</span>
-                        <span>$29,850.00</span>
+                        <span>$33,600.00</span>
                     </div>
                     <div class="total-row">
                         <span>Tax (0%)</span>
@@ -505,39 +509,59 @@
                     </div>
                     <div class="total-row grand-total">
                         <span>Total Due</span>
-                        <span>$29,850.00</span>
+                        <span>$33,600.00</span>
                     </div>
                 </div>
             </div>
 
             <!-- Included Services -->
-            <div class="notes-section">
+            <div class="notes-section" style="page-break-before: always;">
                 <h3>Included Services & Support</h3>
-                <ul>
-                    <li>All Source Files (HTML, CSS, JavaScript, images, scripts)</li>
-                    <li>Complete Documentation (Technical and user guides)</li>
-                    <li>Training Session (1-hour website management training)</li>
-                    <li>Mobile Optimization (Responsive design for all devices)</li>
-                    <li>Browser Compatibility (Chrome, Firefox, Safari, Edge)</li>
-                    <li>Security Setup (SSL, password protection, daily backups)</li>
-                </ul>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr>
+                        <td style="width: 50%; padding: 5px 10px 5px 0; vertical-align: top;">
+                            • All Source Files (HTML, CSS, JavaScript, images, scripts)
+                        </td>
+                        <td style="width: 50%; padding: 5px 0 5px 10px; vertical-align: top;">
+                            • Mobile Optimization (Responsive design for all devices)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px 10px 5px 0; vertical-align: top;">
+                            • Complete Documentation (Technical and user guides)
+                        </td>
+                        <td style="padding: 5px 0 5px 10px; vertical-align: top;">
+                            • Browser Compatibility (Chrome, Firefox, Safari, Edge)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px 10px 5px 0; vertical-align: top;">
+                            • Training Session (1-hour website management training)
+                        </td>
+                        <td style="padding: 5px 0 5px 10px; vertical-align: top;">
+                            • Security Setup (SSL, password protection, daily backups)
+                        </td>
+                    </tr>
+                </table>
             </div>
 
-            <!-- Payment Terms -->
+            <!-- Payment Terms & Instructions -->
             <div class="notes-section">
-                <h3>Payment Terms</h3>
-                <p>
-                    <strong>Payment Due:</strong> Net 30 days from invoice date (May 16, 2026)<br>
-                    <strong>Accepted Payment Methods:</strong> Wire Transfer, Check<br>
-                    <strong>Late Payment Fee:</strong> 1.5% per month on overdue balance
+                <h3>Payment Terms & Instructions</h3>
+                <p style="margin-bottom: 12px;">
+                    <strong>Payment Due:</strong> Net 30 days from invoice date (May 16, 2026) | 
+                    <strong>Methods:</strong> Wire Transfer, Check | 
+                    <strong>Late Fee:</strong> 1.5% per month
                 </p>
-            </div>
-
-            <!-- Payment Instructions -->
-            <div class="notes-section">
-                <h3>Payment Instructions</h3>
-                <p>
-                    Contact your account representative <strong>Mark Yuzuk</strong> to setup payment details.
+                <p style="margin-bottom: 8px;">
+                    <strong>Wire Transfer Instructions:</strong>
+                </p>
+                <p style="line-height: 1.7;">
+                    <strong>Beneficiary Name:</strong> Mark Yuzuk<br>
+                    <strong>Beneficiary Address:</strong> 301 Edgehill Drive, Havertown PA, 19083<br>
+                    <strong>Account Number:</strong> 8297509732<br>
+                    <strong>Routing Number (ABA/RTN):</strong> 121000248 (domestic wires)<br>
+                    <strong>Bank:</strong> Wells Fargo Bank, N.A., 333 Market Street, San Francisco, CA 94105
                 </p>
             </div>
 
@@ -558,7 +582,7 @@
             <div class="footer-content">
                 <p>
                     <strong>Thank you for your business!</strong><br><br>
-                    We're proud to have partnered with Sensorium Clinical Research on this comprehensive branding and website development project. The extensive design exploration and robust technical foundation will serve your organization well for years to come.<br><br>
+                    We're proud to have partnered with Sensorium Clinical Research on this comprehensive branding and website development project.<br><br>
                     For questions about this invoice, please contact your account representative <span class="footer-highlight">Mark Yuzuk</span>.<br>
                     <span class="footer-highlight">www.yourmark.ai</span>
                 </p>
