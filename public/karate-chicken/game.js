@@ -15,7 +15,7 @@ const BELTS=[
 const beltFor=s=>{let b=BELTS[0];for(const x of BELTS)if(s>=x.s)b=x;return b;};
 
 // ---------- responsive world ----------
-let W=800,H=450,CX=400,GY=372,SPAWN_D=450,SPEEDK=1,HERO_H=210,HUDK=1,PXL=0,PXR=0;
+let W=800,H=450,CX=400,GY=372,SPAWN_D=450,SPEEDK=1,HERO_H=210,HUDK=1;
 function layout(){
   const r=cv.getBoundingClientRect();if(!r.width||!r.height)return;
   const aspect=r.width/r.height;
@@ -27,7 +27,6 @@ function layout(){
   HERO_H=portrait?270:Math.min(210,GY-70);
   HUDK=portrait?1.25:1;
   SPAWN_D=W/2+50;SPEEDK=(SPAWN_D-RING)/(450-RING);
-  PXL=CX-Math.min(150,W*.27);PXR=CX+Math.min(150,W*.27);
   const dpr=Math.min(window.devicePixelRatio||1,2);
   cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
 }
@@ -71,7 +70,6 @@ resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.disp
 // ---------- mute ----------
 let MUTED=store.get('kc_muted')==='1';
 function setMute(on){MUTED=on;store.set('kc_muted',on?'1':'0');$('btnMute').textContent=on?'🔇':'🔊';if(on&&'speechSynthesis'in window)speechSynthesis.cancel();}
-const PX=i=>G&&G.mode==='duel'?(i?PXR:PXL):CX;
 // ---------- seasonal hats: pilgrim Nov, santa Dec; 🎩 button cycles auto/on/off ----------
 function hatType(){
   const h=store.get('kc_hat')||'auto',m=today.getMonth();
@@ -158,8 +156,6 @@ function newGame(mode){
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
      slow:0,rts:[],jackpots:0,eggUsed:false,dur:mode==='daily'?DAILY_SECONDS:Infinity};
-  if(mode==='duel'){G.P=[{score:0,lives:3,combo:0,pose:0,poseT:0,stagger:0},{score:0,lives:3,combo:0,pose:0,poseT:0,stagger:0}];G.dur=Infinity;document.body.classList.add('duel');}
-  else document.body.classList.remove('duel');
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
 
@@ -172,7 +168,7 @@ function spawn(){
   const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:1)*(.92+r()*.16);
   G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='badger'?2:1,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
-    target:G.mode==='duel'?Math.floor(r()*2):0,zoneT:0});
+    zoneT:0});
   G.spawnT=Math.max(.36,1.05-G.t*.011)*(.75+r()*.5);
 }
 function addText(x,y,s,c,size=22){G.texts.push({x,y,s,c,size,life:.8});}
@@ -196,32 +192,8 @@ function strike(side){
   G.enemies=G.enemies.filter(e=>!e.dead);
   G.shake=Math.max(G.shake,perfect?5:3);
 }
-function strikeDuel(pi,side){
-  const P=G.P[pi],x0=PX(pi);
-  if(state!=='play'||P.stagger>0||P.lives<=0)return;
-  P.pose=side;P.poseT=.16;
-  let best=null;
-  for(const e of G.enemies){if(e.target!==pi||e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
-  if(!best){P.stagger=.26;addText(x0+side*60,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
-  const golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,ex=x0+side*best.d;
-  P.score+=golden?500:perfect?100:50;P.combo++;P.hits=(P.hits||0)+1;
-  if(best.zoneT)G.rts.push(G.t-best.zoneT);
-  const label=golden?'JACKPOT!':perfect?'PERFECT!':'good',col=golden?'#f2b632':perfect?'#d6342b':'#2f6fd6';
-  addText(ex,GY-130,label,col,golden?26:perfect?26:20);
-  if(golden){G.jackpots++;sfx('jackpot',()=>beep(1568,.15,'triangle',.09));}else sfx(perfect?'perfect':'kick',()=>thwack(perfect?2:1));
-  if(P.combo%5===0){sfx('yum',()=>yum());addText(x0,GY-HERO_H*.6,'YUM!','#f2b632',22);}
-  best.hp--;burst(ex,GY-40,best.type==='golden'?'#f2b632':'#f08a24',8);
-  if(best.hp<=0)best.dead=true;else{best.d+=150;best.hurt=.2;best.zoneT=0;}
-  G.enemies=G.enemies.filter(e=>!e.dead);
-  G.shake=Math.max(G.shake,perfect?5:3);
-}
-function hurtDuel(pi){
-  const P=G.P[pi];P.lives--;P.combo=0;G.shake=14;buzz(120);
-  burst(PX(pi),GY-80,'#ffffff',16,true);addText(PX(pi),GY-HERO_H*.6-10,'BAWK!','#d6342b',30);sfx('squawk',()=>squawk());
-  if(P.lives<=0)endGame(false);
-}
 function goldenEgg(){
-  if(state!=='play'||G.mode==='duel'||G.ki<100)return;
+  if(state!=='play'||G.ki<100)return;
   G.ki=0;G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
   G.score+=G.enemies.length*75;G.enemies=[];
@@ -239,7 +211,6 @@ function update(dt){
   G.t+=dt;
   if(G.t>=G.dur){endGame(true);return;}
   G.stagger=Math.max(0,G.stagger-dt);G.poseT=Math.max(0,G.poseT-dt);if(G.poseT<=0)G.pose=0;
-  if(G.mode==='duel')for(const P of G.P){P.stagger=Math.max(0,P.stagger-dt);P.poseT=Math.max(0,P.poseT-dt);if(P.poseT<=0)P.pose=0;}
   G.shake=Math.max(0,G.shake-dt*40);G.flash=Math.max(0,G.flash-dt);
   G.spawnT-=dt;if(G.spawnT<=0)spawn();
   for(const e of G.enemies){
@@ -248,11 +219,11 @@ function update(dt){
     e.d-=e.speed*SPEEDK*dt;
     if(!e.zoneT&&e.d<=REACH)e.zoneT=G.t;
     if(e.type==='weasel'&&!e.flipped&&e.d<=e.flipAt){e.flipped=true;e.jump=1;beep(990,.05,'square',.03);}
-    if(e.d<=HITBOX){e.dead=true;if(G.mode==='duel')hurtDuel(e.target);else hurt();if(state!=='play')return;}
+    if(e.d<=HITBOX){e.dead=true;hurt();if(state!=='play')return;}
   }
   G.enemies=G.enemies.filter(e=>!e.dead);
   tickFx(dt);
-  if(G.mode!=='duel')$('padKi').disabled=G.ki<100;
+  $('padKi').disabled=G.ki<100;
 }
 function tickFx(dt){
   for(const p of G.parts){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=(p.feather?120:600)*dt;if(p.feather)p.vx*=.97;}
@@ -283,14 +254,14 @@ function drawBG(){
   ctx.fillStyle=g;ctx.fillRect(0,GY-34,W,H-GY+34);
   ctx.strokeStyle='rgba(60,30,10,.25)';ctx.lineWidth=1;
   for(let x=CX-700;x<W+700;x+=70){ctx.beginPath();ctx.moveTo(x,GY-34);ctx.lineTo(CX+(x-CX)*1.8,H);ctx.stroke();}
-  for(const bx of(G&&G.mode==='duel'?[PXL,PXR]:[CX]))for(const s of[-1,1]){
-    ctx.strokeStyle='rgba(242,182,50,.95)';ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(bx+s*RING,GY+6,PERF+12,7,0,0,Math.PI*2);ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(bx+s*(REACH-10),GY+6,10,4,0,0,Math.PI*2);ctx.stroke();
+  for(const s of[-1,1]){
+    ctx.strokeStyle='rgba(242,182,50,.95)';ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(CX+s*RING,GY+6,PERF+12,7,0,0,Math.PI*2);ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(CX+s*(REACH-10),GY+6,10,4,0,0,Math.PI*2);ctx.stroke();
   }
 }
 function drawOne(P,x0){
   const pose=P?P.pose:0,st=P&&P.stagger>0,now=performance.now();
-  const bob=Math.sin(now/180)*2,HH=HERO_H*(G&&G.mode==='duel'?.62:1),HW=HH*HERO_AR,baseY=GY-26,hip=baseY-4;
+  const bob=Math.sin(now/180)*2,HH=HERO_H,HW=HH*HERO_AR,baseY=GY-26,hip=baseY-4;
   const x=x0+(st?Math.sin(now/30)*4:0)+pose*10;
   ctx.save();
   ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(x0,GY+4,50,9,0,0,Math.PI*2);ctx.fill();
@@ -317,11 +288,10 @@ function drawOne(P,x0){
     ctx.strokeText('HI-YAH!',x0+pose*120,GY-HH+10);ctx.fillText('HI-YAH!',x0+pose*120,GY-HH+10);}
 }
 function drawChickens(){
-  if(G&&G.mode==='duel'){drawOne(G.P[0],PXL);drawOne(G.P[1],PXR);}
-  else drawOne(G||{pose:0},CX);
+  drawOne(G||{pose:0},CX);
 }
 function drawEnemy(e){
-  const bx=PX(e.target||0);
+  const bx=CX;
   let x,y=GY-22,flip=-e.side;
   if(e.jump>0){const p=1-e.jump;x=bx+e.side*e.d*(1-2*p);y-=Math.sin(Math.PI*p)*(HERO_H*.85);flip=-e.side*(p<.5?1:-1);}
   else x=bx+e.side*e.d;
@@ -362,15 +332,6 @@ function drawEnemy(e){
 function drawHUD(){
   const k=HUDK;
   ctx.save();
-  if(G.mode==='duel'){
-    ctx.textAlign='left';ctx.fillStyle='#2a1d14';ctx.font=`bold ${24*k}px Bungee, Impact, sans-serif`;
-    ctx.fillText('P1 '+G.P[0].score.toLocaleString(),16,36*k);
-    ctx.textAlign='right';ctx.fillText('P2 '+G.P[1].score.toLocaleString(),W-14,36*k);
-    ctx.font=`${20*k}px serif`;
-    ctx.textAlign='left';ctx.fillText('🪶'.repeat(Math.max(0,G.P[0].lives)),16,62*k);
-    ctx.textAlign='right';ctx.fillText('🪶'.repeat(Math.max(0,G.P[1].lives)),W-14,62*k);
-    ctx.restore();return;
-  }
   ctx.textAlign='left';ctx.fillStyle='#2a1d14';ctx.font=`bold ${26*k}px Bungee, Impact, sans-serif`;
   ctx.fillText(G.score.toLocaleString(),16,36*k);
   const b=beltFor(G.score);ctx.font=`600 ${13*k}px Inter, sans-serif`;ctx.fillText(b.n+' Belt',16,56*k);
@@ -451,19 +412,9 @@ function start(mode){initAudio();newGame(mode);state='play';show(null);setPlayin
   fetch('/karate-chicken/api/ping',{method:'POST'}).catch(()=>{});}
 function pause(){if(state!=='play')return;state='paused';show('paused');}
 function resume(){if(state!=='paused')return;initAudio();state='play';show(null);last=performance.now();}
-function toMenu(){state='menu';G=null;show('menu');setPlaying(false);$('padKi').disabled=true;document.body.classList.remove('duel');champLine();}
+function toMenu(){state='menu';G=null;show('menu');setPlaying(false);$('padKi').disabled=true;champLine();}
 function endGame(survived){
   if(state!=='play')return;state='over';setPlaying(false);
-  if(G.mode==='duel'){
-    const w=G.P[0].lives>0?0:1;
-    $('overTitle').textContent=`🐔 PLAYER ${w+1} WINS!`;
-    $('overStats').innerHTML=`P1 <b>${G.P[0].score.toLocaleString()}</b> · P2 <b>${G.P[1].score.toLocaleString()}</b>`;
-    $('shareText').textContent=`🐔🆚🐔 Karate Chicken duel — Player ${w+1} wins ${G.P[w].score.toLocaleString()}-${G.P[1-w].score.toLocaleString()}`;
-    $('saveRow').style.display='none';$('btnRematch').style.display='none';
-    $('padKi').disabled=true;document.body.classList.remove('duel');sfx('gameover',()=>{});
-    setTimeout(()=>{if(state==='over')show('over');},700);
-    return;
-  }
   const b=beltFor(G.score),best=+(store.get('kc_best')||0);
   if(G.score>best)store.set('kc_best',G.score);
   $('overTitle').textContent=survived?'Kata Complete!':'Feathers Ruffled!';
@@ -536,7 +487,6 @@ async function rematch(){
 let lastMode='daily';
 $('btnDaily').onclick=()=>start(lastMode='daily');
 $('btnEndless').onclick=()=>start(lastMode='endless');
-$('btnDuel').onclick=()=>start(lastMode='duel');
 $('btnRematch').onclick=rematch;
 $('btnMute').onclick=()=>setMute(!MUTED);setMute(MUTED);
 $('btnHat').onclick=()=>{const h=store.get('kc_hat')||'auto';setHatMode(h==='auto'?'on':h==='on'?'off':'auto');};
@@ -555,24 +505,12 @@ $('btnPause').onclick=pause;
 $('btnResume').onclick=resume;
 $('btnQuit').onclick=toMenu;
 function bindPad(id,fn){const el=$(id);el.addEventListener('pointerdown',e=>{e.preventDefault();fn();el.classList.add('hit');setTimeout(()=>el.classList.remove('hit'),90);});}
-bindPad('padL',()=>G&&G.mode==='duel'?strikeDuel(0,-1):strike(-1));
-bindPad('padR',()=>G&&G.mode==='duel'?strikeDuel(0,1):strike(1));
-bindPad('padL2',()=>strikeDuel(1,-1));
-bindPad('padR2',()=>strikeDuel(1,1));
+bindPad('padL',()=>strike(-1));
+bindPad('padR',()=>strike(1));
 bindPad('padKi',goldenEgg);
-cv.addEventListener('pointerdown',e=>{if(state!=='play')return;e.preventDefault();const r=cv.getBoundingClientRect(),x=e.clientX-r.left;
-  if(G&&G.mode==='duel'){const h=r.width/2;if(x<h)strikeDuel(0,x<h/2?-1:1);else strikeDuel(1,x<h+h/4?-1:1);}
-  else strike(x<r.width/2?-1:1);});
+cv.addEventListener('pointerdown',e=>{if(state!=='play')return;e.preventDefault();const r=cv.getBoundingClientRect();strike(e.clientX-r.left<r.width/2?-1:1);});
 window.addEventListener('keydown',e=>{
   if(state==='play'){
-    if(G&&G.mode==='duel'){
-      if(e.key==='a'||e.key==='A')strikeDuel(0,-1);
-      else if(e.key==='d'||e.key==='D')strikeDuel(0,1);
-      else if(e.key==='ArrowLeft')strikeDuel(1,-1);
-      else if(e.key==='ArrowRight')strikeDuel(1,1);
-      else if(e.key==='Escape'||e.key==='p')pause();
-      e.preventDefault();return;
-    }
     if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A'){strike(-1);e.preventDefault();}
     else if(e.key==='ArrowRight'||e.key==='d'||e.key==='D'){strike(1);e.preventDefault();}
     else if(e.key===' '){goldenEgg();e.preventDefault();}
