@@ -50,6 +50,24 @@ canvas{display:block;width:100%;height:100%;background:#e9dcc0}
 .share{white-space:pre;font:15px/1.35 ui-monospace,Menlo,monospace;background:#fff;border:2px dashed #c9b48f;border-radius:10px;
   padding:10px;margin:10px 0;text-align:left;-webkit-user-select:text;user-select:text;overflow-x:auto}
 
+/* leaderboard */
+.board-btn{display:block;width:100%;margin-top:10px;font-family:Bungee,Impact,sans-serif;font-weight:400;font-size:14px;
+  letter-spacing:1px;background:var(--gold);color:var(--ink);box-shadow:0 4px 0 #a67712}
+.board-btn:active{box-shadow:0 2px 0 #a67712}
+.board-list{margin:10px 0;padding:0;list-style:none;max-height:36vh;overflow-y:auto;text-align:left}
+.board-list li{display:flex;align-items:baseline;gap:8px;padding:6px 8px;border-radius:8px;font-size:14px}
+.board-list li:nth-child(odd){background:rgba(122,74,36,.08)}
+.board-list li:first-child{background:rgba(214,52,43,.1);font-weight:800}
+.board-list .rk{width:24px;font-weight:800;color:var(--muted);font-size:12px}
+.board-list .nm{flex:1;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.board-list .sc{font-family:Bungee,Impact,sans-serif;font-size:14px;color:var(--red)}
+.board-list .bd{font-size:10px;color:var(--muted)}
+.saveRow{display:none;gap:8px;margin-top:10px}
+.saveRow input{flex:1;min-width:0;padding:10px 12px;border:2px solid var(--ink);border-radius:9px;background:#fff;
+  color:var(--ink);font:700 14px Inter,sans-serif;outline:none}
+.saveRow input:focus{border-color:var(--red)}
+.saveRow button{flex:0 0 auto;padding:10px 14px;font-size:13px}
+
 /* touch pads */
 body:not(.playing) #pads{opacity:.35;pointer-events:none}
 #pads{flex:0 0 auto;display:grid;grid-template-columns:1fr 92px 1fr;gap:10px;padding:10px 8px 8px;height:clamp(110px,20vh,170px)}

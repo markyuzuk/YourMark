@@ -312,7 +312,27 @@ function loop(ts){
 requestAnimationFrame(loop);
 
 // ---------- flow ----------
-function show(id){for(const o of['menu','paused','over'])$(o).classList.toggle('hidden',o!==id);}
+function show(id){for(const o of['menu','paused','over','board'])$(o).classList.toggle('hidden',o!==id);}
+// ---------- leaderboard ----------
+async function boardData(){try{const r=await fetch('api/scores');return(await r.json()).top||[]}catch(e){return null}}
+async function showBoard(){
+  const msg=$('boardMsg'),list=$('boardList');
+  show('board');msg.textContent='loading…';list.innerHTML='';
+  const top=await boardData();
+  if(!top){msg.textContent='the dojo is offline — try again later';return;}
+  if(!top.length){msg.textContent='no scores yet — be the first!';return;}
+  msg.textContent='';
+  list.innerHTML=top.map((r,i)=>`<li><span class="rk">${i+1}</span><span class="nm"></span><span class="bd">${beltFor(r.s).n} · x${r.c||0}</span><span class="sc">${(+r.s).toLocaleString()}</span></li>`).join('');
+  list.querySelectorAll('.nm').forEach((el,i)=>el.textContent=top[i].n);
+}
+async function saveScore(){
+  const btn=$('btnSave');if(!G||btn.disabled)return;
+  const n=$('saveName').value.trim()||'anon';btn.disabled=true;btn.textContent='saving…';
+  try{
+    const r=await fetch('api/scores',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({n,s:G.score,m:G.mode,c:G.maxCombo})});
+    btn.textContent=r.ok?'saved!':'error';if(r.ok)setTimeout(showBoard,500);else btn.disabled=false;
+  }catch(e){btn.textContent='offline?';btn.disabled=false;}
+}
 function setPlaying(on){document.body.classList.toggle('playing',on);}
 function start(mode){initAudio();newGame(mode);state='play';show(null);setPlaying(true);$('copyMsg').textContent='';layout();}
 function pause(){if(state!=='play')return;state='paused';show('paused');}
@@ -330,6 +350,8 @@ function endGame(survived){
   const head=G.mode==='daily'?`🐔🥋 Karate Chicken #${dayNo}`:`🐔🥋 Karate Chicken · Endless ${Math.floor(G.t)}s`;
   $('shareText').textContent=`${head}\n${b.n} Belt · ${G.score.toLocaleString()} pts\n${grid}\nbest combo ${G.maxCombo}`;
   $('padKi').disabled=true;updateBest();
+  const sr=$('saveRow');sr.style.display=G.score>0?'flex':'none';
+  const sb=$('btnSave');sb.disabled=false;sb.textContent='Save score';
   setTimeout(()=>{if(state==='over')show('over');},survived?200:700);
 }
 async function share(){
@@ -346,6 +368,9 @@ $('btnEndless').onclick=()=>start(lastMode='endless');
 $('btnAgain').onclick=()=>start(lastMode);
 $('btnMenu').onclick=toMenu;
 $('btnShare').onclick=share;
+$('btnBoard').onclick=showBoard;
+$('btnBack').onclick=()=>show(state==='over'?'over':'menu');
+$('btnSave').onclick=saveScore;
 $('btnPause').onclick=pause;
 $('btnResume').onclick=resume;
 $('btnQuit').onclick=toMenu;
