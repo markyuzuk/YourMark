@@ -223,7 +223,7 @@ function spawn(){
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
   }
   const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
-  if(type==='cav')addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);
+  if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
   G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,

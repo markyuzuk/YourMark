@@ -2,6 +2,12 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v32 — 2025-11-18
+- **Lucy voice slot**: `lucy` recording plays on spawn ("HERE COMES LUCY!"), yip-yip bark synth fallback; added to `record.html` SOUND STUDIO
+
+## v31 — 2025-11-18
+- Lucy's ears redrawn fanning wide framing the face (per close-up photo)
+
 ## v30 — 2025-11-18
 - Lucy redrawn more breed-accurately: silky ears past the chin, domed head, wide-set gentle eyes, feathered paws, plume tail
 
