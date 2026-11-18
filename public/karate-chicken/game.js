@@ -131,7 +131,7 @@ function sfx(name,fallback){
   if(MUTED)return;
   if(!(name in audioSrcs)){audioSrcs[name]=undefined;resolveSfx(name);fallback();return;}
   if(!audioSrcs[name]){fallback();return;}
-  try{const a=new Audio(audioSrcs[name]);const p=a.play();if(p&&p.catch)p.catch(()=>fallback());}catch(e){fallback();}
+  try{const a=new Audio(audioSrcs[name]);if(G&&G.slow>0)a.playbackRate=.55;const p=a.play();if(p&&p.catch)p.catch(()=>fallback());}catch(e){fallback();}
 }
 function eggSound(){beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);}
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
@@ -176,7 +176,7 @@ function strike(side){
   if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
   const golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
   if(golden){G.score+=500*mult;G.ki=Math.min(100,G.ki+18);G.jackpots++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'JACKPOT!','#f2b632',28);sfx('jackpot',()=>beep(1568,.15,'triangle',.09));buzz(20);}
-  else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.22;}
+  else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.3;}
   else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);sfx('kick',()=>thwack(1));buzz(8);}
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
   if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>yum());addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
@@ -225,7 +225,7 @@ function hurt(){
 }
 function update(dt){
   if(G.hitstop>0){G.hitstop-=dt;return;}
-  if(G.slow>0){G.slow-=dt;dt*=.4;}
+  if(G.slow>0){G.slow-=dt;dt*=.33;}
   G.t+=dt;
   if(G.t>=G.dur){endGame(true);return;}
   G.stagger=Math.max(0,G.stagger-dt);G.poseT=Math.max(0,G.poseT-dt);if(G.poseT<=0)G.pose=0;
@@ -377,6 +377,7 @@ function drawHUD(){
 function draw(){
   ctx.setTransform(cv.width/W,0,0,cv.height/H,0,0);
   ctx.save();
+  if(G&&G.slow>0){const z=1+G.slow*.3;ctx.translate(CX,GY);ctx.scale(z,z);ctx.translate(-CX,-GY);}
   if(G&&G.shake>0)ctx.translate((Math.random()-.5)*G.shake,(Math.random()-.5)*G.shake);
   drawBG();
   if(G)for(const e of G.enemies)drawEnemy(e);
