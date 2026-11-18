@@ -74,7 +74,10 @@ const SFX_EXTS=['.m4a','.mp3','.wav','.webm','.ogg'];
 const audioSrcs={}; // name -> url | null | undefined(probing)
 async function resolveSfx(name){
   for(const ext of SFX_EXTS){
-    try{const r=await fetch('assets/'+name+ext,{method:'HEAD'});if(r.ok){audioSrcs[name]='assets/'+name+ext;return}}catch(e){}
+    try{const r=await fetch('assets/'+name+ext,{method:'HEAD'});
+      // SPA fallback serves index.html (200) for missing files — only accept real media types
+      if(r.ok&&/(audio|video|octet-stream)/i.test(r.headers.get('content-type')||'')){audioSrcs[name]='assets/'+name+ext;return}
+    }catch(e){}
   }
   audioSrcs[name]=null;
 }
