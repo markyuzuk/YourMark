@@ -1,0 +1,68 @@
+:root{
+  --ink:#2a1d14;--paper:#f6eedd;--red:#d6342b;--red-dk:#8f1f19;--gold:#f2b632;--bg:#1c1410;--muted:#7a6553;
+  --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--paper);font-family:Inter,system-ui,-apple-system,sans-serif;
+  overscroll-behavior:none;overflow:hidden;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button{font:800 15px Inter,system-ui,sans-serif;border:none;border-radius:12px;padding:12px 16px;cursor:pointer;
+  background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-dk);touch-action:manipulation}
+button.alt{background:var(--ink);box-shadow:0 4px 0 #000}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 var(--red-dk)}
+button:disabled{opacity:.4}
+
+#app{position:fixed;inset:0;display:flex;flex-direction:column;
+  padding:var(--sat) var(--sar) var(--sab) var(--sal);max-width:1100px;margin:0 auto}
+
+/* top bar */
+#topbar{display:flex;align-items:center;gap:8px;padding:6px 10px;flex:0 0 auto}
+#topbar .mini{height:34px}
+.brand{font-family:Bungee,Impact,sans-serif;color:var(--gold);font-size:18px;letter-spacing:.5px;text-shadow:2px 2px 0 var(--red);flex:1}
+.icon-btn{padding:6px 12px;font-size:14px;background:#3b2a1e;box-shadow:0 3px 0 #000;visibility:hidden}
+body.playing .icon-btn{visibility:visible}
+
+/* stage */
+#stage{position:relative;flex:1 1 auto;min-height:0;border-radius:14px;overflow:hidden;border:3px solid #3b2a1e;margin:0 6px}
+canvas{display:block;width:100%;height:100%;background:#e9dcc0}
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(28,20,16,.74);padding:12px;overflow-y:auto}
+.overlay.hidden{display:none}
+.card{background:var(--paper);color:var(--ink);border-radius:16px;padding:16px 18px;max-width:420px;width:100%;text-align:center;box-shadow:0 6px 0 #c9b48f;margin:auto}
+.card h1,.card h2{font-family:Bungee,Impact,sans-serif;margin:2px 0 6px;color:var(--red);font-size:26px}
+.card p{margin:6px 0;font-size:14px;line-height:1.45}
+.card .hero{height:clamp(90px,22vh,170px);display:block;margin:0 auto -4px}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.btns button{flex:1 1 120px;min-height:48px;font-size:16px}
+.small{font-size:12px!important;color:var(--muted);min-height:14px}
+.share{white-space:pre;font:15px/1.35 ui-monospace,Menlo,monospace;background:#fff;border:2px dashed #c9b48f;border-radius:10px;
+  padding:10px;margin:10px 0;text-align:left;-webkit-user-select:text;user-select:text;overflow-x:auto}
+
+/* touch pads */
+body:not(.playing) #pads{opacity:.35;pointer-events:none}
+#pads{flex:0 0 auto;display:grid;grid-template-columns:1fr 92px 1fr;gap:10px;padding:10px 8px 8px;height:clamp(110px,20vh,170px)}
+.pad,.ki{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:34px;line-height:1;border-radius:18px}
+.pad{background:#3b2a1e;box-shadow:0 5px 0 #000}
+.pad span,.ki span{font-size:11px;letter-spacing:1px;margin-top:6px;opacity:.8}
+.pad:active,.pad.hit{background:var(--red);box-shadow:0 2px 0 var(--red-dk);transform:translateY(3px)}
+.ki{background:var(--gold);color:var(--ink);box-shadow:0 5px 0 #a67712;font-size:30px}
+.ki:not(:disabled){animation:pulse .7s ease-in-out infinite alternate}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.07);filter:brightness(1.15)}}
+
+/* phones held sideways: maximise the stage, float the controls over it */
+@media (orientation:landscape) and (max-height:560px){
+  #topbar{display:none}
+  .rotate-tip{display:none}
+  #stage{margin:4px;border-width:2px}
+  /* tap either half of the dojo to strike; only the Egg floats, top-centre, clear of the action */
+  #pads{position:absolute;left:0;right:0;top:calc(var(--sat) + 10px);height:auto;padding:0;display:flex;justify-content:center;pointer-events:none;background:none}
+  #pads .pad{display:none}
+  #pads .ki{pointer-events:auto;width:76px;height:64px;font-size:24px;opacity:.95}
+  body:not(.playing) #pads{display:none}
+  .card{padding:12px 16px}
+  .card .hero{height:70px}
+}
+/* desktop / tablet: shorter pads, keyboard is primary */
+@media (min-width:900px) and (min-height:600px){
+  #pads{height:90px;max-width:620px;margin:0 auto;width:100%}
+  .rotate-tip{display:none}
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Karate Chicken</title>
+<meta name="description" content="Karate Chicken guards the coop. A one-thumb daily karate game.">
+<meta name="theme-color" content="#1c1410">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Karate Chicken">
+<meta property="og:title" content="Karate Chicken">
+<meta property="og:description" content="One thumb, two sides, zero mercy. Play today's Daily Kata.">
+<meta property="og:image" content="assets/icon-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/karate-chicken.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* password gate */
+  #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
+  .gate-box{background:#2a1f18;border:2px solid #4a3626;border-radius:18px;padding:36px 34px;width:340px;max-width:88vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .gate-box img{width:110px;margin-bottom:10px}
+  .gate-box h2{font-family:Bungee,cursive;font-size:22px;color:#f5c93a;margin:0 0 4px;letter-spacing:.5px}
+  .gate-box p{font-size:12.5px;color:#b8a58f;margin:0 0 18px}
+  .gate-box input{width:100%;padding:12px 14px;border:2px solid #4a3626;border-radius:10px;background:#1c1410;color:#f5c93a;font-size:15px;text-align:center;margin-bottom:12px;outline:none}
+  .gate-box input:focus{border-color:#f5c93a}
+  .gate-box button{width:100%;padding:13px;border:none;border-radius:10px;background:#f5c93a;color:#1c1410;font-family:Bungee,cursive;font-size:15px;letter-spacing:1px;cursor:pointer}
+  .gate-box button:hover{background:#ffd95e}
+  .gate-err{color:#ff6b5e;font-size:12px;margin-top:10px;min-height:15px}
+</style>
+</head>
+<body>
+<div id="gate">
+  <div class="gate-box">
+    <img src="assets/karate-chicken.png" alt="Karate Chicken">
+    <h2>KARATE CHICKEN</h2>
+    <p>Members only &middot; Enter the dojo password</p>
+    <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
+    <button onclick="tryGate()">ENTER THE DOJO</button>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+<div id="app">
+  <header id="topbar">
+    <img src="assets/karate-chicken.png" alt="" class="mini">
+    <span class="brand">KARATE CHICKEN</span>
+    <button id="btnPause" class="icon-btn" aria-label="Pause">❚❚</button>
+  </header>
+
+  <main id="stage">
+    <canvas id="game" aria-label="Karate Chicken game"></canvas>
+
+    <div class="overlay" id="menu">
+      <div class="card">
+        <img src="assets/karate-chicken.png" alt="Karate Chicken" class="hero">
+        <h1>KARATE CHICKEN</h1>
+        <p>Foxes, badgers and sneaky weasels charge from both sides. Hit <b>that side</b> when they reach the <b>gold ring</b>.</p>
+        <p><b>Perfect</b> hits charge Ki. Full Ki unleashes the 🥚 <b>Golden Egg</b>, which clears the screen. Watch for <b>“!”</b>: weasels leap over you.</p>
+        <div class="btns">
+          <button id="btnDaily">🥋 Daily Kata</button>
+          <button class="alt" id="btnEndless">♾️ Endless</button>
+        </div>
+        <p class="small" id="bestLine"></p>
+        <p class="small rotate-tip">Tip: turn your phone sideways for the widest view.</p>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="paused">
+      <div class="card">
+        <h2>Paused</h2>
+        <div class="btns">
+          <button id="btnResume">▶ Resume</button>
+          <button class="alt" id="btnQuit">Quit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="over">
+      <div class="card">
+        <h2 id="overTitle">Feathers Ruffled!</h2>
+        <p id="overStats"></p>
+        <div class="share" id="shareText"></div>
+        <div class="btns">
+          <button id="btnShare">📤 Share</button>
+          <button class="alt" id="btnAgain">Play again</button>
+          <button class="alt" id="btnMenu">Menu</button>
+        </div>
+        <p class="small" id="copyMsg"></p>
+      </div>
+    </div>
+  </main>
+
+  <nav id="pads">
+    <button id="padL" class="pad" aria-label="Strike left">◀<span>STRIKE</span></button>
+    <button id="padKi" class="ki" aria-label="Golden Egg" disabled>🥚<span>EGG</span></button>
+    <button id="padR" class="pad" aria-label="Strike right">▶<span>STRIKE</span></button>
+  </nav>
+</div>
+<script>
+function tryGate(){
+  var v=document.getElementById('gatePw').value;
+  if(v===atob('a2FyYXRlMjAyNg==')){sessionStorage.setItem('kc_auth','1');document.getElementById('gate').style.display='none'}
+  else{document.getElementById('gateErr').textContent='Wrong password — try again';document.getElementById('gatePw').value=''}
+}
+if(sessionStorage.getItem('kc_auth')!=='1'){document.getElementById('gate').style.display='flex'}
+document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
+</script>
+<script src="game.js"></script>
+</body>
+</html>
