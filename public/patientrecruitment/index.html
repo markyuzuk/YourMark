@@ -8,7 +8,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:linear-gradient(160deg,#3568b8,#5b9cf5);min-height:100vh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f2f6ff;padding:20px}
-.wrap{max-width:460px;width:100%}
+.wrap{max-width:940px;width:100%;display:flex;gap:28px;align-items:flex-start;padding-top:8px}
+.left{flex:0 0 340px;position:sticky;top:20px}
+.tiles{flex:1;min-width:0}
+@media(max-width:760px){.wrap{flex-direction:column}.left{flex:0 0 auto;position:static}}
 h1{font-family:Bungee;font-size:24px;color:#f06292;text-align:center}
 h1 span{color:#5b9cf5}
 .sub{text-align:center;font-size:13px;color:#9db8e8;line-height:1.6;margin:10px 0 26px}
@@ -30,11 +33,14 @@ h1 span{color:#5b9cf5}
 </head>
 <body>
 <div class="wrap">
+  <div class="left">
   <h1>PATIENT <span>RECRUIT</span></h1>
-  <div class="why">Most patient recruitment today still asks people to fill long web forms, then wait in silence while a site screens them — <b>the two moments where the most interest is lost</b>. These concepts borrow the mechanics that keep casual players coming back to a game — <b>micro-commitments, instant feedback, streaks, and personalization</b> — and apply them to the recruitment funnel. A swipe-based screener makes showing interest effortless, a daily micro-game keeps patients warm through the waiting gap, and a shareable hero card turns participants into the referral channel. Instead of asking patients to endure the process, it makes engaging with a trial <b>feel like something</b>.</div>
-
   <p class="sub">Three tactile, phone-first concepts applying game-design engagement<br>to clinical trial patient recruitment.</p>
 
+  <div class="why">Most patient recruitment today still asks people to fill long web forms, then wait in silence while a site screens them — <b>the two moments where the most interest is lost</b>. These concepts borrow the mechanics that keep casual players coming back to a game — <b>micro-commitments, instant feedback, streaks, and personalization</b> — and apply them to the recruitment funnel. A swipe-based screener makes showing interest effortless, a daily micro-game keeps patients warm through the waiting gap, and a shareable hero card turns participants into the referral channel. Instead of asking patients to endure the process, it makes engaging with a trial <b>feel like something</b>.</div>
+  </div>
+
+  <div class="tiles">
   <a class="tile" href="trialfit.html">
     <div class="n">A · TRIALFIT — swipe screener</div>
     <p>Replaces the long web intake form. Patients swipe yes/no/not-sure cards; a match ring + confetti make "you qualify" feel like a win. Micro-commitments beat forms.</p>
@@ -51,6 +57,7 @@ h1 span{color:#5b9cf5}
     <div class="n">C · RESEARCH HERO — share card</div>
     <p>Selfie → hero avatar → branded share card ("I'm exploring a clinical trial"). Personal artifacts turn participants into referral engines.</p>
     <div class="metric">METRIC → referral clicks · organic reach · cost per enrolled</div>
+  </div>
   </a>
 
   <p class="note">Learnings ported from Karate Chicken (live game): swipe mechanics, 3-2-1 countdowns, streaks, progress rings, selfie personalization, shareable score cards, recorded-voice rewards.<br><br>All three demos run offline, store nothing server-side.</p>
