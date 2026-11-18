@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karate Chicken — Sound Recorder</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:radial-gradient(ellipse at 50% 30%,#2b1f17,#1c1410);color:#f6eedd;font-family:Inter,system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:24px}
+  .wrap{width:100%;max-width:520px}
+  h1{font-family:Bungee,cursive;color:#f5c93a;font-size:22px;text-align:center;margin-bottom:4px}
+  .sub{text-align:center;font-size:12.5px;color:#b8a58f;margin-bottom:20px}
+  .card{background:#2a1f18;border:2px solid #4a3626;border-radius:14px;padding:16px;margin-bottom:14px}
+  .snd{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #3b2a1e}
+  .snd:last-child{border-bottom:none}
+  .snd .nm{width:110px;font-weight:800;font-size:13px;color:#f5c93a}
+  .snd .nm small{display:block;font-weight:400;font-size:10px;color:#b8a58f}
+  .snd button{flex:0 0 auto;padding:8px 13px;border:2px solid #1c1410;border-radius:9px;font-weight:700;font-size:12px;cursor:pointer;background:#3b2a1e;color:#f6eedd}
+  .snd button.rec{background:#d6342b;color:#fff}
+  .snd button.rec.on{background:#8f1f19;animation:blink 1s infinite}
+  .snd button.play{background:#059669;color:#fff}
+  .snd button.dl{background:#f5c93a;color:#1c1410}
+  .snd button:disabled{opacity:.35;cursor:default}
+  @keyframes blink{50%{filter:brightness(.7)}}
+  .howto{font-size:12px;line-height:1.7;color:#b8a58f}
+  .howto b{color:#f5c93a}
+  .howto code{background:#1c1410;border:1px solid #4a3626;border-radius:5px;padding:1px 6px;font-size:11px;color:#f5c93a}
+  a.back{display:block;text-align:center;margin-top:14px;font-size:12px;color:#b8a58f;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎙 SOUND STUDIO</h1>
+  <p class="sub">Record your own sounds for Karate Chicken</p>
+
+  <div class="card" id="list"></div>
+
+  <div class="card howto">
+    <b>How to use:</b><br>
+    1. Tap <b>REC</b> next to a sound → make the noise → tap <b>STOP</b><br>
+    2. Tap <b>▶</b> to hear it. Not happy? Record again.<br>
+    3. Tap <b>↓ Download</b> — it saves with the right name automatically.<br>
+    4. Send me the files — I'll drop them in <code>public/karate-chicken/assets/</code> and the game uses them instantly.<br><br>
+    <b>Tip:</b> keep each sound under 1 second. Say &ldquo;yum&rdquo; for <code>yum</code> and a longer &ldquo;yum yum!&rdquo; for <code>yumyum</code>. Missing sounds just keep the built-in synth versions.
+  </div>
+  <a class="back" href="./">← back to the game</a>
+</div>
+
+<script>
+const SOUNDS=[
+  ['kick','kick thwack'],
+  ['perfect','perfect hit'],
+  ['whiff','missed swing'],
+  ['yum','combo ×5'],
+  ['yumyum','combo ×10'],
+  ['egg','golden egg'],
+  ['squawk','getting hit']
+];
+const EXT={'.m4a':/mp4|aac|m4a/i,'.webm':/webm/i,'.ogg':/ogg|opus/i,'.wav':/wav/i};
+const list=document.getElementById('list');
+let stream=null;
+for(const [name,desc] of SOUNDS){
+  const row=document.createElement('div');row.className='snd';
+  row.innerHTML=`<div class="nm">${name}<small>${desc}</small></div>
+    <button class="rec">● REC</button><button class="play" disabled>▶</button><button class="dl" disabled>↓ Download</button>`;
+  list.appendChild(row);
+  const recB=row.querySelector('.rec'),playB=row.querySelector('.play'),dlB=row.querySelector('.dl');
+  let mr=null,chunks=[],blob=null,recFor=null;
+  recB.onclick=async()=>{
+    if(mr&&mr.state==='recording'){mr.stop();return;}
+    try{stream=stream||await navigator.mediaDevices.getUserMedia({audio:true});}catch(e){alert('Microphone blocked — allow mic access and retry.');return;}
+    chunks=[];mr=new MediaRecorder(stream);
+    mr.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+    mr.onstop=()=>{
+      const mime=mr.mimeType||'';
+      const ext=Object.keys(EXT).find(x=>EXT[x].test(mime))||'.webm';
+      blob=new Blob(chunks,{type:mime||'audio/webm'});
+      playB.disabled=dlB.disabled=false;
+      dlB.onclick=()=>{
+        const a=document.createElement('a');
+        a.href=URL.createObjectURL(blob);a.download=name+ext;a.click();
+        setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+      };
+      playB.onclick=()=>new Audio(URL.createObjectURL(blob)).play();
+      recB.classList.remove('on');recB.textContent='● REC';mr=null;
+    };
+    mr.start();recB.classList.add('on');recB.textContent='■ STOP';
+  };
+}
+</script>
+</body>
+</html>

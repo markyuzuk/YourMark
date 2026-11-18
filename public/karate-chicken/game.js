@@ -69,6 +69,21 @@ function squawk(){if(!actx)return;try{const t=actx.currentTime;
   o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.22);
 }catch(e){}}
 function yum(){if(!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance('yum');u.rate=.85;u.pitch=.75;u.volume=1;speechSynthesis.cancel();setTimeout(()=>{try{speechSynthesis.speak(u)}catch(e){}},40);}catch(e){}}
+// ---------- custom sounds: drop e.g. assets/kick.m4a to replace a synth sfx ----------
+const SFX_EXTS=['.m4a','.mp3','.wav','.webm','.ogg'];
+const audioSrcs={}; // name -> url | null | undefined(probing)
+async function resolveSfx(name){
+  for(const ext of SFX_EXTS){
+    try{const r=await fetch('assets/'+name+ext,{method:'HEAD'});if(r.ok){audioSrcs[name]='assets/'+name+ext;return}}catch(e){}
+  }
+  audioSrcs[name]=null;
+}
+function sfx(name,fallback){
+  if(!(name in audioSrcs)){audioSrcs[name]=undefined;resolveSfx(name);fallback();return;}
+  if(!audioSrcs[name]){fallback();return;}
+  try{const a=new Audio(audioSrcs[name]);const p=a.play();if(p&&p.catch)p.catch(()=>fallback());}catch(e){fallback();}
+}
+function eggSound(){beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);}
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
 function updateBest(){const b=store.get('kc_best');$('bestLine').textContent=b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'';}
 updateBest();
@@ -105,12 +120,12 @@ function strike(side){
   G.pose=side;G.poseT=.16;
   let best=null;
   for(const e of G.enemies){if(e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
-  if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);thwack(0);return;}
+  if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
   const perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
-  if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);thwack(2);beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);}
-  else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);thwack(1);buzz(8);}
+  if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);}
+  else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);sfx('kick',()=>thwack(1));buzz(8);}
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
-  if(G.combo%5===0){yum();addText(CX,GY-HERO_H-45,'YUM!','#f2b632',24);}
+  if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>yum());addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
   best.hp--;burst(ex,GY-40,best.type==='badger'?'#888':'#f08a24',8);
   if(best.hp<=0)best.dead=true;else{best.d+=150;best.hurt=.2;}
   G.enemies=G.enemies.filter(e=>!e.dead);
@@ -122,11 +137,11 @@ function goldenEgg(){
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
   G.score+=G.enemies.length*75;G.enemies=[];
   addText(CX,GY-HERO_H-30,'GOLDEN EGG!','#f2b632',34);
-  beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);
+  sfx('egg',eggSound);
 }
 function hurt(){
   G.lives--;G.combo=0;seg().d++;G.misses++;G.shake=14;buzz(120);
-  burst(CX,GY-80,'#ffffff',16,true);addText(CX,GY-HERO_H-10,'BAWK!','#d6342b',30);squawk();beep(110,.25,'sawtooth',.05);
+  burst(CX,GY-80,'#ffffff',16,true);addText(CX,GY-HERO_H-10,'BAWK!','#d6342b',30);sfx('squawk',()=>squawk());beep(110,.25,'sawtooth',.05);
   if(G.lives<=0)endGame(false);
 }
 function update(dt){
