@@ -138,7 +138,6 @@ function squawk(){if(!actx||MUTED)return;try{const t=actx.currentTime;
   g.gain.setValueAtTime(.08,t);g.gain.exponentialRampToValueAtTime(.001,t+.22);
   o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.22);
 }catch(e){}}
-function yum(){if(MUTED||!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance('yum');u.rate=.85;u.pitch=.75;u.volume=1;speechSynthesis.cancel();setTimeout(()=>{try{speechSynthesis.speak(u)}catch(e){}},40);}catch(e){}}
 // ---------- custom sounds: drop e.g. assets/kick.m4a to replace a synth sfx ----------
 const SFX_EXTS=['.m4a','.mp3','.wav','.webm','.ogg'];
 const audioSrcs={}; // name -> url | null | undefined(probing)
@@ -210,7 +209,7 @@ function strike(side){
   else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18*KIK);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.3;}
   else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6*KIK);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);sfx('kick',()=>thwack(1));buzz(8);}
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
-  if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>yum());addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
+  if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>beep(1046,.09,'triangle',.055));addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
   if(best.zoneT)G.rts.push(G.t-best.zoneT);
   best.hp--;burst(ex,GY-40,best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
   if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='phrag'?'PHRAG DOWN!':'BOSS DOWN!','#f2b632',34);G.slow=.45;}}
