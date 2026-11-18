@@ -339,7 +339,7 @@ function loop(ts){
 requestAnimationFrame(loop);
 
 // ---------- flow ----------
-function show(id){for(const o of['menu','paused','over','board'])$(o).classList.toggle('hidden',o!==id);}
+function show(id){for(const o of['menu','paused','over','board','cardView'])$(o).classList.toggle('hidden',o!==id);}
 // ---------- leaderboard ----------
 async function boardData(){try{const r=await fetch('/karate-chicken/api/scores');return(await r.json()).top||[]}catch(e){return null}}
 async function showBoard(){
@@ -414,10 +414,16 @@ function shareCard(){
   c.toBlob(async blob=>{
     if(!blob)return;
     const f=new File([blob],'karate-chicken-score.png',{type:'image/png'});
+    const text=`${$('shareText').textContent}\n${location.href.split('#')[0]}`;
+    // 1) native share sheet with the image (iOS/Android)
     try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Karate Chicken'});return;}}catch(e){if(e&&e.name==='AbortError')return;}
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='karate-chicken-score.png';a.click();
-    setTimeout(()=>URL.revokeObjectURL(a.href),5000);
-    $('copyMsg').textContent='Score card downloaded — drop it in the group chat!';
+    // 2) share sheet without files (text + link)
+    try{if(navigator.share){await navigator.share({text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+    // 3) iOS homescreen / desktop: show card for press-&-hold; auto-download on desktop
+    const url=URL.createObjectURL(blob);
+    $('cardImg').src=url;
+    if(!isIOS){const a=document.createElement('a');a.href=url;a.download='karate-chicken-score.png';a.click();}
+    show('cardView');
   },'image/png');
 }
 
@@ -434,6 +440,7 @@ $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
 $('btnCard').onclick=shareCard;
 $('storyBtn').onclick=()=>sfx('welcome',()=>{});
+$('btnCardBack').onclick=()=>show('over');
 $('btnPause').onclick=pause;
 $('btnResume').onclick=resume;
 $('btnQuit').onclick=toMenu;
