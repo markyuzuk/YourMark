@@ -217,15 +217,15 @@ function spawn(){
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox';const roll=r();
   if(!MOD.fox){
-    if(G.t>12&&roll<.03)type=r()<.5?'boss':'phrag';
+    if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
   }
-  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='boss'?.7:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
-  if(type==='boss')addText(CX,GY-HERO_H-40,'⚠ BOSS!','#d6342b',32);
+  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
+  if(type==='cav')addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',26);
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
-  G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='phrag'?6:type==='boss'?5:type==='badger'?2:1,
+  G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});
   G.spawnT=Math.max(.36,1.05-G.t*.011)*(.75+r()*.5);
@@ -239,7 +239,7 @@ function strike(side){
   let best=null;
   for(const e of G.enemies){if(e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
   if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
-  const boss=best.type==='boss'||best.type==='phrag',golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
+  const boss=best.type==='cav'||best.type==='phrag',golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
   if(boss){G.score+=200*mult;G.ki=Math.min(100,G.ki+10*KIK);seg().g++;addText(ex,GY-130,'HIT!','#b03a1f',24);sfx('kick',()=>thwack(1));buzz(12);}
   else if(golden){G.score+=500*mult;G.ki=Math.min(100,G.ki+18*KIK);G.jackpots++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'JACKPOT!','#f2b632',28);sfx('jackpot',()=>beep(1568,.15,'triangle',.09));buzz(20);}
   else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18*KIK);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.3;}
@@ -248,7 +248,7 @@ function strike(side){
   if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>beep(1046,.09,'triangle',.055));addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
   if(best.zoneT)G.rts.push(G.t-best.zoneT);
   best.hp--;burst(ex,GY-40,best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
-  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='phrag'?'PHRAG DOWN!':'BOSS DOWN!','#f2b632',34);G.slow=.45;}}
+  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
   else{best.d+=boss?100:150;best.hurt=.2;best.zoneT=0;}
   G.enemies=G.enemies.filter(e=>!e.dead);
   G.shake=Math.max(G.shake,perfect?5:3);
@@ -365,6 +365,44 @@ function drawEnemy(e){
   ctx.save();ctx.translate(x,y+bounce);ctx.scale(flip,1);
   if(e.hurt>0)ctx.globalAlpha=.5+.5*Math.sin(performance.now()/25);
   ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(0,26-bounce,30,6,0,0,Math.PI*2);ctx.fill();
+  if(e.type==='cav'){
+    // Lucy: ruby cavalier - long floppy ears, big dark eyes, harness, feathery tail
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    const ruby='#9a5f33',ear='#7a4218',nose='#1a1a1a',harn='#3a4a55';
+    // feathery tail (behind body, at right since facing left)
+    ctx.fillStyle=ruby;ctx.beginPath();ctx.moveTo(26,-24);ctx.quadraticCurveTo(52,-40,48,-58);ctx.quadraticCurveTo(56,-44,40,-30);ctx.quadraticCurveTo(34,-24,26,-24);ctx.fill();ctx.stroke();
+    ctx.strokeStyle=ear;ctx.lineWidth=2;
+    for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(44-i*5,-44+i*4);ctx.quadraticCurveTo(50,-36,46-i*4,-26);ctx.stroke();}
+    // body
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.fillStyle=ruby;ctx.beginPath();ctx.ellipse(4,-18,34,20,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    // legs
+    ctx.beginPath();ctx.moveTo(-16,-6);ctx.lineTo(-18,16);ctx.moveTo(2,-4);ctx.lineTo(1,16);ctx.moveTo(16,-6);ctx.lineTo(18,16);ctx.stroke();
+    // harness straps
+    ctx.strokeStyle=harn;ctx.lineWidth=5;
+    ctx.beginPath();ctx.moveTo(-14,-34);ctx.quadraticCurveTo(-6,-16,-10,-2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(16,-34);ctx.lineTo(12,-4);ctx.stroke();
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(-11,-18,3,0,Math.PI*2);ctx.stroke();
+    // head
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.fillStyle=ruby;ctx.beginPath();ctx.arc(-32,-36,19,0,Math.PI*2);ctx.fill();ctx.stroke();
+    // big floppy ears hanging down
+    ctx.fillStyle=ear;
+    ctx.beginPath();ctx.ellipse(-46,-28,9,17,.35,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.ellipse(-18,-30,8,15,-.3,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=1.5;
+    for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-49+i*3,-38+i*2);ctx.quadraticCurveTo(-45,-30,-47+i*3,-20);ctx.stroke();}
+    // muzzle + nose
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.fillStyle='#b07040';ctx.beginPath();ctx.ellipse(-40,-28,9,7,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle=nose;ctx.beginPath();ctx.arc(-45,-31,3.5,0,Math.PI*2);ctx.fill();
+    // big round dark eyes
+    ctx.fillStyle='#241309';ctx.beginPath();ctx.arc(-36,-40,4.6,0,Math.PI*2);ctx.arc(-25,-41,4.2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-37,-42,1.5,0,Math.PI*2);ctx.arc(-26,-43,1.4,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+    ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-72);
+    return;
+  }
   if(e.type==='phrag'){
     ctx.lineCap='round';
     for(let i=-2;i<=2;i++){
@@ -388,12 +426,11 @@ function drawEnemy(e){
   let body,belly,s=1;
   if(e.type==='fox'){body='#e57a2a';belly='#fff4e6';}
   else if(e.type==='golden'){body='#f2b632';belly='#fff8d6';}
-  else if(e.type==='boss'){body='#b03a1f';belly='#fff4e6';s=1.6;}
   else if(e.type==='badger'){body='#6d6d72';belly='#eee';s=1.25;}
   else{body='#8a5a8f';belly='#f0dff2';s=.9;}
   ctx.scale(s,s);
   ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(-22,0);ctx.quadraticCurveTo(-56,-10,-50,-30);ctx.quadraticCurveTo(-36,-10,-18,-8);ctx.fill();ctx.stroke();
-  if(e.type==='fox'||e.type==='golden'||e.type==='boss'){ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-50,-28,6,0,Math.PI*2);ctx.fill();}
+  if(e.type==='fox'||e.type==='golden'){ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-50,-28,6,0,Math.PI*2);ctx.fill();}
   ctx.lineWidth=5;const l=Math.sin(e.wob)*6;
   ctx.beginPath();ctx.moveTo(-10,10);ctx.lineTo(-10-l,26);ctx.moveTo(12,10);ctx.lineTo(12+l,26);ctx.stroke();
   ctx.lineWidth=2.5;
@@ -413,7 +450,7 @@ function drawEnemy(e){
     ctx.fillStyle='#d6342b';ctx.font='bold 32px Bungee, Impact, sans-serif';ctx.textAlign='center';
     ctx.fillText('!',x,y-50+Math.sin(performance.now()/60)*3);
   }
-  if(e.type==='badger'||e.type==='boss'){ctx.fillStyle=e.type==='boss'?'#f2b632':'#2a1d14';ctx.font=`bold ${e.type==='boss'?16:12}px Inter, sans-serif`;ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-58);}
+  if(e.type==='badger'){ctx.fillStyle='#2a1d14';ctx.font='bold 12px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-58);}
 }
 function drawHUD(){
   const k=HUDK;

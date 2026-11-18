@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v28 — 2025-11-18
+- **Boss swap**: boss fox replaced by **Lucy** — a ruby Cavalier King Charles (floppy ears, big dark eyes, harness, feathery tail; 5 HP). "HERE COMES LUCY!" / "LUCY DOWN!". Phragmites boss kept
+
 ## v27 — 2025-11-18
 - Selfie now covers the **full chicken head** (2× circle, red headband tie at the edge)
 
