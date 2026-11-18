@@ -182,7 +182,7 @@ function spawn(){
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox';const roll=r();
   if(!MOD.fox){
-    if(G.t>40&&roll<.03)type='boss';
+    if(G.t>12&&roll<.03)type='boss';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
