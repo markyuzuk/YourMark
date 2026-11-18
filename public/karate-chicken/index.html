@@ -12,7 +12,8 @@
 <meta name="apple-mobile-web-app-title" content="Karate Chicken">
 <meta property="og:title" content="Karate Chicken">
 <meta property="og:description" content="One thumb, two sides, zero mercy. Play today's Daily Kata.">
-<meta property="og:image" content="assets/icon-512.png">
+<meta property="og:image" content="assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -54,6 +55,7 @@
   </header>
 
   <main id="stage">
+    <div class="vs-tag" id="vsTag"></div>
     <canvas id="game" aria-label="Karate Chicken game"></canvas>
 
     <div class="overlay" id="menu">
@@ -67,6 +69,8 @@
           <button class="alt" id="btnEndless">♾️ Endless</button>
         </div>
         <button id="btnBoard" class="board-btn">🏆 DOJO BOARD</button>
+        <button id="btnInstall" class="board-btn install-btn" style="display:none">📲 INSTALL THE DOJO</button>
+        <p class="small champ-line" id="champLine"></p>
         <p class="small" id="bestLine"></p>
         <p class="small rotate-tip">Tip: turn your phone sideways for the widest view.</p>
       </div>
@@ -93,6 +97,7 @@
         <div class="share" id="shareText"></div>
         <div class="btns">
           <button id="btnShare">📤 Share</button>
+          <button id="btnCard">🖼 Score card</button>
           <button class="alt" id="btnAgain">Play again</button>
           <button class="alt" id="btnMenu">Menu</button>
         </div>

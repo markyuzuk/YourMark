@@ -41,6 +41,31 @@ function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a
 const today=new Date();
 const seed=today.getFullYear()*10000+(today.getMonth()+1)*100+today.getDate();
 const dayNo=Math.max(1,Math.round((new Date(today.getFullYear(),today.getMonth(),today.getDate())-new Date(2026,10,17))/864e5)+1);
+// ---------- challenge link: ?vs=NAME-SCORE ----------
+const vs=(()=>{const m=new URLSearchParams(location.search).get('vs');if(!m)return null;
+  const i=m.lastIndexOf('-'),s=+m.slice(i+1);
+  return{name:(m.slice(0,i)||'RIVAL').toUpperCase().slice(0,12)||'RIVAL',score:isFinite(s)?s:0};})();
+if(vs)$('vsTag').textContent=`⚔️ ${vs.name} dares you: beat ${vs.score.toLocaleString()}`;
+// ---------- install prompt ----------
+let deferredInstall=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('btnInstall').style.display='block';});
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+const standalone=matchMedia('(display-mode: fullscreen)').matches||matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+if(isIOS&&!standalone)$('btnInstall').style.display='block';
+// ---------- streaks ----------
+function bumpStreak(mode){
+  if(mode!=='daily')return 0;
+  const dstr=today.toISOString().slice(0,10);let st;
+  try{st=JSON.parse(store.get('kc_streak')||'null')}catch(e){st=null}
+  if(!st||st.d!==dstr){
+    const yest=new Date(today.getTime()-864e5).toISOString().slice(0,10);
+    st={n:(st&&st.d===yest)?st.n+1:1,d:dstr};store.set('kc_streak',JSON.stringify(st));
+  }
+  return st.n;
+}
+function curStreak(){try{const st=JSON.parse(store.get('kc_streak')||'null');return st&&st.d===today.toISOString().slice(0,10)?st.n:0}catch(e){return 0}}
+async function champLine(){try{const j=await(await fetch('api/scores')).json();const c=j.champ;$('champLine').textContent=c?`👑 Dojo Champ: ${c.n} — ${(+c.s).toLocaleString()} pts this week`:'';}catch(e){}}
+champLine();
 let actx=null;
 function initAudio(){try{if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();}catch(e){actx=null}}
 function beep(f,d,type='square',v=.06){if(!actx)return;try{const o=actx.createOscillator(),g=actx.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+d);o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+d);}catch(e){}}
@@ -88,7 +113,7 @@ function sfx(name,fallback){
 }
 function eggSound(){beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);}
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
-function updateBest(){const b=store.get('kc_best');$('bestLine').textContent=b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'';}
+function updateBest(){const b=store.get('kc_best'),st=curStreak();$('bestLine').textContent=(b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'')+(st>1?` · 🔥 ${st}-day streak`:'');}
 updateBest();
 
 const hero=new Image();hero.src='assets/karate-chicken.png';
@@ -100,7 +125,7 @@ function newGame(mode){
   G={mode,rand:mode==='daily'?mulberry32(seed):Math.random,t:0,score:0,combo:0,maxCombo:0,lives:3,ki:0,
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
-     dur:mode==='daily'?DAILY_SECONDS:Infinity};
+     slow:0,dur:mode==='daily'?DAILY_SECONDS:Infinity};
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
 
@@ -125,7 +150,7 @@ function strike(side){
   for(const e of G.enemies){if(e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
   if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
   const perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
-  if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);}
+  if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.22;}
   else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);sfx('kick',()=>thwack(1));buzz(8);}
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
   if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>yum());addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
@@ -149,6 +174,7 @@ function hurt(){
 }
 function update(dt){
   if(G.hitstop>0){G.hitstop-=dt;return;}
+  if(G.slow>0){G.slow-=dt;dt*=.4;}
   G.t+=dt;
   if(G.t>=G.dur){endGame(true);return;}
   G.stagger=Math.max(0,G.stagger-dt);G.poseT=Math.max(0,G.poseT-dt);if(G.poseT<=0)G.pose=0;
@@ -330,25 +356,31 @@ async function saveScore(){
   const n=$('saveName').value.trim()||'anon';btn.disabled=true;btn.textContent='saving…';
   try{
     const r=await fetch('api/scores',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({n,s:G.score,m:G.mode,c:G.maxCombo})});
-    btn.textContent=r.ok?'saved!':'error';if(r.ok)setTimeout(showBoard,500);else btn.disabled=false;
+    btn.textContent=r.ok?'saved!':'error';
+    if(r.ok){
+      // arm the challenge link so the share text dares their friends
+      $('shareText').textContent+=`\n${location.origin}${location.pathname}?vs=${encodeURIComponent(n+'-'+G.score)}`;
+      setTimeout(showBoard,500);
+    }else btn.disabled=false;
   }catch(e){btn.textContent='offline?';btn.disabled=false;}
 }
 function setPlaying(on){document.body.classList.toggle('playing',on);}
 function start(mode){initAudio();newGame(mode);state='play';show(null);setPlaying(true);$('copyMsg').textContent='';layout();}
 function pause(){if(state!=='play')return;state='paused';show('paused');}
 function resume(){if(state!=='paused')return;initAudio();state='play';show(null);last=performance.now();}
-function toMenu(){state='menu';G=null;show('menu');setPlaying(false);$('padKi').disabled=true;}
+function toMenu(){state='menu';G=null;show('menu');setPlaying(false);$('padKi').disabled=true;champLine();}
 function endGame(survived){
   if(state!=='play')return;state='over';setPlaying(false);
   const b=beltFor(G.score),best=+(store.get('kc_best')||0);
   if(G.score>best)store.set('kc_best',G.score);
   $('overTitle').textContent=survived?'Kata Complete!':'Feathers Ruffled!';
   const tot=G.perfects+G.goods+G.misses,acc=tot?Math.round(100*G.perfects/tot):0;
-  $('overStats').innerHTML=`<b>${G.score.toLocaleString()}</b> pts · <b>${b.n} Belt</b><br>Perfect rate ${acc}% · best combo ${G.maxCombo}${G.score>best?' · <b>new best!</b>':''}`;
+  const stN=bumpStreak(G.mode),beatVs=vs&&G.score>vs.score;
+  $('overStats').innerHTML=`<b>${G.score.toLocaleString()}</b> pts · <b>${b.n} Belt</b><br>Perfect rate ${acc}% · best combo ${G.maxCombo}${G.score>best?' · <b>new best!</b>':''}${stN>1?` · 🔥 ${stN}-day streak`:''}${vs?`<br>${beatVs?'🎉 You beat '+vs.name+'!':vs.name+' keeps the crown… this time'}`:''}`;
   const n=G.mode==='daily'?10:Math.min(10,Math.max(1,Math.ceil(G.t/6)));
   const grid=G.segs.slice(0,n).map((s,i)=>i*6>=G.t?'⬛':s.d?'🟥':(s.g+s.w>s.p?'🟨':'🟩')).join('');
   const head=G.mode==='daily'?`🐔🥋 Karate Chicken #${dayNo}`:`🐔🥋 Karate Chicken · Endless ${Math.floor(G.t)}s`;
-  $('shareText').textContent=`${head}\n${b.n} Belt · ${G.score.toLocaleString()} pts\n${grid}\nbest combo ${G.maxCombo}`;
+  $('shareText').textContent=`${head}${beatVs?' — beat '+vs.name+'!':''}\n${b.n} Belt · ${G.score.toLocaleString()} pts${stN>1?` · 🔥 ${stN}-day streak`:''}\n${grid}\nbest combo ${G.maxCombo}`;
   $('padKi').disabled=true;updateBest();
   const sr=$('saveRow');sr.style.display=G.score>0?'flex':'none';
   const sb=$('btnSave');sb.disabled=false;sb.textContent='Save score';
@@ -361,6 +393,33 @@ async function share(){
   catch(e){const r=document.createRange();r.selectNodeContents($('shareText'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('copyMsg').textContent='Selected: copy it to share.';}
 }
 
+// ---------- score card image ----------
+function shareCard(){
+  if(!G)return;
+  const c=document.createElement('canvas');c.width=900;c.height=500;
+  const x=c.getContext('2d'),b=beltFor(G.score),n=($('saveName').value.trim()||'a mysterious chicken').toUpperCase();
+  x.fillStyle='#1c1410';x.fillRect(0,0,900,500);
+  x.fillStyle='#2a1f18';x.fillRect(36,36,828,428);
+  x.strokeStyle='#f2b632';x.lineWidth=6;x.strokeRect(36,36,828,428);
+  if(hero.complete&&hero.naturalWidth){const h=380,w=h*HERO_AR;x.drawImage(hero,690-w/2,60,w,h);}
+  x.textAlign='left';
+  x.fillStyle='#f2b632';x.font='40px Bungee, Impact, sans-serif';x.fillText('KARATE CHICKEN',80,115);
+  x.fillStyle='#fff';x.font='800 88px Inter, sans-serif';x.fillText(G.score.toLocaleString(),80,235);
+  x.fillStyle='#d6342b';x.font='800 30px Inter, sans-serif';x.fillText(b.n.toUpperCase()+' BELT',80,295);
+  x.fillStyle='#b8a58f';x.font='600 24px Inter, sans-serif';
+  x.fillText(`${n} scored this — think you can beat it?`,80,355);
+  if(vs&&G.score>vs.score){x.fillStyle='#f2b632';x.font='800 26px Inter, sans-serif';x.fillText('🎉 BEAT '+vs.name+'!',80,395);}
+  x.fillStyle='#7a6553';x.font='600 19px Inter, sans-serif';x.fillText('yourmark.ai/karate-chicken',80,440);
+  c.toBlob(async blob=>{
+    if(!blob)return;
+    const f=new File([blob],'karate-chicken-score.png',{type:'image/png'});
+    try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Karate Chicken'});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='karate-chicken-score.png';a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+    $('copyMsg').textContent='Score card downloaded — drop it in the group chat!';
+  },'image/png');
+}
+
 // ---------- input ----------
 let lastMode='daily';
 $('btnDaily').onclick=()=>start(lastMode='daily');
@@ -371,6 +430,8 @@ $('btnShare').onclick=share;
 $('btnBoard').onclick=showBoard;
 $('btnBack').onclick=()=>show(state==='over'?'over':'menu');
 $('btnSave').onclick=saveScore;
+$('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
+$('btnCard').onclick=shareCard;
 $('btnPause').onclick=pause;
 $('btnResume').onclick=resume;
 $('btnQuit').onclick=toMenu;

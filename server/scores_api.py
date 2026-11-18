@@ -38,7 +38,14 @@ class H(BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path.split('?')[0].rstrip('/') or '/'
         if path in ('/', '/scores'):
-            self._send(200, {'top': sorted(load(), key=lambda r: -r['s'])[:20]})
+            cur = time.strftime('%G-W%V')
+            rows = sorted(load(), key=lambda r: -r['s'])
+            weekly = [r for r in rows if r.get('w', cur) == cur]
+            self._send(200, {
+                'top': weekly[:20],
+                'champ': weekly[0] if weekly else None,
+                'allBest': rows[:3]
+            })
         else:
             self._send(404, {'err': 'not found'})
 
@@ -69,7 +76,7 @@ class H(BaseHTTPRequestHandler):
             c = max(0, min(9999, int(body.get('c', 0))))
         except Exception:
             c = 0
-        row = {'n': name, 's': s, 'm': mode, 'c': c, 'd': time.strftime('%Y-%m-%d')}
+        row = {'n': name, 's': s, 'm': mode, 'c': c, 'd': time.strftime('%Y-%m-%d'), 'w': time.strftime('%G-W%V')}
         with LOCK:
             rows = load()
             rows.append(row)

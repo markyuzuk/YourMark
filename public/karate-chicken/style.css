@@ -68,6 +68,15 @@ canvas{display:block;width:100%;height:100%;background:#e9dcc0}
 .saveRow input:focus{border-color:var(--red)}
 .saveRow button{flex:0 0 auto;padding:10px 14px;font-size:13px}
 
+/* viral bits */
+.vs-tag{display:none;position:absolute;top:calc(var(--sat) + 8px);left:50%;transform:translateX(-50%);z-index:5;
+  background:var(--red);color:#fff;font:700 13px Inter,sans-serif;padding:7px 14px;border-radius:20px;
+  border:2px solid var(--ink);box-shadow:0 3px 0 rgba(0,0,0,.4);white-space:nowrap}
+body.playing .vs-tag{display:block}
+.champ-line{color:var(--gold)!important;font-weight:700;min-height:14px}
+.install-btn{background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-dk)}
+.install-btn:active{box-shadow:0 2px 0 var(--red-dk)}
+
 /* touch pads */
 body:not(.playing) #pads{opacity:.35;pointer-events:none}
 #pads{flex:0 0 auto;display:grid;grid-template-columns:1fr 92px 1fr;gap:10px;padding:10px 8px 8px;height:clamp(110px,20vh,170px)}
