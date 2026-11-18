@@ -1,4 +1,4 @@
-# Sensorium Recruit — Engagement Concepts
+# Patient Recruitment — Engagement Concepts
 
 Tactile, phone-first mockups applying the engagement playbook proven in
 [Karate Chicken](../karate-chicken/) to clinical trial patient recruitment.

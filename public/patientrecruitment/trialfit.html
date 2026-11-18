@@ -72,7 +72,7 @@ body{background:#0e2a57;min-height:100dvh;display:flex;justify-content:center;fo
 </div>
 
 <div class="result" id="result"><div class="rcard" id="rcard"></div></div>
-<div id="gate" style="display:none"><div class="gcard"><h1>SENSORIUM RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
+<div id="gate" style="display:none"><div class="gcard"><h1>PATIENT RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
 <script>
 if(sessionStorage.getItem('sr_auth')!=='1')document.getElementById('gate').style.display='flex';
 function tryGate(){if(document.getElementById('gpw').value===atob('Ym9sZA==')){sessionStorage.setItem('sr_auth','1');document.getElementById('gate').style.display='none';}}

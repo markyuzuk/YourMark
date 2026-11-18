@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sensorium Recruit — Engagement Concepts</title>
+<title>Patient Recruitment — Engagement Concepts</title>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -28,7 +28,7 @@ h1 span{color:#5b9cf5}
 </head>
 <body>
 <div class="wrap">
-  <h1>SENSORIUM <span>RECRUIT</span></h1>
+  <h1>PATIENT <span>RECRUIT</span></h1>
   <p class="sub">Three tactile, phone-first concepts applying game-design engagement<br>to clinical trial patient recruitment.</p>
 
   <a class="tile" href="trialfit.html">
@@ -45,7 +45,7 @@ h1 span{color:#5b9cf5}
 
   <a class="tile" href="hero.html">
     <div class="n">C · RESEARCH HERO — share card</div>
- div id="gate" style="display:none"><div class="gcard"><h1>SENSORIUM RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
+ div id="gate" style="display:none"><div class="gcard"><h1>PATIENT RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
 <script>
 if(sessionStorage.getItem('sr_auth')!=='1')document.getElementById('gate').style.display='flex';
 function tryGate(){if(document.getElementById('gpw').value===atob('Ym9sZA==')){sessionStorage.setItem('sr_auth','1');document.getElementById('gate').style.display='none';}}
