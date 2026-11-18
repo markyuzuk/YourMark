@@ -68,7 +68,7 @@ function squawk(){if(!actx)return;try{const t=actx.currentTime;
   g.gain.setValueAtTime(.08,t);g.gain.exponentialRampToValueAtTime(.001,t+.22);
   o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.22);
 }catch(e){}}
-function yum(){if(!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance('yum');u.rate=.85;u.pitch=.75;u.volume=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+function yum(){if(!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance('yum');u.rate=.85;u.pitch=.75;u.volume=1;speechSynthesis.cancel();setTimeout(()=>{try{speechSynthesis.speak(u)}catch(e){}},40);}catch(e){}}
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
 function updateBest(){const b=store.get('kc_best');$('bestLine').textContent=b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'';}
 updateBest();
