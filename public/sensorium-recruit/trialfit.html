@@ -7,50 +7,56 @@
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd;overflow:hidden}
+body{background:#0e2a57;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f2f6ff;overflow:hidden}
 .stage{width:min(420px,100vw);height:100dvh;display:flex;flex-direction:column;padding:14px}
 .top{display:flex;align-items:center;justify-content:space-between;padding:4px 6px 12px}
-.logo{font-family:Bungee;font-size:18px;color:#f2b632}
-.logo span{color:#0f9d8f}
+.logo{font-family:Bungee;font-size:18px;color:#f06292}
+.logo span{color:#5b9cf5}
 .dots{display:flex;gap:6px}
-.dots i{width:9px;height:9px;border-radius:50%;background:#2c3d5c}
-.dots i.on{background:#f2b632}
+.dots i{width:9px;height:9px;border-radius:50%;background:#2b4a84}
+.dots i.on{background:#f06292}
 .deck{flex:1;position:relative;perspective:800px}
 .card{position:absolute;left:50%;top:44%;width:min(320px,86vw);height:430px;transform:translate(-50%,-50%);
-  background:#fdf6e3;color:#16243d;border-radius:24px;padding:30px 26px;box-shadow:0 14px 40px rgba(0,0,0,.45);
+  background:#f4f7ff;color:#0e2a57;border-radius:24px;padding:30px 26px;box-shadow:0 14px 40px rgba(0,0,0,.45);
   display:flex;flex-direction:column;touch-action:none;user-select:none;cursor:grab;transition:transform .18s ease-out}
 .card.back1{transform:translate(-50%,-50%) rotate(3deg) scale(.96)}
 .card.back2{transform:translate(-50%,-50%) rotate(-4deg) scale(.92)}
-.tag{display:inline-block;align-self:flex-start;background:#e8f6f4;color:#0f9d8f;font-weight:800;font-size:11px;
+.tag{display:inline-block;align-self:flex-start;background:#e3ecfb;color:#5b9cf5;font-weight:800;font-size:11px;
   letter-spacing:1.5px;padding:4px 10px;border-radius:20px;margin-bottom:18px}
 .card .ic{font-size:64px;margin:6px 0 14px}
 .card h2{font-size:23px;line-height:1.35;font-weight:800}
-.card .hint{margin-top:auto;font-size:12px;color:#8a7a66;text-align:center}
+.card .hint{margin-top:auto;font-size:12px;color:#7c8db0;text-align:center}
 .stamp{position:absolute;top:26px;font-family:Bungee;font-size:26px;padding:4px 14px;border:4px solid;border-radius:12px;opacity:0}
-.stamp.yes{left:18px;color:#0f9d8f;border-color:#0f9d8f;transform:rotate(-14deg)}
-.stamp.no{right:18px;color:#d6342b;border-color:#d6342b;transform:rotate(14deg)}
-.stamp.sure{left:50%;transform:translateX(-50%) rotate(-6deg);color:#b8860b;border-color:#b8860b;top:44%}
+.stamp.yes{left:18px;color:#5b9cf5;border-color:#5b9cf5;transform:rotate(-14deg)}
+.stamp.no{right:18px;color:#e0457b;border-color:#e0457b;transform:rotate(14deg)}
+.stamp.sure{left:50%;transform:translateX(-50%) rotate(-6deg);color:#c2537f;border-color:#c2537f;top:44%}
 .btns{display:flex;justify-content:center;gap:26px;padding:16px 0 8px}
-.btns button{width:62px;height:62px;border-radius:50%;border:3px solid #2c3d5c;background:#1e3050;color:#f6eedd;font-size:24px;cursor:pointer;transition:transform .1s}
+.btns button{width:62px;height:62px;border-radius:50%;border:3px solid #2b4a84;background:#173566;color:#f2f6ff;font-size:24px;cursor:pointer;transition:transform .1s}
 .btns button:active{transform:scale(.9)}
-.btns .y{border-color:#0f9d8f;color:#0f9d8f}
-.btns .n{border-color:#d6342b;color:#d6342b}
+.btns .y{border-color:#5b9cf5;color:#5b9cf5}
+.btns .n{border-color:#e0457b;color:#e0457b}
 .result{position:fixed;inset:0;background:rgba(10,18,32,.94);display:none;align-items:center;justify-content:center;z-index:5}
 .result.on{display:flex}
-.rcard{width:min(340px,88vw);background:#fdf6e3;color:#16243d;border-radius:24px;padding:30px 24px;text-align:center;position:relative}
+.rcard{width:min(340px,88vw);background:#f4f7ff;color:#0e2a57;border-radius:24px;padding:30px 24px;text-align:center;position:relative}
 .ring{width:150px;height:150px;margin:0 auto 10px}
 .ring circle{fill:none;stroke-width:11}
-.ring .bg{stroke:#e5d9c0}
-.ring .fg{stroke:#0f9d8f;stroke-linecap:round;stroke-dasharray:396;stroke-dashoffset:396;transition:stroke-dashoffset 1.2s ease}
-.ring text{font-family:Bungee;font-size:34px;fill:#16243d}
+.ring .bg{stroke:#d8e2f5}
+.ring .fg{stroke:#5b9cf5;stroke-linecap:round;stroke-dasharray:396;stroke-dashoffset:396;transition:stroke-dashoffset 1.2s ease}
+.ring text{font-family:Bungee;font-size:34px;fill:#0e2a57}
 .tier{font-family:Bungee;font-size:24px;margin:8px 0 6px}
-.tier.hi{color:#0f9d8f}.tier.mid{color:#b8860b}.tier.lo{color:#d6342b}
-.rcard p{font-size:13.5px;line-height:1.55;color:#5c4d3a}
-.rcard .cta{display:block;width:100%;margin-top:18px;padding:15px;border:none;border-radius:14px;background:#0f9d8f;color:#fff;font-family:Bungee;font-size:15px;cursor:pointer}
-.rcard .again{display:inline-block;margin-top:12px;font-size:12px;color:#8a7a66}
+.tier.hi{color:#5b9cf5}.tier.mid{color:#c2537f}.tier.lo{color:#e0457b}
+.rcard p{font-size:13.5px;line-height:1.55;color:#4a5f8a}
+.rcard .cta{display:block;width:100%;margin-top:18px;padding:15px;border:none;border-radius:14px;background:#5b9cf5;color:#fff;font-family:Bungee;font-size:15px;cursor:pointer}
+.rcard .again{display:inline-block;margin-top:12px;font-size:12px;color:#7c8db0}
 .cfetti{position:absolute;width:9px;height:14px;top:-12px;border-radius:2px;pointer-events:none;animation:fall 1.6s ease-in forwards}
 @keyframes fall{to{transform:translateY(560px) rotate(560deg);opacity:0}}
-.footer{font-size:11px;color:#5c7199;text-align:center;padding:8px 0 4px}
+.footer{font-size:11px;color:#6b87b8;text-align:center;padding:8px 0 4px}
+#gate{position:fixed;inset:0;background:#0e2a57;display:flex;align-items:center;justify-content:center;z-index:99}
+#gate .gcard{background:#173566;border:2px solid #2b4a84;border-radius:18px;padding:26px;text-align:center;width:min(300px,86vw)}
+#gate h1{font-family:Bungee;font-size:18px;color:#f06292;margin-bottom:6px}
+#gate p{font-size:12px;color:#9db8e8;margin-bottom:14px}
+#gate input{width:100%;padding:12px;border-radius:10px;border:2px solid #2b4a84;background:#0e2a57;color:#f2f6ff;font-size:16px;text-align:center;outline:none}
+#gate button{margin-top:10px;width:100%;padding:12px;border:none;border-radius:10px;background:#f06292;color:#fff;font-family:Bungee;font-size:14px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -66,6 +72,12 @@ body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;fo
 </div>
 
 <div class="result" id="result"><div class="rcard" id="rcard"></div></div>
+<div id="gate" style="display:none"><div class="gcard"><h1>SENSORIUM RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
+<script>
+if(sessionStorage.getItem('sr_auth')!=='1')document.getElementById('gate').style.display='flex';
+function tryGate(){if(document.getElementById('gpw').value===atob('Ym9sZA==')){sessionStorage.setItem('sr_auth','1');document.getElementById('gate').style.display='none';}}
+document.getElementById('gpw').addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
+</script>
 
 <script>
 const DECK=[
@@ -153,7 +165,7 @@ function finish(){
   }));
 }
 function confetti(){
-  const cols=['#f2b632','#0f9d8f','#d6342b','#7c9ef5'];
+  const cols=['#f06292','#5b9cf5','#e0457b','#8fb6f2'];
   const rc=document.getElementById('rcard');
   for(let k=0;k<26;k++){
     const s=document.createElement('div');s.className='cfetti';

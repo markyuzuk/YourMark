@@ -7,40 +7,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd}
+body{background:#0e2a57;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f2f6ff}
 .wrap{width:min(420px,100vw);min-height:100dvh;display:flex;flex-direction:column;padding:16px;gap:14px}
 .top{display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:Bungee;font-size:17px;color:#f2b632}.logo span{color:#0f9d8f}
-.streak{background:#2c3d5c;border-radius:20px;padding:6px 14px;font-weight:800;font-size:14px}
-.streak b{color:#f2b632}
-.journey{background:#1e3050;border:2px solid #2c3d5c;border-radius:18px;padding:16px}
-.jtitle{font-family:Bungee;font-size:13px;color:#7c9ef5;letter-spacing:1px;margin-bottom:12px}
+.logo{font-family:Bungee;font-size:17px;color:#f06292}.logo span{color:#5b9cf5}
+.streak{background:#2b4a84;border-radius:20px;padding:6px 14px;font-weight:800;font-size:14px}
+.streak b{color:#f06292}
+.journey{background:#173566;border:2px solid #2b4a84;border-radius:18px;padding:16px}
+.jtitle{font-family:Bungee;font-size:13px;color:#8fb6f2;letter-spacing:1px;margin-bottom:12px}
 .steps{display:flex;align-items:center}
-.step{flex:1;text-align:center;font-size:10.5px;color:#7c8db0;font-weight:600}
-.step .dot{width:26px;height:26px;border-radius:50%;background:#2c3d5c;border:2px solid #3a5178;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-size:13px}
-.step.done .dot{background:#0f9d8f;border-color:#0f9d8f}
-.step.now .dot{background:#f2b632;border-color:#f2b632;color:#16243d;animation:pulse 1.4s infinite}
-.step.done,.step.now{color:#f6eedd}
-.link{width:14px;height:2px;background:#3a5178;margin-bottom:16px;flex:0 0 auto}
+.step{flex:1;text-align:center;font-size:10.5px;color:#8ea6cc;font-weight:600}
+.step .dot{width:26px;height:26px;border-radius:50%;background:#2b4a84;border:2px solid #3a5a9c;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.step.done .dot{background:#5b9cf5;border-color:#5b9cf5}
+.step.now .dot{background:#f06292;border-color:#f06292;color:#0e2a57;animation:pulse 1.4s infinite}
+.step.done,.step.now{color:#f2f6ff}
+.link{width:14px;height:2px;background:#3a5a9c;margin-bottom:16px;flex:0 0 auto}
 @keyframes pulse{50%{box-shadow:0 0 0 7px rgba(242,182,50,.18)}}
-.game{background:#1e3050;border:2px solid #2c3d5c;border-radius:18px;padding:16px;flex:1;display:flex;flex-direction:column}
+.game{background:#173566;border:2px solid #2b4a84;border-radius:18px;padding:16px;flex:1;display:flex;flex-direction:column}
 .gtitle{font-family:Bungee;font-size:15px;margin-bottom:4px}
-.gsub{font-size:12.5px;color:#8ba3c9;margin-bottom:12px}
+.gsub{font-size:12.5px;color:#9db8e8;margin-bottom:12px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;min-height:240px}
-.cell{background:#16243d;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;cursor:pointer;transition:background .12s;border:2px solid transparent}
+.cell{background:#0e2a57;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;cursor:pointer;transition:background .12s;border:2px solid transparent}
 .cell .pop{animation:pop .18s ease-out;pointer-events:none}
 @keyframes pop{from{transform:scale(.2)}to{transform:scale(1)}}
-.cell.hit{background:#0f9d8f;border-color:#f2b632}
-.start{margin:10px auto 0;padding:14px 34px;border:none;border-radius:14px;background:#f2b632;color:#16243d;font-family:Bungee;font-size:15px;cursor:pointer}
+.cell.hit{background:#5b9cf5;border-color:#f06292}
+.start{margin:10px auto 0;padding:14px 34px;border:none;border-radius:14px;background:#f06292;color:#0e2a57;font-family:Bungee;font-size:15px;cursor:pointer}
 .start:disabled{opacity:.35}
 .done{text-align:center;padding:24px 10px;display:none}
 .done.on{display:block}
-.done .big{font-family:Bungee;font-size:22px;color:#f2b632;margin-bottom:8px}
-.done p{font-size:13px;color:#8ba3c9;line-height:1.55}
-.fact{margin-top:14px;background:#16243d;border:1px solid #2c3d5c;border-radius:12px;padding:12px;font-size:12.5px;line-height:1.5;color:#c9d6ec}
-.fact b{color:#f2b632;font-size:11px;letter-spacing:1px}
-.reset{background:none;border:none;color:#5c7199;font-size:11px;margin:10px auto 0;cursor:pointer;text-decoration:underline}
-.score{display:inline-block;background:#0f9d8f;color:#fff;font-weight:800;border-radius:12px;padding:2px 10px;margin-left:6px;font-size:12px}
+.done .big{font-family:Bungee;font-size:22px;color:#f06292;margin-bottom:8px}
+.done p{font-size:13px;color:#9db8e8;line-height:1.55}
+.fact{margin-top:14px;background:#0e2a57;border:1px solid #2b4a84;border-radius:12px;padding:12px;font-size:12.5px;line-height:1.5;color:#d4e0f8}
+.fact b{color:#f06292;font-size:11px;letter-spacing:1px}
+.reset{background:none;border:none;color:#6b87b8;font-size:11px;margin:10px auto 0;cursor:pointer;text-decoration:underline}
+.score{display:inline-block;background:#5b9cf5;color:#fff;font-weight:800;border-radius:12px;padding:2px 10px;margin-left:6px;font-size:12px}
+#gate{position:fixed;inset:0;background:#0e2a57;display:flex;align-items:center;justify-content:center;z-index:99}
+#gate .gcard{background:#173566;border:2px solid #2b4a84;border-radius:18px;padding:26px;text-align:center;width:min(300px,86vw)}
+#gate h1{font-family:Bungee;font-size:18px;color:#f06292;margin-bottom:6px}
+#gate p{font-size:12px;color:#9db8e8;margin-bottom:14px}
+#gate input{width:100%;padding:12px;border-radius:10px;border:2px solid #2b4a84;background:#0e2a57;color:#f2f6ff;font-size:16px;text-align:center;outline:none}
+#gate button{margin-top:10px;width:100%;padding:12px;border:none;border-radius:10px;background:#f06292;color:#fff;font-family:Bungee;font-size:14px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -65,6 +71,12 @@ body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;fo
     <button class="reset" id="reset">reset demo</button>
   </div>
 </div>
+<div id="gate" style="display:none"><div class="gcard"><h1>SENSORIUM RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
+<script>
+if(sessionStorage.getItem('sr_auth')!=='1')document.getElementById('gate').style.display='flex';
+function tryGate(){if(document.getElementById('gpw').value===atob('Ym9sZA==')){sessionStorage.setItem('sr_auth','1');document.getElementById('gate').style.display='none';}}
+document.getElementById('gpw').addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
+</script>
 
 <script>
 const STEPS=['Interest','Phone call','Visit 1','In the trial'];

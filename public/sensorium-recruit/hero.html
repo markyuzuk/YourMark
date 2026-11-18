@@ -7,20 +7,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd}
+body{background:#0e2a57;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f2f6ff}
 .wrap{width:min(420px,100vw);min-height:100dvh;display:flex;flex-direction:column;padding:16px;gap:14px;align-items:center}
-.logo{font-family:Bungee;font-size:18px;color:#f2b632}.logo span{color:#0f9d8f}
-.sub{font-size:12.5px;color:#8ba3c9;text-align:center;line-height:1.5}
-.cam{position:relative;width:min(76vw,300px);aspect-ratio:1;border-radius:18px;overflow:hidden;border:3px solid #f2b632;background:#000}
+.logo{font-family:Bungee;font-size:18px;color:#f06292}.logo span{color:#5b9cf5}
+.sub{font-size:12.5px;color:#9db8e8;text-align:center;line-height:1.5}
+.cam{position:relative;width:min(76vw,300px);aspect-ratio:1;border-radius:18px;overflow:hidden;border:3px solid #f06292;background:#000}
 .cam video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
-.cnt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Bungee;font-size:84px;color:#f2b632;text-shadow:0 4px 0 rgba(0,0,0,.6);pointer-events:none}
-.btn{padding:14px 30px;border:none;border-radius:14px;background:#f2b632;color:#16243d;font-family:Bungee;font-size:14px;cursor:pointer}
-.btn.alt{background:#2c3d5c;color:#f6eedd}
+.cnt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Bungee;font-size:84px;color:#f06292;text-shadow:0 4px 0 rgba(0,0,0,.6);pointer-events:none}
+.btn{padding:14px 30px;border:none;border-radius:14px;background:#f06292;color:#0e2a57;font-family:Bungee;font-size:14px;cursor:pointer}
+.btn.alt{background:#2b4a84;color:#f2f6ff}
 .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .out{display:none;flex-direction:column;align-items:center;gap:12px;width:100%}
 .out.on{display:flex}
-#cardImg{width:min(78vw,300px);border-radius:18px;border:3px solid #f2b632}
-.hint{font-size:11px;color:#5c7199;text-align:center}
+#cardImg{width:min(78vw,300px);border-radius:18px;border:3px solid #f06292}
+.hint{font-size:11px;color:#6b87b8;text-align:center}
+#gate{position:fixed;inset:0;background:#0e2a57;display:flex;align-items:center;justify-content:center;z-index:99}
+#gate .gcard{background:#173566;border:2px solid #2b4a84;border-radius:18px;padding:26px;text-align:center;width:min(300px,86vw)}
+#gate h1{font-family:Bungee;font-size:18px;color:#f06292;margin-bottom:6px}
+#gate p{font-size:12px;color:#9db8e8;margin-bottom:14px}
+#gate input{width:100%;padding:12px;border-radius:10px;border:2px solid #2b4a84;background:#0e2a57;color:#f2f6ff;font-size:16px;text-align:center;outline:none}
+#gate button{margin-top:10px;width:100%;padding:12px;border:none;border-radius:10px;background:#f06292;color:#fff;font-family:Bungee;font-size:14px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -40,6 +46,12 @@ body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;fo
   </div>
   <p class="hint">concept demo — photo stays on your device</p>
 </div>
+<div id="gate" style="display:none"><div class="gcard"><h1>SENSORIUM RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
+<script>
+if(sessionStorage.getItem('sr_auth')!=='1')document.getElementById('gate').style.display='flex';
+function tryGate(){if(document.getElementById('gpw').value===atob('Ym9sZA==')){sessionStorage.setItem('sr_auth','1');document.getElementById('gate').style.display='none';}}
+document.getElementById('gpw').addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
+</script>
 
 <canvas id="cv" width="600" height="740" style="display:none"></canvas>
 <script>
@@ -64,35 +76,35 @@ async function shot(){
 function drawCard(){
   const cv=document.getElementById('cv'),x=cv.getContext('2d'),W=600,H=740;
   // card bg
-  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1e3050');g.addColorStop(1,'#16243d');
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#173566');g.addColorStop(1,'#0e2a57');
   x.fillStyle=g;x.fillRect(0,0,W,H);
-  x.strokeStyle='#f2b632';x.lineWidth=10;x.strokeRect(14,14,W-28,H-28);
-  x.fillStyle='#f2b632';x.font='34px Bungee, sans-serif';x.textAlign='center';
+  x.strokeStyle='#f06292';x.lineWidth=10;x.strokeRect(14,14,W-28,H-28);
+  x.fillStyle='#f06292';x.font='34px Bungee, sans-serif';x.textAlign='center';
   x.fillText('RESEARCH HERO',W/2,78);
   // hero body: cape + lab coat
   x.save();x.translate(W/2,210);
-  x.fillStyle='#d6342b'; // cape
+  x.fillStyle='#e0457b'; // cape
   x.beginPath();x.moveTo(-88,60);x.quadraticCurveTo(-140,230,-96,300);x.lineTo(96,300);x.quadraticCurveTo(140,230,88,60);x.closePath();x.fill();
-  x.fillStyle='#fdf6e3'; // lab coat
+  x.fillStyle='#f4f7ff'; // lab coat
   x.beginPath();x.moveTo(-70,70);x.lineTo(-84,300);x.lineTo(84,300);x.lineTo(70,70);x.quadraticCurveTo(0,95,-70,70);x.fill();
-  x.strokeStyle='#16243d';x.lineWidth=4;x.beginPath();x.moveTo(0,100);x.lineTo(0,300);x.stroke();
-  x.fillStyle='#0f9d8f';x.fillRect(-60,120,52,16); // pocket stripe
+  x.strokeStyle='#0e2a57';x.lineWidth=4;x.beginPath();x.moveTo(0,100);x.lineTo(0,300);x.stroke();
+  x.fillStyle='#5b9cf5';x.fillRect(-60,120,52,16); // pocket stripe
   // collar
-  x.fillStyle='#16243d';x.beginPath();x.moveTo(-34,72);x.lineTo(0,104);x.lineTo(34,72);x.quadraticCurveTo(0,88,-34,72);x.fill();
+  x.fillStyle='#0e2a57';x.beginPath();x.moveTo(-34,72);x.lineTo(0,104);x.lineTo(34,72);x.quadraticCurveTo(0,88,-34,72);x.fill();
   // star badge
-  x.fillStyle='#f2b632';x.beginPath();x.arc(48,150,17,0,Math.PI*2);x.fill();
-  x.fillStyle='#16243d';x.font='bold 20px Inter';x.fillText('★',48,157);
+  x.fillStyle='#f06292';x.beginPath();x.arc(48,150,17,0,Math.PI*2);x.fill();
+  x.fillStyle='#0e2a57';x.font='bold 20px Inter';x.fillText('★',48,157);
   // face circle
   x.save();x.beginPath();x.arc(0,0,72,0,Math.PI*2);x.clip();
   x.drawImage(selfie,-72,-72,144,144);x.restore();
-  x.strokeStyle='#f2b632';x.lineWidth=7;x.beginPath();x.arc(0,0,72,0,Math.PI*2);x.stroke();
+  x.strokeStyle='#f06292';x.lineWidth=7;x.beginPath();x.arc(0,0,72,0,Math.PI*2);x.stroke();
   x.restore();
   // text block
-  x.fillStyle='#f6eedd';x.font='800 30px Inter';x.fillText("I'M EXPLORING A",W/2,596);
+  x.fillStyle='#f2f6ff';x.font='800 30px Inter';x.fillText("I'M EXPLORING A",W/2,596);
   x.fillText('CLINICAL TRIAL',W/2,634);
-  x.fillStyle='#8ba3c9';x.font='600 19px Inter';
+  x.fillStyle='#9db8e8';x.font='600 19px Inter';
   x.fillText('Want in? Ask me how.',W/2,678);
-  x.fillStyle='#f2b632';x.font='Bungee 20px';
+  x.fillStyle='#f06292';x.font='Bungee 20px';
   x.fillText('sparkle.study/join',W/2,712);
   const img=document.getElementById('cardImg');img.src=cv.toDataURL('image/png');
   document.getElementById('camWrap').style.display='none';

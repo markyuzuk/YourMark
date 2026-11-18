@@ -7,17 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#16243d;min-height:100vh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd;padding:20px}
+body{background:#0e2a57;min-height:100vh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f2f6ff;padding:20px}
 .wrap{max-width:460px;width:100%}
-h1{font-family:Bungee;font-size:24px;color:#f2b632;text-align:center}
-h1 span{color:#0f9d8f}
-.sub{text-align:center;font-size:13px;color:#8ba3c9;line-height:1.6;margin:10px 0 26px}
-.tile{display:block;background:#1e3050;border:2px solid #2c3d5c;border-radius:18px;padding:20px;margin-bottom:14px;text-decoration:none;color:#f6eedd;transition:border-color .15s}
-.tile:hover{border-color:#f2b632}
-.tile .n{font-family:Bungee;font-size:16px;color:#f2b632;margin-bottom:6px}
-.tile p{font-size:13px;line-height:1.55;color:#c9d6ec}
-.tile .metric{margin-top:10px;font-size:11px;font-weight:800;letter-spacing:1px;color:#0f9d8f}
-.note{margin-top:22px;font-size:12px;color:#5c7199;line-height:1.65;text-align:center}
+h1{font-family:Bungee;font-size:24px;color:#f06292;text-align:center}
+h1 span{color:#5b9cf5}
+.sub{text-align:center;font-size:13px;color:#9db8e8;line-height:1.6;margin:10px 0 26px}
+.tile{display:block;background:#173566;border:2px solid #2b4a84;border-radius:18px;padding:20px;margin-bottom:14px;text-decoration:none;color:#f2f6ff;transition:border-color .15s}
+.tile:hover{border-color:#f06292}
+.tile .n{font-family:Bungee;font-size:16px;color:#f06292;margin-bottom:6px}
+.tile p{font-size:13px;line-height:1.55;color:#d4e0f8}
+.tile .metric{margin-top:10px;font-size:11px;font-weight:800;letter-spacing:1px;color:#5b9cf5}
+.note{margin-top:22px;font-size:12px;color:#6b87b8;line-height:1.65;text-align:center}
+#gate{position:fixed;inset:0;background:#0e2a57;display:flex;align-items:center;justify-content:center;z-index:99}
+#gate .gcard{background:#173566;border:2px solid #2b4a84;border-radius:18px;padding:26px;text-align:center;width:min(300px,86vw)}
+#gate h1{font-family:Bungee;font-size:18px;color:#f06292;margin-bottom:6px}
+#gate p{font-size:12px;color:#9db8e8;margin-bottom:14px}
+#gate input{width:100%;padding:12px;border-radius:10px;border:2px solid #2b4a84;background:#0e2a57;color:#f2f6ff;font-size:16px;text-align:center;outline:none}
+#gate button{margin-top:10px;width:100%;padding:12px;border:none;border-radius:10px;background:#f06292;color:#fff;font-family:Bungee;font-size:14px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -39,7 +45,13 @@ h1 span{color:#0f9d8f}
 
   <a class="tile" href="hero.html">
     <div class="n">C · RESEARCH HERO — share card</div>
-    <p>Selfie → hero avatar → branded share card ("I'm exploring a clinical trial"). Personal artifacts turn participants into referral engines.</p>
+ div id="gate" style="display:none"><div class="gcard"><h1>SENSORIUM RECRUIT</h1><p>concept preview — enter password</p><input id="gpw" type="password" placeholder="password" autocomplete="off"><button onclick="tryGate()">ENTER</button></div></div>
+<script>
+if(sessionStorage.getItem('sr_auth')!=='1')document.getElementById('gate').style.display='flex';
+function tryGate(){if(document.getElementById('gpw').value===atob('Ym9sZA==')){sessionStorage.setItem('sr_auth','1');document.getElementById('gate').style.display='none';}}
+document.getElementById('gpw').addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
+</script>
+<   <p>Selfie → hero avatar → branded share card ("I'm exploring a clinical trial"). Personal artifacts turn participants into referral engines.</p>
     <div class="metric">METRIC → referral clicks · organic reach · cost per enrolled</div>
   </a>
 
