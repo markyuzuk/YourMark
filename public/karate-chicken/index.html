@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=18">
+<link rel="stylesheet" href="style.css?v=19">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
@@ -71,9 +71,11 @@
           <button class="alt" id="btnEndless">♾️ Endless</button>
         </div>
         <button id="btnBoard" class="board-btn">🏆 DOJO BOARD</button>
+        <button id="btnAch" class="board-btn">🏅 BADGES</button>
         <button id="btnInstall" class="board-btn install-btn" style="display:none">📲 INSTALL THE DOJO</button>
         <button id="storyBtn" class="board-btn story-btn" style="display:none">▶ THE STORY</button>
         <p class="small champ-line" id="champLine"></p>
+        <p class="small" id="modLine"></p>
         <p class="small" id="bestLine"></p>
         <p class="small rotate-tip">Tip: turn your phone sideways for the widest view.</p>
       </div>
@@ -118,6 +120,14 @@
       </div>
     </div>
 
+    <div class="overlay hidden" id="achView">
+      <div class="card">
+        <h2>DOJO BADGES</h2>
+        <ol id="achList" class="ach-list"></ol>
+        <div class="btns"><button class="alt" id="btnAchBack">Back</button></div>
+      </div>
+    </div>
+
     <div class="overlay hidden" id="board">
       <div class="card">
         <h2>TOP DOJO</h2>
@@ -148,6 +158,6 @@ function tryGate(){
 if(sessionStorage.getItem('kc_auth')!=='1'){document.getElementById('gate').style.display='flex'}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game.js?v=18"></script>
+<script src="game.js?v=19"></script>
 </body>
 </html>

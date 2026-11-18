@@ -77,6 +77,11 @@ body.playing .vs-tag{display:block}
 .card-img{display:block;width:100%;border-radius:10px;border:2px solid var(--ink);margin:8px 0;
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:default}
 .icon-btn.always{visibility:visible}
+.board-list li.me{outline:2px solid var(--gold);background:#fff7dd;border-radius:8px}
+.ach-list{list-style:none;padding:0;margin:0;text-align:left}
+.ach-list li{padding:9px 4px;border-bottom:1px dashed rgba(42,29,20,.15);font-size:14px}
+.ach-list li small{display:block;color:#7a6553;font-size:12px;margin-top:2px}
+.ach-list li:not(.got){opacity:.45}
 .install-btn{background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-dk)}
 .install-btn:active{box-shadow:0 2px 0 var(--red-dk)}
 

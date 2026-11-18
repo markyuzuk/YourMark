@@ -82,13 +82,29 @@ const HAT_EMO={auto:'🎩',on:'🎅',off:'🐔'};
 function setHatMode(m){store.set('kc_hat',m);$('btnHat').textContent=HAT_EMO[m];}
 // ---------- achievements ----------
 const ACH=[
-  ['first','First Blood',G=>G.perfects+G.goods>=1],
-  ['p10','Sharpshooter',G=>G.perfects>=10],
-  ['flaw','Flawless Kata',(G,sv)=>sv&&G.misses===0],
-  ['c20','Chain Master',G=>G.maxCombo>=20],
-  ['egg','Egg-splosion',G=>G.eggUsed],
-  ['jack','Jackpot!',G=>G.jackpots>0],
-  ['streak','Dedicated',()=>curStreak()>=5]];
+  ['first','First Blood',G=>G.perfects+G.goods>=1,'land your first hit'],
+  ['p10','Sharpshooter',G=>G.perfects>=10,'10 perfects in one run'],
+  ['flaw','Flawless Kata',(G,sv)=>sv&&G.misses===0,'finish Daily Kata untouched'],
+  ['c20','Chain Master',G=>G.maxCombo>=20,'reach a 20-hit combo'],
+  ['egg','Egg-splosion',G=>G.eggUsed,'unleash the Golden Egg'],
+  ['jack','Jackpot!',G=>G.jackpots>0,'defeat a golden fox'],
+  ['streak','Dedicated',()=>curStreak()>=5,'play 5 days in a row']];
+// ---------- day-of-week modifiers ----------
+const MODS=[
+  {n:'Lazy Sunday',sp:.92},
+  {n:'Fox Frenzy',sp:1.05,fox:1},
+  {n:'Iron Tuesday',bad:.28},
+  {n:'Weasel Wednesday',wea:.34},
+  {n:'Ki Thursday',ki:1.6},
+  {n:'Fox Friday',sp:1.15},
+  {n:'Golden Saturday',gold:.13}];
+const MOD=MODS[today.getDay()],KIK=MOD.ki||1;
+$('modLine').textContent='📅 '+MOD.n;
+function showAch(){
+  let got;try{got=new Set(JSON.parse(store.get('kc_ach')||'[]'))}catch(e){got=new Set()}
+  $('achList').innerHTML=ACH.map(a=>`<li class="ach${got.has(a[0])?' got':''}"><b>${got.has(a[0])?'🏅':'🔒'} ${a[1]}</b><small>${a[3]}</small></li>`).join('');
+  show('achView');
+}
 function checkAch(sv){let got;try{got=JSON.parse(store.get('kc_ach')||'[]')}catch(e){got=[]}
   const fresh=ACH.filter(a=>!got.includes(a[0])&&a[2](G,sv));
   for(const a of fresh)got.push(a[0]);
@@ -143,8 +159,9 @@ function sfx(name,fallback){
 }
 function eggSound(){beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);}
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
-function updateBest(){const b=store.get('kc_best'),st=curStreak(),ac=achCount();$('bestLine').textContent=(b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'')+(st>1?` · 🔥 ${st}-day streak`:'')+(ac?` · 🏅 ${ac}/${ACH.length}`:'');}
+function updateBest(){const b=store.get('kc_best'),st=curStreak(),ac=achCount();$('bestLine').textContent=(b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'')+(st>1?` · 🔥 ${st}-day streak`:'')+(ac?` · 🏅 ${ac}/${ACH.length}`:'');$('btnAch').textContent=`🏅 BADGES (${ac}/${ACH.length})`;}
 updateBest();
+$('saveName').value=store.get('kc_name')||'';
 
 const hero=new Image();hero.src='assets/karate-chicken.png';
 const HERO_AR=684/1178;
@@ -155,7 +172,7 @@ function newGame(mode){
   G={mode,rand:mode==='daily'?mulberry32(seed):Math.random,t:0,score:0,combo:0,maxCombo:0,lives:3,ki:0,
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
-     slow:0,rts:[],jackpots:0,eggUsed:false,dur:mode==='daily'?DAILY_SECONDS:Infinity};
+     slow:0,rts:[],jackpots:0,eggUsed:false,deathCam:0,deathX:0,dur:mode==='daily'?DAILY_SECONDS:Infinity};
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
 
@@ -164,8 +181,12 @@ function spawn(){
   let side=r()<.5?-1:1;
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox';const roll=r();
-  if(G.t>10&&roll<.05)type='golden';else if(G.t>25&&roll<.17)type='weasel';else if(G.t>14&&roll<.38)type='badger';
-  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:1)*(.92+r()*.16);
+  if(!MOD.fox){
+    if(G.t>10&&roll<(MOD.gold||.05))type='golden';
+    else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
+    else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
+  }
+  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:1)*(.92+r()*.16)*(MOD.sp||1);
   G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='badger'?2:1,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});
@@ -181,9 +202,9 @@ function strike(side){
   for(const e of G.enemies){if(e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
   if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
   const golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
-  if(golden){G.score+=500*mult;G.ki=Math.min(100,G.ki+18);G.jackpots++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'JACKPOT!','#f2b632',28);sfx('jackpot',()=>beep(1568,.15,'triangle',.09));buzz(20);}
-  else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.3;}
-  else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);sfx('kick',()=>thwack(1));buzz(8);}
+  if(golden){G.score+=500*mult;G.ki=Math.min(100,G.ki+18*KIK);G.jackpots++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'JACKPOT!','#f2b632',28);sfx('jackpot',()=>beep(1568,.15,'triangle',.09));buzz(20);}
+  else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18*KIK);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.3;}
+  else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6*KIK);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);sfx('kick',()=>thwack(1));buzz(8);}
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
   if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>yum());addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
   if(best.zoneT)G.rts.push(G.t-best.zoneT);
@@ -200,10 +221,10 @@ function goldenEgg(){
   addText(CX,GY-HERO_H-30,'GOLDEN EGG!','#f2b632',34);
   sfx('egg',eggSound);
 }
-function hurt(){
+function hurt(e){
   G.lives--;G.combo=0;seg().d++;G.misses++;G.shake=14;buzz(120);
   burst(CX,GY-80,'#ffffff',16,true);addText(CX,GY-HERO_H-10,'BAWK!','#d6342b',30);sfx('squawk',()=>squawk());beep(110,.25,'sawtooth',.05);
-  if(G.lives<=0)endGame(false);
+  if(G.lives<=0){G.deathCam=1;G.slow=.9;G.deathX=CX+e.side*Math.min(e.d,REACH);endGame(false);}
 }
 function update(dt){
   if(G.hitstop>0){G.hitstop-=dt;return;}
@@ -219,7 +240,7 @@ function update(dt){
     e.d-=e.speed*SPEEDK*dt;
     if(!e.zoneT&&e.d<=REACH)e.zoneT=G.t;
     if(e.type==='weasel'&&!e.flipped&&e.d<=e.flipAt){e.flipped=true;e.jump=1;beep(990,.05,'square',.03);}
-    if(e.d<=HITBOX){e.dead=true;hurt();if(state!=='play')return;}
+    if(e.d<=HITBOX){e.dead=true;hurt(e);if(state!=='play')return;}
   }
   G.enemies=G.enemies.filter(e=>!e.dead);
   tickFx(dt);
@@ -350,7 +371,7 @@ function drawHUD(){
 function draw(){
   ctx.setTransform(cv.width/W,0,0,cv.height/H,0,0);
   ctx.save();
-  if(G&&G.slow>0){const z=1+G.slow*.3;ctx.translate(CX,GY);ctx.scale(z,z);ctx.translate(-CX,-GY);}
+  if(G&&G.slow>0){const z=1+G.slow*(G.deathCam?.55:.3),zc=G.deathCam?G.deathX:CX;ctx.translate(zc,GY);ctx.scale(z,z);ctx.translate(-zc,-GY);}
   if(G&&G.shake>0)ctx.translate((Math.random()-.5)*G.shake,(Math.random()-.5)*G.shake);
   drawBG();
   if(G)for(const e of G.enemies)drawEnemy(e);
@@ -381,7 +402,7 @@ function loop(ts){
 requestAnimationFrame(loop);
 
 // ---------- flow ----------
-function show(id){for(const o of['menu','paused','over','board','cardView'])$(o).classList.toggle('hidden',o!==id);}
+function show(id){for(const o of['menu','paused','over','board','cardView','achView'])$(o).classList.toggle('hidden',o!==id);}
 // ---------- leaderboard ----------
 async function boardData(){try{const r=await fetch('/karate-chicken/api/scores');return(await r.json()).top||[]}catch(e){return null}}
 async function showBoard(){
@@ -391,12 +412,14 @@ async function showBoard(){
   if(!top){msg.textContent='the dojo is offline — try again later';return;}
   if(!top.length){msg.textContent='no scores yet — be the first!';return;}
   msg.textContent='';
-  list.innerHTML=top.map((r,i)=>`<li><span class="rk">${i+1}</span><span class="nm"></span><span class="bd">${beltFor(r.s).n} · x${r.c||0}</span><span class="sc">${(+r.s).toLocaleString()}</span></li>`).join('');
+  const me=store.get('kc_name');
+  list.innerHTML=top.map((r,i)=>`<li${me&&r.n===me?' class="me"':''}><span class="rk">${i+1}</span><span class="nm"></span><span class="bd">${beltFor(r.s).n} · x${r.c||0}</span><span class="sc">${(+r.s).toLocaleString()}</span></li>`).join('');
   list.querySelectorAll('.nm').forEach((el,i)=>el.textContent=top[i].n);
 }
 async function saveScore(){
   const btn=$('btnSave');if(!G||btn.disabled)return;
   const n=$('saveName').value.trim()||'anon';btn.disabled=true;btn.textContent='saving…';
+  store.set('kc_name',n);
   try{
     const r=await fetch('/karate-chicken/api/scores',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({n,s:G.score,m:G.mode,c:G.maxCombo})});
     btn.textContent=r.ok?'saved!':'error';
@@ -431,7 +454,7 @@ function endGame(survived){
   $('padKi').disabled=true;updateBest();
   const sr=$('saveRow');sr.style.display=G.score>0?'flex':'none';
   const sb=$('btnSave');sb.disabled=false;sb.textContent='Save score';
-  setTimeout(()=>{if(state==='over')show('over');},survived?200:700);
+  setTimeout(()=>{if(state==='over')show('over');},G.deathCam?1500:survived?200:700);
 }
 async function share(){
   const text=$('shareText').textContent+'\n'+location.href.split('#')[0];
@@ -495,6 +518,8 @@ $('btnAgain').onclick=()=>start(lastMode);
 $('btnMenu').onclick=toMenu;
 $('btnShare').onclick=share;
 $('btnBoard').onclick=showBoard;
+$('btnAch').onclick=showAch;
+$('btnAchBack').onclick=()=>show('menu');
 $('btnBack').onclick=()=>show(state==='over'?'over':'menu');
 $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
