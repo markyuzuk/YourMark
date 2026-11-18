@@ -44,6 +44,30 @@ const dayNo=Math.max(1,Math.round((new Date(today.getFullYear(),today.getMonth()
 let actx=null;
 function initAudio(){try{if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();}catch(e){actx=null}}
 function beep(f,d,type='square',v=.06){if(!actx)return;try{const o=actx.createOscillator(),g=actx.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+d);o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+d);}catch(e){}}
+let noiseBuf=null;
+function noise(){if(!actx)return null;if(!noiseBuf){const b=actx.createBuffer(1,Math.floor(actx.sampleRate*.2),actx.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;noiseBuf=b}return noiseBuf}
+// power: 0 = whiff whoosh, 1 = good hit, 2 = perfect smash
+function thwack(power){if(!actx)return;try{const t=actx.currentTime;
+  const n=actx.createBufferSource();n.buffer=noise();
+  const nf=actx.createBiquadFilter();nf.type=power?'bandpass':'highpass';
+  nf.frequency.setValueAtTime(power===2?2200:power?1400:600,t);
+  if(!power)nf.frequency.exponentialRampToValueAtTime(2400,t+.1);
+  const ng=actx.createGain();ng.gain.setValueAtTime(power?(power===2?.5:.32):.11,t);
+  ng.gain.exponentialRampToValueAtTime(.001,t+(power?.09:.15));
+  n.connect(nf);nf.connect(ng);ng.connect(actx.destination);n.start(t);n.stop(t+.18);
+  if(!power)return;
+  const o=actx.createOscillator(),g=actx.createGain();
+  o.type='sine';o.frequency.setValueAtTime(power===2?200:150,t);o.frequency.exponentialRampToValueAtTime(45,t+.11);
+  g.gain.setValueAtTime(power===2?.6:.38,t);g.gain.exponentialRampToValueAtTime(.001,t+.14);
+  o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.15);
+}catch(e){}}
+function squawk(){if(!actx)return;try{const t=actx.currentTime;
+  const o=actx.createOscillator(),g=actx.createGain(),l=actx.createOscillator(),lg=actx.createGain();
+  o.type='sawtooth';o.frequency.setValueAtTime(520,t);o.frequency.exponentialRampToValueAtTime(230,t+.2);
+  l.type='square';l.frequency.value=28;lg.gain.value=90;l.connect(lg);lg.connect(o.frequency);l.start(t);l.stop(t+.22);
+  g.gain.setValueAtTime(.08,t);g.gain.exponentialRampToValueAtTime(.001,t+.22);
+  o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.22);
+}catch(e){}}
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
 function updateBest(){const b=store.get('kc_best');$('bestLine').textContent=b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'';}
 updateBest();
@@ -80,10 +104,10 @@ function strike(side){
   G.pose=side;G.poseT=.16;
   let best=null;
   for(const e of G.enemies){if(e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
-  if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);beep(140,.08,'sawtooth',.04);return;}
+  if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);thwack(0);return;}
   const perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
-  if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);beep(880,.09);beep(1320,.07,'triangle',.04);buzz(18);}
-  else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);beep(560,.07);buzz(8);}
+  if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);thwack(2);beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);}
+  else{G.score+=50*mult;G.ki=Math.min(100,G.ki+6);G.goods++;seg().g++;addText(ex,GY-130,'good','#2f6fd6',20);thwack(1);buzz(8);}
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
   best.hp--;burst(ex,GY-40,best.type==='badger'?'#888':'#f08a24',8);
   if(best.hp<=0)best.dead=true;else{best.d+=150;best.hurt=.2;}
@@ -100,7 +124,7 @@ function goldenEgg(){
 }
 function hurt(){
   G.lives--;G.combo=0;seg().d++;G.misses++;G.shake=14;buzz(120);
-  burst(CX,GY-80,'#ffffff',16,true);addText(CX,GY-HERO_H-10,'BAWK!','#d6342b',30);beep(110,.25,'sawtooth',.08);
+  burst(CX,GY-80,'#ffffff',16,true);addText(CX,GY-HERO_H-10,'BAWK!','#d6342b',30);squawk();beep(110,.25,'sawtooth',.05);
   if(G.lives<=0)endGame(false);
 }
 function update(dt){

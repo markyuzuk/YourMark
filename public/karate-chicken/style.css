@@ -5,10 +5,11 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--paper);font-family:Inter,system-ui,-apple-system,sans-serif;
-  overscroll-behavior:none;overflow:hidden;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-button{font:800 15px Inter,system-ui,sans-serif;border:none;border-radius:12px;padding:12px 16px;cursor:pointer;
-  background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-dk);touch-action:manipulation}
-button.alt{background:var(--ink);box-shadow:0 4px 0 #000}
+  overscroll-behavior:none;overflow:hidden;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  background:radial-gradient(ellipse at 50% 38%,#2b1f17 0%,var(--bg) 72%)}
+button{font:800 15px Inter,system-ui,sans-serif;border:none;border-radius:10px 14px 11px 13px/13px 11px 14px 10px;padding:12px 16px;cursor:pointer;
+  background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-dk),inset 0 -2px 0 rgba(0,0,0,.18);border:2px solid var(--ink);touch-action:manipulation}
+button.alt{background:var(--ink);box-shadow:0 4px 0 #000,inset 0 -2px 0 rgba(0,0,0,.3)}
 button:active{transform:translateY(2px);box-shadow:0 2px 0 var(--red-dk)}
 button:disabled{opacity:.4}
 
@@ -23,12 +24,24 @@ button:disabled{opacity:.4}
 body.playing .icon-btn{visibility:visible}
 
 /* stage */
-#stage{position:relative;flex:1 1 auto;min-height:0;border-radius:14px;overflow:hidden;border:3px solid #3b2a1e;margin:0 6px}
+#stage{position:relative;flex:1 1 auto;min-height:0;border-radius:14px;overflow:hidden;border:3px solid #3b2a1e;margin:0 6px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#stage::after{content:'';position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 70px rgba(20,10,4,.38)}
 canvas{display:block;width:100%;height:100%;background:#e9dcc0}
 .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(28,20,16,.74);padding:12px;overflow-y:auto}
 .overlay.hidden{display:none}
-.card{background:var(--paper);color:var(--ink);border-radius:16px;padding:16px 18px;max-width:420px;width:100%;text-align:center;box-shadow:0 6px 0 #c9b48f;margin:auto}
-.card h1,.card h2{font-family:Bungee,Impact,sans-serif;margin:2px 0 6px;color:var(--red);font-size:26px}
+/* hand-crafted card: paper grain, wonky edges, tape strip, hanko seal */
+.card{position:relative;background:var(--paper);color:var(--ink);border-radius:14px 18px 12px 20px/18px 13px 19px 12px;
+  padding:18px 18px 16px;max-width:420px;width:100%;text-align:center;margin:auto;transform:rotate(-.4deg);
+  border:2.5px solid var(--ink);box-shadow:0 7px 0 #b09a72,0 18px 34px rgba(0,0,0,.4);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E")}
+.card::before{content:'';position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(-3deg);width:84px;height:22px;
+  background:rgba(214,200,170,.9);border:1px solid rgba(120,100,70,.5);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.card::after{content:'\9DC4';position:absolute;top:10px;right:10px;width:34px;height:34px;line-height:34px;text-align:center;
+  background:var(--red);color:var(--paper);font:700 20px/34px serif;border-radius:7px 5px 8px 4px/6px 8px 4px 7px;
+  transform:rotate(9deg);box-shadow:inset 0 0 0 2px rgba(255,255,255,.35),0 1px 2px rgba(0,0,0,.25)}
+.card h1,.card h2{font-family:Bungee,Impact,sans-serif;margin:2px 0 10px;color:var(--red);font-size:26px;display:inline-block;position:relative}
+.card h1::after,.card h2::after{content:'';position:absolute;left:-4%;right:-4%;bottom:-5px;height:5px;border-radius:4px;
+  background:linear-gradient(90deg,transparent,var(--red) 12%,var(--red) 88%,transparent);transform:rotate(-1deg)}
 .card p{margin:6px 0;font-size:14px;line-height:1.45}
 .card .hero{height:clamp(90px,22vh,170px);display:block;margin:0 auto -4px}
 .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
