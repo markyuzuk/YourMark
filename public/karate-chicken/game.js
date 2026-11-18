@@ -414,14 +414,16 @@ function shareCard(){
   c.toBlob(async blob=>{
     if(!blob)return;
     const f=new File([blob],'karate-chicken-score.png',{type:'image/png'});
-    const text=`${$('shareText').textContent}\n${location.href.split('#')[0]}`;
-    // 1) native share sheet with the image (iOS/Android)
-    try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Karate Chicken'});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+    const link=`${location.origin}${location.pathname}?vs=${encodeURIComponent(n+'-'+G.score)}`;
+    const text=`${n} scored ${G.score.toLocaleString()} in Karate Chicken — beat it: ${link}`;
+    // 1) native share sheet with the image + tappable challenge link (iOS/Android)
+    try{if(navigator.canShare&&navigator.canShare({files:[f],text})){await navigator.share({files:[f],title:'Karate Chicken',text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
     // 2) share sheet without files (text + link)
     try{if(navigator.share){await navigator.share({text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
     // 3) iOS homescreen / desktop: show card for press-&-hold; auto-download on desktop
     const url=URL.createObjectURL(blob);
     $('cardImg').src=url;
+    $('cardHint').textContent='hold the card to save — or copy the link: '+link;
     if(!isIOS){const a=document.createElement('a');a.href=url;a.download='karate-chicken-score.png';a.click();}
     show('cardView');
   },'image/png');
