@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Research Hero — Selfie Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd}
+.wrap{width:min(420px,100vw);min-height:100dvh;display:flex;flex-direction:column;padding:16px;gap:14px;align-items:center}
+.logo{font-family:Bungee;font-size:18px;color:#f2b632}.logo span{color:#0f9d8f}
+.sub{font-size:12.5px;color:#8ba3c9;text-align:center;line-height:1.5}
+.cam{position:relative;width:min(76vw,300px);aspect-ratio:1;border-radius:18px;overflow:hidden;border:3px solid #f2b632;background:#000}
+.cam video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.cnt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Bungee;font-size:84px;color:#f2b632;text-shadow:0 4px 0 rgba(0,0,0,.6);pointer-events:none}
+.btn{padding:14px 30px;border:none;border-radius:14px;background:#f2b632;color:#16243d;font-family:Bungee;font-size:14px;cursor:pointer}
+.btn.alt{background:#2c3d5c;color:#f6eedd}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.out{display:none;flex-direction:column;align-items:center;gap:12px;width:100%}
+.out.on{display:flex}
+#cardImg{width:min(78vw,300px);border-radius:18px;border:3px solid #f2b632}
+.hint{font-size:11px;color:#5c7199;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">RESEARCH<span>HERO</span></div>
+  <p class="sub">Take a selfie → get your hero card → share it.<br>Referrals are the #1 source of trial participants.</p>
+
+  <div class="cam" id="camWrap"><video id="vid" playsinline autoplay muted></video><div class="cnt" id="cnt"></div></div>
+
+  <div class="out" id="out"><img id="cardImg" alt="your research hero card"></div>
+
+  <div class="row">
+    <button class="btn" id="btnShot">📸 3-2-1 SNAP</button>
+    <button class="btn alt" id="btnDl" style="display:none">⬇ SAVE</button>
+    <button class="btn alt" id="btnShare" style="display:none">↗ SHARE</button>
+    <button class="btn alt" id="btnRetake" style="display:none">↻ RETAKE</button>
+  </div>
+  <p class="hint">concept demo — photo stays on your device</p>
+</div>
+
+<canvas id="cv" width="600" height="740" style="display:none"></canvas>
+<script>
+const vid=document.getElementById('vid'),cnt=document.getElementById('cnt');
+let stream=null,selfie=null;
+async function ensureCam(){
+  if(stream)return;
+  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}});vid.srcObject=stream;}
+  catch(e){alert('Camera unavailable — allow camera access to continue.');throw e;}
+}
+async function shot(){
+  await ensureCam();if(!vid.videoWidth)return;
+  for(const l of['3','2','1']){cnt.textContent=l;await new Promise(r=>setTimeout(r,750));}
+  cnt.textContent='';
+  const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+  const m=Math.min(vid.videoWidth,vid.videoHeight);
+  x.translate(256,0);x.scale(-1,1);
+  x.drawImage(vid,(vid.videoWidth-m)/2,(vid.videoHeight-m)/2,m,m,0,0,256,256);
+  selfie=c;
+  drawCard();
+}
+function drawCard(){
+  const cv=document.getElementById('cv'),x=cv.getContext('2d'),W=600,H=740;
+  // card bg
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1e3050');g.addColorStop(1,'#16243d');
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.strokeStyle='#f2b632';x.lineWidth=10;x.strokeRect(14,14,W-28,H-28);
+  x.fillStyle='#f2b632';x.font='34px Bungee, sans-serif';x.textAlign='center';
+  x.fillText('RESEARCH HERO',W/2,78);
+  // hero body: cape + lab coat
+  x.save();x.translate(W/2,210);
+  x.fillStyle='#d6342b'; // cape
+  x.beginPath();x.moveTo(-88,60);x.quadraticCurveTo(-140,230,-96,300);x.lineTo(96,300);x.quadraticCurveTo(140,230,88,60);x.closePath();x.fill();
+  x.fillStyle='#fdf6e3'; // lab coat
+  x.beginPath();x.moveTo(-70,70);x.lineTo(-84,300);x.lineTo(84,300);x.lineTo(70,70);x.quadraticCurveTo(0,95,-70,70);x.fill();
+  x.strokeStyle='#16243d';x.lineWidth=4;x.beginPath();x.moveTo(0,100);x.lineTo(0,300);x.stroke();
+  x.fillStyle='#0f9d8f';x.fillRect(-60,120,52,16); // pocket stripe
+  // collar
+  x.fillStyle='#16243d';x.beginPath();x.moveTo(-34,72);x.lineTo(0,104);x.lineTo(34,72);x.quadraticCurveTo(0,88,-34,72);x.fill();
+  // star badge
+  x.fillStyle='#f2b632';x.beginPath();x.arc(48,150,17,0,Math.PI*2);x.fill();
+  x.fillStyle='#16243d';x.font='bold 20px Inter';x.fillText('★',48,157);
+  // face circle
+  x.save();x.beginPath();x.arc(0,0,72,0,Math.PI*2);x.clip();
+  x.drawImage(selfie,-72,-72,144,144);x.restore();
+  x.strokeStyle='#f2b632';x.lineWidth=7;x.beginPath();x.arc(0,0,72,0,Math.PI*2);x.stroke();
+  x.restore();
+  // text block
+  x.fillStyle='#f6eedd';x.font='800 30px Inter';x.fillText("I'M EXPLORING A",W/2,596);
+  x.fillText('CLINICAL TRIAL',W/2,634);
+  x.fillStyle='#8ba3c9';x.font='600 19px Inter';
+  x.fillText('Want in? Ask me how.',W/2,678);
+  x.fillStyle='#f2b632';x.font='Bungee 20px';
+  x.fillText('sparkle.study/join',W/2,712);
+  const img=document.getElementById('cardImg');img.src=cv.toDataURL('image/png');
+  document.getElementById('camWrap').style.display='none';
+  document.getElementById('btnShot').style.display='none';
+  document.getElementById('out').classList.add('on');
+  for(const b of['btnDl','btnShare','btnRetake'])document.getElementById(b).style.display='';
+}
+document.getElementById('btnShot').onclick=shot;
+document.getElementById('btnDl').onclick=()=>{
+  const a=document.createElement('a');a.href=document.getElementById('cardImg').src;a.download='research-hero.png';a.click();
+};
+document.getElementById('btnShare').onclick=async()=>{
+  try{
+    const b=await(await fetch(document.getElementById('cardImg').src)).blob();
+    const f=new File([b],'research-hero.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],title:'Research Hero'});
+    else if(navigator.share)await navigator.share({title:'Research Hero',text:"I'm exploring a clinical trial — ask me how!",url:'https://sparkle.study/join'});
+    else alert('Share not available — use SAVE and send it manually.');
+  }catch(e){}
+};
+document.getElementById('btnRetake').onclick=()=>{
+  document.getElementById('camWrap').style.display='';
+  document.getElementById('btnShot').style.display='';
+  document.getElementById('out').classList.remove('on');
+  for(const b of['btnDl','btnShare','btnRetake'])document.getElementById(b).style.display='none';
+};
+ensureCam().catch(()=>{});
+</script>
+</body>
+</html>

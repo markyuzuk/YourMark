@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Research Rounds — Daily Streak</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#16243d;min-height:100dvh;display:flex;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd}
+.wrap{width:min(420px,100vw);min-height:100dvh;display:flex;flex-direction:column;padding:16px;gap:14px}
+.top{display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:Bungee;font-size:17px;color:#f2b632}.logo span{color:#0f9d8f}
+.streak{background:#2c3d5c;border-radius:20px;padding:6px 14px;font-weight:800;font-size:14px}
+.streak b{color:#f2b632}
+.journey{background:#1e3050;border:2px solid #2c3d5c;border-radius:18px;padding:16px}
+.jtitle{font-family:Bungee;font-size:13px;color:#7c9ef5;letter-spacing:1px;margin-bottom:12px}
+.steps{display:flex;align-items:center}
+.step{flex:1;text-align:center;font-size:10.5px;color:#7c8db0;font-weight:600}
+.step .dot{width:26px;height:26px;border-radius:50%;background:#2c3d5c;border:2px solid #3a5178;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.step.done .dot{background:#0f9d8f;border-color:#0f9d8f}
+.step.now .dot{background:#f2b632;border-color:#f2b632;color:#16243d;animation:pulse 1.4s infinite}
+.step.done,.step.now{color:#f6eedd}
+.link{width:14px;height:2px;background:#3a5178;margin-bottom:16px;flex:0 0 auto}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(242,182,50,.18)}}
+.game{background:#1e3050;border:2px solid #2c3d5c;border-radius:18px;padding:16px;flex:1;display:flex;flex-direction:column}
+.gtitle{font-family:Bungee;font-size:15px;margin-bottom:4px}
+.gsub{font-size:12.5px;color:#8ba3c9;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;min-height:240px}
+.cell{background:#16243d;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;cursor:pointer;transition:background .12s;border:2px solid transparent}
+.cell .pop{animation:pop .18s ease-out;pointer-events:none}
+@keyframes pop{from{transform:scale(.2)}to{transform:scale(1)}}
+.cell.hit{background:#0f9d8f;border-color:#f2b632}
+.start{margin:10px auto 0;padding:14px 34px;border:none;border-radius:14px;background:#f2b632;color:#16243d;font-family:Bungee;font-size:15px;cursor:pointer}
+.start:disabled{opacity:.35}
+.done{text-align:center;padding:24px 10px;display:none}
+.done.on{display:block}
+.done .big{font-family:Bungee;font-size:22px;color:#f2b632;margin-bottom:8px}
+.done p{font-size:13px;color:#8ba3c9;line-height:1.55}
+.fact{margin-top:14px;background:#16243d;border:1px solid #2c3d5c;border-radius:12px;padding:12px;font-size:12.5px;line-height:1.5;color:#c9d6ec}
+.fact b{color:#f2b632;font-size:11px;letter-spacing:1px}
+.reset{background:none;border:none;color:#5c7199;font-size:11px;margin:10px auto 0;cursor:pointer;text-decoration:underline}
+.score{display:inline-block;background:#0f9d8f;color:#fff;font-weight:800;border-radius:12px;padding:2px 10px;margin-left:6px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="logo">RESEARCH<span>ROUNDS</span></div><div class="streak">🔥 <b id="streakN">0</b>-day streak</div></div>
+
+  <div class="journey">
+    <div class="jtitle">YOUR TRIAL JOURNEY</div>
+    <div class="steps" id="steps"></div>
+  </div>
+
+  <div class="game">
+    <div class="gtitle">DAILY STAR SPRINT <span class="score" id="score">0 / 5</span></div>
+    <div class="gsub">Tap 5 study stars before they fade — 15 seconds, keeps your place in line.</div>
+    <div class="grid" id="grid"></div>
+    <div class="done" id="done">
+      <div class="big" id="doneBig">DAY COMPLETE!</div>
+      <p>Nice. Your spot on the SPARKLE interest list just got warmer.<br>The study team will reach out — keep the streak alive meanwhile.</p>
+      <div class="fact" id="fact"></div>
+    </div>
+    <button class="start" id="startBtn">START TODAY'S ROUND</button>
+    <button class="reset" id="reset">reset demo</button>
+  </div>
+</div>
+
+<script>
+const STEPS=['Interest','Phone call','Visit 1','In the trial'];
+const FACTS=[
+ 'Most volunteers join because someone they trust told them about it.',
+ 'Every medicine on the shelf exists because volunteers said yes first.',
+ 'You can leave a trial any time — consent is ongoing, not one-time.',
+ 'Sticking with a daily routine (like this!) predicts who completes trials.',
+ 'Trial participants often get study-related care at no cost.',
+ 'You are 4× more likely to enroll if a site contacts you within 48h.'];
+const store={get:k=>localStorage.getItem('rr_'+k),set:(k,v)=>localStorage.setItem('rr_'+k,v)};
+const today=new Date().toDateString();
+let playing=false,caught=0,timer=null;
+function state(){return{streak:+store.get('streak')||0,day:+store.get('day')||0,last:store.get('last')||''};}
+function drawSteps(){
+  const s=state(),cur=Math.min(1+Math.floor(s.day/3),3); // journey advances with days played
+  document.getElementById('steps').innerHTML=STEPS.map((n,k)=>
+    `${k?'<div class="link"></div>':''}<div class="step ${k<cur?'done':k===cur?'now':''}"><div class="dot">${k<cur?'✓':k+1}</div>${n}</div>`).join('');
+}
+function refresh(){
+  const s=state();document.getElementById('streakN').textContent=s.streak;
+  const doneToday=s.last===today;
+  document.getElementById('startBtn').disabled=doneToday;
+  document.getElementById('startBtn').textContent=doneToday?"COME BACK TOMORROW 👋":"START TODAY'S ROUND";
+  document.getElementById('done').classList.toggle('on',doneToday);
+  if(doneToday)document.getElementById('fact').innerHTML=`<b>DID YOU KNOW</b><br>${FACTS[s.day%FACTS.length]}`;
+  drawSteps();
+}
+const grid=document.getElementById('grid');
+for(let c=0;c<9;c++){const d=document.createElement('div');d.className='cell';d.onclick=()=>tap(d,c);grid.appendChild(d);}
+const cells=[...grid.children];
+function spawn(){
+  if(caught>=5)return finish(true);
+  const empty=cells.filter(c=>!c.dataset.star);
+  if(!empty.length)return;
+  const cell=empty[Math.floor(Math.random()*empty.length)];
+  cell.dataset.star='1';cell.innerHTML='<span class="pop">⭐</span>';
+  setTimeout(()=>{delete cell.dataset.star;cell.innerHTML='';},1150);
+  timer=setTimeout(spawn,Math.max(350,750-caught*40));
+}
+function tap(cell){
+  if(!playing||!cell.dataset.star)return;
+  delete cell.dataset.star;cell.innerHTML='';
+  cell.classList.add('hit');setTimeout(()=>cell.classList.remove('hit'),150);
+  caught++;document.getElementById('score').textContent=caught+' / 5';
+  if(caught>=5)finish(true);
+}
+function finish(win){
+  clearTimeout(timer);playing=false;
+  cells.forEach(c=>{delete c.dataset.star;c.innerHTML='';});
+  if(!win)return;
+  const s=state();
+  const y=new Date(Date.now()-864e5).toDateString();
+  const streak=s.last===y?s.streak+1:s.last===today?s.streak:1;
+  store.set('streak',streak);store.set('day',s.day+1);store.set('last',today);
+  document.getElementById('doneBig').textContent=`DAY ${s.day+1} COMPLETE — ${streak}🔥`;
+  refresh();
+}
+document.getElementById('startBtn').onclick=()=>{
+  caught=0;playing=true;document.getElementById('score').textContent='0 / 5';
+  spawn();
+};
+document.getElementById('reset').onclick=()=>{store.set('streak',0);store.set('day',0);store.set('last','');refresh();};
+refresh();
+</script>
+</body>
+</html>
