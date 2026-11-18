@@ -10,6 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 DB = Path('/var/www/karate-chicken-api/scores.json')
+PDB = Path('/var/www/karate-chicken-api/pings.json')
 LOCK = threading.Lock()
 RATE = {}
 MAX_KEEP = 200
@@ -22,6 +23,12 @@ def load():
 
 def save(rows):
     DB.write_text(json.dumps(rows))
+
+def loadp():
+    try:
+        return json.loads(PDB.read_text())
+    except Exception:
+        return {}
 
 class H(BaseHTTPRequestHandler):
     def _send(self, code, obj):
@@ -44,13 +51,22 @@ class H(BaseHTTPRequestHandler):
             self._send(200, {
                 'top': weekly[:20],
                 'champ': weekly[0] if weekly else None,
-                'allBest': rows[:3]
+                'allBest': rows[:3],
+                'played': loadp().get(time.strftime('%Y-%m-%d'), 0)
             })
         else:
             self._send(404, {'err': 'not found'})
 
     def do_POST(self):
         path = self.path.split('?')[0].rstrip('/') or '/'
+        if path == '/ping':
+            with LOCK:
+                p = loadp()
+                today = time.strftime('%Y-%m-%d')
+                p = {k: v for k, v in p.items() if k >= (today)} or p
+                p[today] = p.get(today, 0) + 1
+                PDB.write_text(json.dumps(p))
+            self._send(200, {'n': p[today]}); return
         if path not in ('/', '/scores'):
             self._send(404, {'err': 'not found'}); return
         try:

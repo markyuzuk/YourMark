@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
@@ -51,6 +51,7 @@
   <header id="topbar">
     <img src="assets/karate-chicken.png" alt="" class="mini">
     <span class="brand">KARATE CHICKEN</span>
+    <button id="btnMute" class="icon-btn always" aria-label="Sound">🔊</button>
     <button id="btnPause" class="icon-btn" aria-label="Pause">❚❚</button>
   </header>
 
@@ -67,6 +68,7 @@
         <div class="btns">
           <button id="btnDaily">🥋 Daily Kata</button>
           <button class="alt" id="btnEndless">♾️ Endless</button>
+          <button class="alt" id="btnDuel">🐔🆚🐔 Duel</button>
         </div>
         <button id="btnBoard" class="board-btn">🏆 DOJO BOARD</button>
         <button id="btnInstall" class="board-btn install-btn" style="display:none">📲 INSTALL THE DOJO</button>
@@ -99,6 +101,7 @@
         <div class="btns">
           <button id="btnShare">📤 Share</button>
           <button id="btnCard">🖼 Score card</button>
+          <button id="btnRematch" style="display:none">⚔️ Rematch</button>
           <button class="alt" id="btnAgain">Play again</button>
           <button class="alt" id="btnMenu">Menu</button>
         </div>
@@ -129,6 +132,8 @@
     <button id="padL" class="pad" aria-label="Strike left">◀<span>STRIKE</span></button>
     <button id="padKi" class="ki" aria-label="Golden Egg" disabled>🥚<span>EGG</span></button>
     <button id="padR" class="pad" aria-label="Strike right">▶<span>STRIKE</span></button>
+    <button id="padL2" class="pad p2" aria-label="P2 strike left">◀<span>P2</span></button>
+    <button id="padR2" class="pad p2" aria-label="P2 strike right">▶<span>P2</span></button>
   </nav>
 </div>
 <script>
@@ -145,6 +150,6 @@ function tryGate(){
 if(sessionStorage.getItem('kc_auth')!=='1'){document.getElementById('gate').style.display='flex'}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game.js?v=14"></script>
+<script src="game.js?v=15"></script>
 </body>
 </html>

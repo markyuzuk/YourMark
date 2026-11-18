@@ -76,6 +76,11 @@ body.playing .vs-tag{display:block}
 .champ-line{color:var(--gold)!important;font-weight:700;min-height:14px}
 .card-img{display:block;width:100%;border-radius:10px;border:2px solid var(--ink);margin:8px 0;
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:default}
+.icon-btn.always{visibility:visible}
+body.duel #pads{grid-template-columns:1fr 1fr 1fr 1fr}
+.pad.p2{display:none}
+body.duel .pad.p2{display:flex}
+body.duel .ki{display:none}
 .install-btn{background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-dk)}
 .install-btn:active{box-shadow:0 2px 0 var(--red-dk)}
 
