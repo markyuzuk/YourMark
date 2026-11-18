@@ -82,13 +82,13 @@ const HAT_EMO={auto:'🎩',on:'🎅',off:'🐔'};
 function setHatMode(m){store.set('kc_hat',m);$('btnHat').textContent=HAT_EMO[m];}
 // ---------- achievements ----------
 const ACH=[
-  ['first','First Blood',G=>G.perfects+G.goods>=1,'land your first hit'],
-  ['p10','Sharpshooter',G=>G.perfects>=10,'10 perfects in one run'],
-  ['flaw','Flawless Kata',(G,sv)=>sv&&G.misses===0,'finish Daily Kata untouched'],
-  ['c20','Chain Master',G=>G.maxCombo>=20,'reach a 20-hit combo'],
-  ['egg','Egg-splosion',G=>G.eggUsed,'unleash the Golden Egg'],
-  ['jack','Jackpot!',G=>G.jackpots>0,'defeat a golden fox'],
-  ['streak','Dedicated',()=>curStreak()>=5,'play 5 days in a row']];
+  ['first','First Blood',G=>G.perfects+G.goods>=1,'land your first hit','🩸'],
+  ['p10','Sharpshooter',G=>G.perfects>=10,'10 perfects in one run','🎯'],
+  ['flaw','Flawless Kata',(G,sv)=>sv&&G.misses===0,'finish Daily Kata untouched','🛡️'],
+  ['c20','Chain Master',G=>G.maxCombo>=20,'reach a 20-hit combo','⛓️'],
+  ['egg','Egg-splosion',G=>G.eggUsed,'unleash the Golden Egg','🥚'],
+  ['jack','Jackpot!',G=>G.jackpots>0,'defeat a golden fox','🦊'],
+  ['streak','Dedicated',()=>curStreak()>=5,'play 5 days in a row','🔥']];
 // ---------- day-of-week modifiers ----------
 const MODS=[
   {n:'Lazy Sunday',sp:.92},
@@ -102,7 +102,7 @@ const MOD=MODS[today.getDay()],KIK=MOD.ki||1;
 $('modLine').textContent='📅 '+MOD.n;
 function showAch(){
   let got;try{got=new Set(JSON.parse(store.get('kc_ach')||'[]'))}catch(e){got=new Set()}
-  $('achList').innerHTML=ACH.map(a=>`<li class="ach${got.has(a[0])?' got':''}"><b>${got.has(a[0])?'🏅':'🔒'} ${a[1]}</b><small>${a[3]}</small></li>`).join('');
+  $('achList').innerHTML=ACH.map(a=>`<li class="ach${got.has(a[0])?' got':''}"><span class="ic">${got.has(a[0])?a[4]:'🔒'}</span><b>${a[1]}</b><small>${a[3]}</small></li>`).join('');
   show('achView');
 }
 function checkAch(sv){let got;try{got=JSON.parse(store.get('kc_ach')||'[]')}catch(e){got=[]}
