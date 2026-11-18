@@ -341,11 +341,11 @@ function drawOne(P,x0){
   ctx.translate(x,baseY+bob);
   ctx.rotate(pose*.16+(st?Math.sin(now/40)*.05:0));
   if(hero.complete&&hero.naturalWidth)ctx.drawImage(hero,-HW/2,-HH,HW,HH);
-  if(selfieImg){const hy=-HH*.8,hr=HH*.15;
+  if(selfieImg){const hy=-HH*.76,hr=HH*.3;
     ctx.save();ctx.beginPath();ctx.arc(0,hy,hr,0,Math.PI*2);ctx.clip();
     ctx.drawImage(selfieImg,-hr,hy-hr,hr*2,hr*2);ctx.restore();
-    ctx.strokeStyle='#d6342b';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,hy,hr,0,Math.PI*2);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-hr*.7,hy-hr*.78);ctx.lineTo(-hr-14,hy-hr-12);ctx.moveTo(-hr*.7,hy-hr*.78);ctx.lineTo(-hr-18,hy-hr+1);ctx.stroke();}
+    ctx.strokeStyle='#d6342b';ctx.lineWidth=4;ctx.beginPath();ctx.arc(0,hy,hr,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-hr*.95,hy-hr*.15);ctx.lineTo(-hr-16,hy-hr*.4);ctx.moveTo(-hr*.95,hy-hr*.15);ctx.lineTo(-hr-20,hy-hr*.05);ctx.stroke();}
   const hat=hatType();
   if(hat==='santa'){ctx.fillStyle='#d6342b';ctx.beginPath();ctx.moveTo(-HW*.24,-HH*.9);ctx.quadraticCurveTo(0,-HH*1.32,HW*.26,-HH*.86);ctx.quadraticCurveTo(0,-HH*1,-HW*.24,-HH*.9);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(0,-HH*.9,HW*.25,HH*.05,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(HW*.24,-HH*.86,HW*.05,0,Math.PI*2);ctx.fill();}
   else if(hat==='pilgrim'){ctx.fillStyle='#1a1a1a';ctx.fillRect(-HW*.21,-HH*1.26,HW*.42,HH*.32);ctx.fillStyle='#f2b632';ctx.fillRect(-HW*.08,-HH*1.12,HW*.16,HH*.12);ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.ellipse(0,-HH*.93,HW*.35,HH*.07,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#6b4224';ctx.lineWidth=1.5;ctx.stroke();}
