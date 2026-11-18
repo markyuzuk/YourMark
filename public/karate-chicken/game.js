@@ -366,41 +366,56 @@ function drawEnemy(e){
   if(e.hurt>0)ctx.globalAlpha=.5+.5*Math.sin(performance.now()/25);
   ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(0,26-bounce,30,6,0,0,Math.PI*2);ctx.fill();
   if(e.type==='cav'){
-    // Lucy: ruby cavalier - long floppy ears, big dark eyes, harness, feathery tail
+    // Lucy: ruby Cavalier King Charles - silky ears past the chin, domed head,
+    // wide-set gentle eyes, feathered legs + plume tail
+    const ruby='#9a5f33',ear='#6d3a15',earHi='#a06a38',muz='#b07040',nose='#1a1a1a',harn='#3a4a55';
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;ctx.lineJoin='round';
+    // feathery plume tail (behind body)
+    ctx.fillStyle=ruby;ctx.beginPath();
+    ctx.moveTo(28,-22);ctx.quadraticCurveTo(56,-34,54,-60);ctx.quadraticCurveTo(64,-46,54,-30);ctx.quadraticCurveTo(46,-20,28,-22);ctx.fill();ctx.stroke();
+    ctx.strokeStyle=earHi;ctx.lineWidth=1.8;
+    for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(50-i*4,-52+i*5);ctx.quadraticCurveTo(56,-42,50-i*4,-32);ctx.stroke();}
+    // legs with feathered paws
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=4;
+    ctx.beginPath();ctx.moveTo(-14,-8);ctx.lineTo(-15,14);ctx.moveTo(0,-6);ctx.lineTo(-1,14);ctx.moveTo(14,-8);ctx.lineTo(15,14);ctx.stroke();
+    ctx.fillStyle=earHi;
+    ctx.beginPath();ctx.ellipse(-15,14,5,3,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(-1,14,5,3,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(15,14,5,3,0,0,Math.PI*2);ctx.fill();
+    // fluffy body + chest ruff
     ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
-    const ruby='#9a5f33',ear='#7a4218',nose='#1a1a1a',harn='#3a4a55';
-    // feathery tail (behind body, at right since facing left)
-    ctx.fillStyle=ruby;ctx.beginPath();ctx.moveTo(26,-24);ctx.quadraticCurveTo(52,-40,48,-58);ctx.quadraticCurveTo(56,-44,40,-30);ctx.quadraticCurveTo(34,-24,26,-24);ctx.fill();ctx.stroke();
-    ctx.strokeStyle=ear;ctx.lineWidth=2;
-    for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(44-i*5,-44+i*4);ctx.quadraticCurveTo(50,-36,46-i*4,-26);ctx.stroke();}
-    // body
-    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
-    ctx.fillStyle=ruby;ctx.beginPath();ctx.ellipse(4,-18,34,20,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-    // legs
-    ctx.beginPath();ctx.moveTo(-16,-6);ctx.lineTo(-18,16);ctx.moveTo(2,-4);ctx.lineTo(1,16);ctx.moveTo(16,-6);ctx.lineTo(18,16);ctx.stroke();
+    ctx.fillStyle=ruby;ctx.beginPath();ctx.ellipse(4,-20,36,22,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.strokeStyle='rgba(0,0,0,.18)';ctx.lineWidth=1.6;
+    for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(-18+i*12,-32);ctx.quadraticCurveTo(-14+i*12,-28,-20+i*12,-24);ctx.stroke();}
+    ctx.fillStyle=muz;ctx.beginPath();ctx.ellipse(-18,-18,10,12,-.4,0,Math.PI*2);ctx.fill();
     // harness straps
     ctx.strokeStyle=harn;ctx.lineWidth=5;
-    ctx.beginPath();ctx.moveTo(-14,-34);ctx.quadraticCurveTo(-6,-16,-10,-2);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(16,-34);ctx.lineTo(12,-4);ctx.stroke();
-    ctx.strokeStyle='#2a1d14';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(-11,-18,3,0,Math.PI*2);ctx.stroke();
-    // head
+    ctx.beginPath();ctx.moveTo(-12,-36);ctx.quadraticCurveTo(-4,-18,-8,0);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(18,-38);ctx.lineTo(14,-2);ctx.stroke();
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(-9,-18,3,0,Math.PI*2);ctx.stroke();
+    // domed head
     ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
-    ctx.fillStyle=ruby;ctx.beginPath();ctx.arc(-32,-36,19,0,Math.PI*2);ctx.fill();ctx.stroke();
-    // big floppy ears hanging down
-    ctx.fillStyle=ear;
-    ctx.beginPath();ctx.ellipse(-46,-28,9,17,.35,0,Math.PI*2);ctx.fill();ctx.stroke();
-    ctx.beginPath();ctx.ellipse(-18,-30,8,15,-.3,0,Math.PI*2);ctx.fill();ctx.stroke();
-    ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=1.5;
-    for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-49+i*3,-38+i*2);ctx.quadraticCurveTo(-45,-30,-47+i*3,-20);ctx.stroke();}
-    // muzzle + nose
+    ctx.fillStyle=ruby;ctx.beginPath();ctx.ellipse(-32,-40,20,18,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(-40,-54);ctx.quadraticCurveTo(-32,-58,-24,-54);ctx.stroke();
+    // long silky ears hanging past the chin (with wavy feathering)
+    ctx.fillStyle=ear;ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(-44,-54);ctx.quadraticCurveTo(-60,-44,-56,-18);ctx.quadraticCurveTo(-53,-6,-44,-8);ctx.quadraticCurveTo(-42,-30,-38,-44);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-20,-54);ctx.quadraticCurveTo(-8,-46,-10,-20);ctx.quadraticCurveTo(-11,-8,-18,-10);ctx.quadraticCurveTo(-16,-32,-24,-46);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.strokeStyle=earHi;ctx.lineWidth=1.8;
+    for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(-50+i*3,-46+i*2);ctx.quadraticCurveTo(-54,-32,-48+i*2,-14);ctx.stroke();}
+    ctx.beginPath();ctx.moveTo(-15,-44);ctx.quadraticCurveTo(-12,-30,-15,-14);ctx.stroke();
+    // short muzzle + nose
     ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
-    ctx.fillStyle='#b07040';ctx.beginPath();ctx.ellipse(-40,-28,9,7,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-    ctx.fillStyle=nose;ctx.beginPath();ctx.arc(-45,-31,3.5,0,Math.PI*2);ctx.fill();
-    // big round dark eyes
-    ctx.fillStyle='#241309';ctx.beginPath();ctx.arc(-36,-40,4.6,0,Math.PI*2);ctx.arc(-25,-41,4.2,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-37,-42,1.5,0,Math.PI*2);ctx.arc(-26,-43,1.4,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=muz;ctx.beginPath();ctx.ellipse(-44,-34,10,8,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle=nose;ctx.beginPath();ctx.arc(-51,-37,4.5,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(-51,-33);ctx.quadraticCurveTo(-46,-30,-42,-31);ctx.stroke();
+    // big wide-set round eyes, gentle
+    ctx.fillStyle='#241309';ctx.beginPath();ctx.arc(-38,-46,5,0,Math.PI*2);ctx.arc(-25,-47,4.6,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-39,-48,1.7,0,Math.PI*2);ctx.arc(-26,-49,1.5,0,Math.PI*2);ctx.fill();
     ctx.restore();
-    ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-72);
+    ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-78);
     return;
   }
   if(e.type==='phrag'){

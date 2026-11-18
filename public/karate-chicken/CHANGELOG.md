@@ -2,6 +2,12 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v30 — 2025-11-18
+- Lucy redrawn more breed-accurately: silky ears past the chin, domed head, wide-set gentle eyes, feathered paws, plume tail
+
+## v29 — 2025-11-18
+- "HERE COMES LUCY!" warning much larger (48px)
+
 ## v28 — 2025-11-18
 - **Boss swap**: boss fox replaced by **Lucy** — a ruby Cavalier King Charles (floppy ears, big dark eyes, harness, feathery tail; 5 HP). "HERE COMES LUCY!" / "LUCY DOWN!". Phragmites boss kept
 
