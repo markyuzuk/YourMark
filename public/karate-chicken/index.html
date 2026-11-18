@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=25">
+<link rel="stylesheet" href="style.css?v=26">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
@@ -74,6 +74,7 @@
         <button id="btnAch" class="board-btn">🏅 BADGES</button>
         <button id="btnInstall" class="board-btn install-btn" style="display:none">📲 INSTALL THE DOJO</button>
         <button id="storyBtn" class="board-btn story-btn" style="display:none">▶ THE STORY</button>
+        <button id="btnSelfie" class="board-btn">📸 BECOME THE CHICKEN</button>
         <p class="small champ-line" id="champLine"></p>
         <p class="small" id="modLine"></p>
         <p class="small" id="bestLine"></p>
@@ -120,6 +121,18 @@
       </div>
     </div>
 
+    <div class="overlay hidden" id="selfieView">
+      <div class="card">
+        <h2>BE THE CHICKEN</h2>
+        <div class="cam-wrap"><video id="camVid" playsinline autoplay muted></video><div id="camCount"></div></div>
+        <div class="btns">
+          <button id="btnSnap">📸 TAKE</button>
+          <button class="alt" id="btnCamRemove">Remove face</button>
+          <button class="alt" id="btnCamCancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
     <div class="overlay hidden" id="achView">
       <div class="card">
         <h2>DOJO BADGES</h2>
@@ -158,6 +171,6 @@ function tryGate(){
 if(sessionStorage.getItem('kc_auth')!=='1'){document.getElementById('gate').style.display='flex'}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game.js?v=25"></script>
+<script src="game.js?v=26"></script>
 </body>
 </html>

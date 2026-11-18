@@ -164,6 +164,42 @@ $('saveName').value=store.get('kc_name')||'';
 
 const hero=new Image();hero.src='assets/karate-chicken.png';
 const HERO_AR=684/1178;
+let selfieImg=null;
+function loadSelfie(){
+  const d=store.get('kc_selfie');selfieImg=null;
+  if(d){const i=new Image();i.onload=()=>{selfieImg=i};i.src=d;}
+  updateSelfieBtn();
+}
+function updateSelfieBtn(){const b=$('btnSelfie');if(b)b.textContent=store.get('kc_selfie')?'📸 YOUR FACE IS READY':'📸 BECOME THE CHICKEN';}
+// ---------- camera ----------
+let camStream=null;
+async function openCam(){
+  try{
+    camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}});
+    $('camVid').srcObject=camStream;$('camCount').textContent='';
+    show('selfieView');
+  }catch(e){alert('Camera unavailable — allow camera access to become the chicken!');}
+}
+function closeCam(){
+  if(camStream){for(const t of camStream.getTracks())t.stop();camStream=null;}
+  $('camVid').srcObject=null;$('camCount').textContent='';show('menu');
+}
+async function snap(){
+  if(!camStream||!$('camVid').videoWidth)return;
+  $('btnSnap').disabled=true;
+  const cc=$('camCount');
+  for(const l of['3','2','1']){cc.textContent=l;beep(660,.1,'triangle',.06);await new Promise(r=>setTimeout(r,750));}
+  cc.textContent='';
+  const v=$('camVid'),s=256,c=document.createElement('canvas');c.width=c.height=s;
+  const x=c.getContext('2d'),m=Math.min(v.videoWidth,v.videoHeight);
+  x.translate(s,0);x.scale(-1,1); // mirror like the preview
+  x.drawImage(v,(v.videoWidth-m)/2,(v.videoHeight-m)/2,m,m,0,0,s,s);
+  store.set('kc_selfie',c.toDataURL('image/jpeg',.82));
+  loadSelfie();beep(1320,.12,'triangle',.07);
+  $('btnSnap').disabled=false;closeCam();
+}
+function removeSelfie(){store.set('kc_selfie','');selfieImg=null;updateSelfieBtn();closeCam();}
+loadSelfie();
 
 // ---------- game state ----------
 let G=null,state='menu',last=0;
@@ -305,6 +341,11 @@ function drawOne(P,x0){
   ctx.translate(x,baseY+bob);
   ctx.rotate(pose*.16+(st?Math.sin(now/40)*.05:0));
   if(hero.complete&&hero.naturalWidth)ctx.drawImage(hero,-HW/2,-HH,HW,HH);
+  if(selfieImg){const hy=-HH*.8,hr=HH*.15;
+    ctx.save();ctx.beginPath();ctx.arc(0,hy,hr,0,Math.PI*2);ctx.clip();
+    ctx.drawImage(selfieImg,-hr,hy-hr,hr*2,hr*2);ctx.restore();
+    ctx.strokeStyle='#d6342b';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,hy,hr,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-hr*.7,hy-hr*.78);ctx.lineTo(-hr-14,hy-hr-12);ctx.moveTo(-hr*.7,hy-hr*.78);ctx.lineTo(-hr-18,hy-hr+1);ctx.stroke();}
   const hat=hatType();
   if(hat==='santa'){ctx.fillStyle='#d6342b';ctx.beginPath();ctx.moveTo(-HW*.24,-HH*.9);ctx.quadraticCurveTo(0,-HH*1.32,HW*.26,-HH*.86);ctx.quadraticCurveTo(0,-HH*1,-HW*.24,-HH*.9);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(0,-HH*.9,HW*.25,HH*.05,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(HW*.24,-HH*.86,HW*.05,0,Math.PI*2);ctx.fill();}
   else if(hat==='pilgrim'){ctx.fillStyle='#1a1a1a';ctx.fillRect(-HW*.21,-HH*1.26,HW*.42,HH*.32);ctx.fillStyle='#f2b632';ctx.fillRect(-HW*.08,-HH*1.12,HW*.16,HH*.12);ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.ellipse(0,-HH*.93,HW*.35,HH*.07,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#6b4224';ctx.lineWidth=1.5;ctx.stroke();}
@@ -433,7 +474,7 @@ function loop(ts){
 requestAnimationFrame(loop);
 
 // ---------- flow ----------
-function show(id){for(const o of['menu','paused','over','board','cardView','achView'])$(o).classList.toggle('hidden',o!==id);}
+function show(id){for(const o of['menu','paused','over','board','cardView','achView','selfieView'])$(o).classList.toggle('hidden',o!==id);}
 // ---------- leaderboard ----------
 async function boardData(){try{const r=await fetch('/karate-chicken/api/scores');return(await r.json()).top||[]}catch(e){return null}}
 async function showBoard(){
@@ -556,6 +597,10 @@ $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
 $('btnCard').onclick=shareCard;
 $('storyBtn').onclick=()=>sfx('welcome',()=>{});
+$('btnSelfie').onclick=openCam;
+$('btnSnap').onclick=snap;
+$('btnCamCancel').onclick=closeCam;
+$('btnCamRemove').onclick=removeSelfie;
 $('btnCardBack').onclick=()=>show('over');
 $('btnPause').onclick=pause;
 $('btnResume').onclick=resume;

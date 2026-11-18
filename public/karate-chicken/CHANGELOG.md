@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v26 — 2025-11-18
+- **Become the Chicken**: 📸 button on the menu opens the front camera, 3-2-1 countdown, crops a square selfie, stores it locally, and your face replaces the chicken's head (red headband ring) in menu + gameplay — retake/remove anytime
+
 ## v25 — 2025-11-18
 - Removed the computer-generated "yum" TTS voice; combo callouts use recorded `yum.webm`/`yumyum.webm` (soft chime fallback)
 
