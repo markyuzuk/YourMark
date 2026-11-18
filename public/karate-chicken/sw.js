@@ -1,5 +1,5 @@
 // Bump CACHE whenever you change any file in /public so players get the update.
-const CACHE = 'karate-chicken-v30';
+const CACHE = 'karate-chicken-v31';
 const ASSETS = [
   './', './index.html', './style.css', './game.js', './manifest.webmanifest',
   './assets/karate-chicken.png', './assets/icon-192.png', './assets/icon-512.png',

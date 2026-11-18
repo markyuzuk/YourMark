@@ -393,27 +393,31 @@ function drawEnemy(e){
     ctx.beginPath();ctx.moveTo(-12,-36);ctx.quadraticCurveTo(-4,-18,-8,0);ctx.stroke();
     ctx.beginPath();ctx.moveTo(18,-38);ctx.lineTo(14,-2);ctx.stroke();
     ctx.strokeStyle='#2a1d14';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(-9,-18,3,0,Math.PI*2);ctx.stroke();
-    // domed head
+    // domed broad head
     ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
-    ctx.fillStyle=ruby;ctx.beginPath();ctx.ellipse(-32,-40,20,18,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle=ruby;ctx.beginPath();ctx.ellipse(-32,-42,22,19,0,0,Math.PI*2);ctx.fill();ctx.stroke();
     ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=1.5;
-    ctx.beginPath();ctx.moveTo(-40,-54);ctx.quadraticCurveTo(-32,-58,-24,-54);ctx.stroke();
-    // long silky ears hanging past the chin (with wavy feathering)
+    ctx.beginPath();ctx.moveTo(-41,-57);ctx.quadraticCurveTo(-32,-61,-23,-57);ctx.stroke();
+    // huge fluffy ears fanning WIDE, framing the face (like the photo)
     ctx.fillStyle=ear;ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
-    ctx.beginPath();ctx.moveTo(-44,-54);ctx.quadraticCurveTo(-60,-44,-56,-18);ctx.quadraticCurveTo(-53,-6,-44,-8);ctx.quadraticCurveTo(-42,-30,-38,-44);ctx.closePath();ctx.fill();ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-20,-54);ctx.quadraticCurveTo(-8,-46,-10,-20);ctx.quadraticCurveTo(-11,-8,-18,-10);ctx.quadraticCurveTo(-16,-32,-24,-46);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-46,-56);ctx.quadraticCurveTo(-72,-52,-74,-28);ctx.quadraticCurveTo(-75,-14,-62,-12);ctx.quadraticCurveTo(-50,-10,-44,-24);ctx.quadraticCurveTo(-40,-40,-40,-48);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-18,-58);ctx.quadraticCurveTo(0,-52,-1,-28);ctx.quadraticCurveTo(-1,-14,-12,-13);ctx.quadraticCurveTo(-22,-14,-24,-28);ctx.quadraticCurveTo(-26,-42,-24,-50);ctx.closePath();ctx.fill();ctx.stroke();
+    // wavy feathering inside ears
     ctx.strokeStyle=earHi;ctx.lineWidth=1.8;
-    for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(-50+i*3,-46+i*2);ctx.quadraticCurveTo(-54,-32,-48+i*2,-14);ctx.stroke();}
-    ctx.beginPath();ctx.moveTo(-15,-44);ctx.quadraticCurveTo(-12,-30,-15,-14);ctx.stroke();
+    for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(-64+i*4,-46+i*2);ctx.quadraticCurveTo(-70,-34,-62+i*3,-18);ctx.stroke();}
+    for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-14+i*4,-46+i*3);ctx.quadraticCurveTo(-8,-34,-13+i*3,-18);ctx.stroke();}
+    // fluffy cheeks framing the muzzle
+    ctx.fillStyle=ruby;
+    ctx.beginPath();ctx.ellipse(-44,-28,8,7,0,0,Math.PI*2);ctx.fill();
     // short muzzle + nose
     ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
     ctx.fillStyle=muz;ctx.beginPath();ctx.ellipse(-44,-34,10,8,0,0,Math.PI*2);ctx.fill();ctx.stroke();
     ctx.fillStyle=nose;ctx.beginPath();ctx.arc(-51,-37,4.5,0,Math.PI*2);ctx.fill();
     ctx.strokeStyle='#2a1d14';ctx.lineWidth=1.5;
     ctx.beginPath();ctx.moveTo(-51,-33);ctx.quadraticCurveTo(-46,-30,-42,-31);ctx.stroke();
-    // big wide-set round eyes, gentle
-    ctx.fillStyle='#241309';ctx.beginPath();ctx.arc(-38,-46,5,0,Math.PI*2);ctx.arc(-25,-47,4.6,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-39,-48,1.7,0,Math.PI*2);ctx.arc(-26,-49,1.5,0,Math.PI*2);ctx.fill();
+    // big round eyes set closer together, gentle look
+    ctx.fillStyle='#241309';ctx.beginPath();ctx.arc(-38,-46,5,0,Math.PI*2);ctx.arc(-27,-46,4.6,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-39,-48,1.7,0,Math.PI*2);ctx.arc(-28,-48,1.5,0,Math.PI*2);ctx.fill();
     ctx.restore();
     ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-78);
     return;
