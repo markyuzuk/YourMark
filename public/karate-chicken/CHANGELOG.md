@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v33 — 2025-11-18
+- Recorded voices installed: **lucy** (HERE COMES LUCY!), **jackpot**, **gameover**
+
 ## v32 — 2025-11-18
 - **Lucy voice slot**: `lucy` recording plays on spawn ("HERE COMES LUCY!"), yip-yip bark synth fallback; added to `record.html` SOUND STUDIO
 
