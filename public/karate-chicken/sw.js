@@ -1,5 +1,5 @@
 // Bump CACHE whenever you change any file in /public so players get the update.
-const CACHE = 'karate-chicken-v10';
+const CACHE = 'karate-chicken-v11';
 const ASSETS = [
   './', './index.html', './style.css', './game.js', './manifest.webmanifest',
   './assets/karate-chicken.png', './assets/icon-192.png', './assets/icon-512.png',
@@ -20,11 +20,14 @@ self.addEventListener('activate', e => {
 // Images/fonts: stale-while-revalidate for instant paint.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  if (e.request.url.includes('/api/')) return; // live data — always straight to network
   const isAsset = /\.(png|jpg|jpeg|svg|ico|woff2?)$/i.test(e.request.url);
   e.respondWith(isAsset ? swr(e.request) : netFirst(e.request));
 });
 function netFirst(req) {
-  return fetch(req).then(res => {
+  // cache:'no-cache' forces revalidation — nginx serves js/css with expires 1y,
+  // which would otherwise trap old code in the HTTP cache layer
+  return fetch(req, { cache: 'no-cache' }).then(res => {
     if (res.ok && new URL(req.url).origin === location.origin)
       caches.open(CACHE).then(c => c.put(req, res.clone()));
     return res;

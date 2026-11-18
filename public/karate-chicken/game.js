@@ -64,7 +64,7 @@ function bumpStreak(mode){
   return st.n;
 }
 function curStreak(){try{const st=JSON.parse(store.get('kc_streak')||'null');return st&&st.d===today.toISOString().slice(0,10)?st.n:0}catch(e){return 0}}
-async function champLine(){try{const j=await(await fetch('api/scores')).json();const c=j.champ;$('champLine').textContent=c?`👑 Dojo Champ: ${c.n} — ${(+c.s).toLocaleString()} pts this week`:'';}catch(e){}}
+async function champLine(){try{const j=await(await fetch('/karate-chicken/api/scores')).json();const c=j.champ;$('champLine').textContent=c?`👑 Dojo Champ: ${c.n} — ${(+c.s).toLocaleString()} pts this week`:'';}catch(e){}}
 champLine();
 resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.display='block'});
 let actx=null;
@@ -341,7 +341,7 @@ requestAnimationFrame(loop);
 // ---------- flow ----------
 function show(id){for(const o of['menu','paused','over','board'])$(o).classList.toggle('hidden',o!==id);}
 // ---------- leaderboard ----------
-async function boardData(){try{const r=await fetch('api/scores');return(await r.json()).top||[]}catch(e){return null}}
+async function boardData(){try{const r=await fetch('/karate-chicken/api/scores');return(await r.json()).top||[]}catch(e){return null}}
 async function showBoard(){
   const msg=$('boardMsg'),list=$('boardList');
   show('board');msg.textContent='loading…';list.innerHTML='';
@@ -356,7 +356,7 @@ async function saveScore(){
   const btn=$('btnSave');if(!G||btn.disabled)return;
   const n=$('saveName').value.trim()||'anon';btn.disabled=true;btn.textContent='saving…';
   try{
-    const r=await fetch('api/scores',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({n,s:G.score,m:G.mode,c:G.maxCombo})});
+    const r=await fetch('/karate-chicken/api/scores',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({n,s:G.score,m:G.mode,c:G.maxCombo})});
     btn.textContent=r.ok?'saved!':'error';
     if(r.ok){
       // arm the challenge link so the share text dares their friends
