@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v27 — 2025-11-18
+- Selfie now covers the **full chicken head** (2× circle, red headband tie at the edge)
+
 ## v26 — 2025-11-18
 - **Become the Chicken**: 📸 button on the menu opens the front camera, 3-2-1 countdown, crops a square selfie, stores it locally, and your face replaces the chicken's head (red headband ring) in menu + gameplay — retake/remove anytime
 
