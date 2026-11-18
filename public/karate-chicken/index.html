@@ -70,6 +70,7 @@
         </div>
         <button id="btnBoard" class="board-btn">🏆 DOJO BOARD</button>
         <button id="btnInstall" class="board-btn install-btn" style="display:none">📲 INSTALL THE DOJO</button>
+        <button id="storyBtn" class="board-btn story-btn" style="display:none">▶ THE STORY</button>
         <p class="small champ-line" id="champLine"></p>
         <p class="small" id="bestLine"></p>
         <p class="small rotate-tip">Tip: turn your phone sideways for the widest view.</p>
@@ -122,9 +123,14 @@
   </nav>
 </div>
 <script>
+function playWelcome(){
+  var exts=['.m4a','.mp3','.wav','.webm','.ogg'];
+  (async function(){for(var i=0;i<exts.length;i++){try{var r=await fetch('assets/welcome'+exts[i],{method:'HEAD'});
+    if(r.ok&&/(audio|video|octet-stream)/i.test(r.headers.get('content-type')||'')){new Audio('assets/welcome'+exts[i]).play().catch(function(){});return}}catch(e){}}})();
+}
 function tryGate(){
   var v=document.getElementById('gatePw').value;
-  if(v===atob('a2FyYXRlMjAyNg==')){sessionStorage.setItem('kc_auth','1');document.getElementById('gate').style.display='none'}
+  if(v===atob('a2FyYXRlMjAyNg==')){sessionStorage.setItem('kc_auth','1');document.getElementById('gate').style.display='none';playWelcome()}
   else{document.getElementById('gateErr').textContent='Wrong password — try again';document.getElementById('gatePw').value=''}
 }
 if(sessionStorage.getItem('kc_auth')!=='1'){document.getElementById('gate').style.display='flex'}

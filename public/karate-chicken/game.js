@@ -66,6 +66,7 @@ function bumpStreak(mode){
 function curStreak(){try{const st=JSON.parse(store.get('kc_streak')||'null');return st&&st.d===today.toISOString().slice(0,10)?st.n:0}catch(e){return 0}}
 async function champLine(){try{const j=await(await fetch('api/scores')).json();const c=j.champ;$('champLine').textContent=c?`👑 Dojo Champ: ${c.n} — ${(+c.s).toLocaleString()} pts this week`:'';}catch(e){}}
 champLine();
+resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.display='block'});
 let actx=null;
 function initAudio(){try{if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();}catch(e){actx=null}}
 function beep(f,d,type='square',v=.06){if(!actx)return;try{const o=actx.createOscillator(),g=actx.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+d);o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+d);}catch(e){}}
@@ -432,6 +433,7 @@ $('btnBack').onclick=()=>show(state==='over'?'over':'menu');
 $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
 $('btnCard').onclick=shareCard;
+$('storyBtn').onclick=()=>sfx('welcome',()=>{});
 $('btnPause').onclick=pause;
 $('btnResume').onclick=resume;
 $('btnQuit').onclick=toMenu;
