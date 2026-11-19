@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v49 — 2025-11-19
+- **Laser sound**: the shark now blasts a proper descending laser zap when it fires (synth built-in, new `laser` row in Sound Studio to record your own)
+
 ## v48 — 2025-11-19
 - Game-over audio: your recorded `gameover.webm` plays on death (preloaded at boot so the first game over gets it)
 

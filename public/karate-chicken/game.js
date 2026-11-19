@@ -266,7 +266,7 @@ function strike(side){
 function goldenEgg(){
   if(state!=='play'||G.ki<100)return;
   G.ki=0;G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
-  if(G.caesarDown){G.shark={t:0,x:-140};addText(CX,GY-HERO_H-30,'LASER SHARK!','#4fc3f7',36);sfx('egg',()=>{beep(220,.2,'sawtooth',.07);setTimeout(()=>beep(110,.3,'sawtooth',.06),160);});return;}
+  if(G.caesarDown){G.shark={t:0,x:-140};addText(CX,GY-HERO_H-30,'LASER SHARK!','#4fc3f7',36);sfx('laser',laserSound);return;}
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
   G.score+=G.enemies.length*75;G.enemies=[];
   addText(CX,GY-HERO_H-30,'GOLDEN EGG!','#f2b632',34);
@@ -275,7 +275,7 @@ function goldenEgg(){
 function hurt(e){
   G.lives--;G.combo=0;seg().d++;G.misses++;G.shake=14;buzz(120);
   burst(CX,GY-80,'#ffffff',16,true);addText(CX,GY-HERO_H-10,'BAWK!','#d6342b',30);sfx('squawk',()=>squawk());beep(110,.25,'sawtooth',.05);
-  if(G.lives<=0){G.deathCam=1;G.slow=.9;G.deathX=CX+e.side*Math.min(e.d,REACH);endGame(false);}
+  if(G.lives<=0){G.deathCam=1;G.slow=.9;G.deathX=CX+e.side*Math.min(e.d,REACH);G.killer=e.type;endGame(false);}
 }
 function update(dt){
   if(G.hitstop>0){G.hitstop-=dt;return;}
