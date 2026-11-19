@@ -209,14 +209,14 @@ function newGame(mode){
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
      slow:0,rts:[],jackpots:0,eggUsed:false,deathCam:0,deathX:0,dur:mode==='daily'?DAILY_SECONDS:Infinity,
-     caesarDown:false,shark:null};
+     caesarDown:false,shark:null,pending:null};
   $('padKi').innerHTML='🥚<span>EGG</span>';
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
 
 function spawn(){
   const r=G.rand;
-  if(G.enemies.some(e=>e.type==='caesar')){G.spawnT=.5;return;} // Caesar demands a solo duel
+  if(G.pending||G.enemies.some(e=>e.type==='caesar')){G.spawnT=.5;return;} // Caesar demands a solo duel
   let side=r()<.5?-1:1;
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox';const roll=r();
@@ -232,8 +232,10 @@ function spawn(){
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
   else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#08532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
-  else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',34);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
-  G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
+  else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',48);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
+  const hp=type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1;
+  if(type==='caesar'){G.pending={side,speed:base,type,hp,t:1.4};} // entrance audio leads, then he walks in
+  else G.enemies.push({side,d:SPAWN_D,speed:base,type,hp,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});
   G.spawnT=Math.max(.36,1.05-G.t*.011)*(.75+r()*.5);
@@ -283,6 +285,7 @@ function update(dt){
   G.stagger=Math.max(0,G.stagger-dt);G.poseT=Math.max(0,G.poseT-dt);if(G.poseT<=0)G.pose=0;
   G.shake=Math.max(0,G.shake-dt*40);G.flash=Math.max(0,G.flash-dt);
   G.spawnT-=dt;if(G.spawnT<=0)spawn();
+  if(G.pending){G.pending.t-=dt;if(G.pending.t<=0){const p=G.pending;G.pending=null;G.enemies.push({side:p.side,d:SPAWN_D,speed:p.speed,type:p.type,hp:p.hp,flipAt:0,flipped:false,jump:0,wob:G.rand()*6,hurt:0,zoneT:0});}}
   for(const e of G.enemies){
     e.wob+=dt*14;if(e.hurt)e.hurt=Math.max(0,e.hurt-dt);
     if(e.jump>0){e.jump-=dt/.55;e.zoneT=0;if(e.jump<=0){e.jump=0;e.side=-e.side;}continue;}

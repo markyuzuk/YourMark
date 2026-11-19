@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v41 — 2025-11-19
+- Caesar's entrance now plays out fully before he walks in: "HERE COMES CAESAR!" + your recording, then ~1.4s later he appears (pause-safe)
+
 ## v40 — 2025-11-19
 - Caesar's recorded entrance now preloads at boot (first spawn no longer falls back to synth), and his warning is full-size 48px "HERE COMES CAESAR!" like Lucy's
 
