@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v56 — 2025-11-19
+- Laser Shark zap is now instant — every enemy vaporizes the moment you press it; the shark's swim across is a victory lap
+
 ## v55 — 2025-11-19
 - Meatball cap: never more than 2 rolling meatballs on screen at once
 

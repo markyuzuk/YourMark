@@ -266,7 +266,9 @@ function strike(side){
 function goldenEgg(){
   if(state!=='play'||G.ki<100)return;
   G.ki=0;G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
-  if(G.caesarDown){G.shark={t:0,x:-140};addText(CX,GY-HERO_H-30,'LASER SHARK!','#4fc3f7',36);sfx('laser',laserSound);return;}
+  if(G.caesarDown){G.shark={t:0,x:-140};addText(CX,GY-HERO_H-30,'LASER SHARK!','#4fc3f7',36);sfx('laser',laserSound);
+    for(const e of G.enemies){e.dead=true;G.score+=75;burst(CX+e.side*e.d,GY-50,'#4fc3f7',14);addText(CX+e.side*e.d,GY-90,'ZAP!','#4fc3f7',22);} // beam hits everything at once
+    beep(1400,.18,'sawtooth',.07);return;}
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
   G.score+=G.enemies.length*75;G.enemies=[];
   addText(CX,GY-HERO_H-30,'GOLDEN EGG!','#f2b632',34);
@@ -295,12 +297,9 @@ function update(dt){
     if(e.type==='caesar'&&e.jump<=0&&G.rand()<dt*.8){e.jump=1;beep(620+Math.random()*260,.07,'square',.025);}
     if(e.d<=HITBOX){e.dead=true;hurt(e);if(state!=='play')return;}
   }
-  if(G.shark){const sh=G.shark;sh.t+=dt;sh.x=-140+sh.t*(W+280)/1.5;
-    if(sh.x>=CX&&!sh.fired){sh.fired=true;G.flash=Math.max(G.flash,.5);G.shake=Math.max(G.shake,10);
-      for(const e of G.enemies){if(!e.dead){e.dead=true;G.score+=75;burst(CX+e.side*e.d,GY-50,'#4fc3f7',14);addText(CX+e.side*e.d,GY-90,'ZAP!','#4fc3f7',22);}}
-      beep(1400,.18,'sawtooth',.07);beep(1600+Math.random()*300,.08,'square',.05);}
-    if(sh.x>W+140)G.shark=null;
-  }
+  if(G.shark){const sh=G.shark;sh.t+=dt;sh.x=-140+sh.t*(W+280)/1.5;if(sh.x>W+140)G.shark=null;} // kill happens at summon; sweep is the victory lap
+  if(G.iphone){G.iphone.t+=dt;if(G.iphone.t>7)G.iphone=null;} // the iPhone 4 (2011): shows up, does nothing, leaves
+  else if(G.t>15&&G.rand()<dt*.018){G.iphone={t:0,dir:G.rand()<.5?-1:1};beep(1568,.09,'triangle',.025);setTimeout(()=>beep(1975,.12,'triangle',.02),110);} // faint marimba ding
   G.enemies=G.enemies.filter(e=>!e.dead);
   tickFx(dt);
   $('padKi').disabled=G.ki<100;
