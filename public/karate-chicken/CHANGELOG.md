@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v45 — 2025-11-19
+- 5,000 pts now triggers a proper boss entrance: whatever's on screen clears in a burst, then "HERE COMES CAESAR!" + recording play, then he walks in. No waiting for the field to empty
+
 ## v44 — 2025-11-19
 - Caesar's debut is now guaranteed: the first time the field clears past 5,000 pts, he appears. Repeat visits keep the 40% roll
 
