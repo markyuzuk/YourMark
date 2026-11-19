@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=56">
+<link rel="stylesheet" href="style.css?v=57">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
@@ -143,10 +143,10 @@
 
     <div class="overlay hidden" id="board">
       <div class="card">
-        <h2>TOP DOJO</h2>
+        <h2 id="boardTitle">TOP DOJO</h2>
         <ol id="boardList" class="board-list"></ol>
         <p class="small" id="boardMsg">loading…</p>
-        <div class="btns"><button class="alt" id="btnBack">Back</button></div>
+        <div class="btns"><button class="alt" id="btnArchive">🏛️ LEGENDS</button><button class="alt" id="btnBack">Back</button></div>
       </div>
     </div>
   </main>
@@ -183,6 +183,6 @@ function sayGate(){
 if(sessionStorage.getItem('kc_auth')!=='1'){var g=document.getElementById('gate');g.style.display='flex';sayGate();g.addEventListener('pointerdown',sayGate)}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game.js?v=56"></script>
+<script src="game.js?v=57"></script>
 </body>
 </html>

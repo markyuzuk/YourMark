@@ -223,7 +223,7 @@ function spawn(){
   if(!MOD.fox){
     if(G.score>=G.caesarNext){type='caesar';G.caesarNext+=5000;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // every 5k: field clears for Caesar's entrance
     else if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
-    else if(G.score>=2000&&roll>.75&&G.enemies.filter(e=>e.type==='meatball'&&!e.dead).length<2)type='meatball'; // max 2 meatballs on the field
+    else if(G.score>=2000&&roll>.9&&G.enemies.filter(e=>e.type==='meatball'&&!e.dead).length<2)type='meatball'; // rare, max 2 meatballs on the field
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
@@ -680,12 +680,18 @@ requestAnimationFrame(loop);
 function show(id){for(const o of['menu','paused','over','board','cardView','achView','selfieView'])$(o).classList.toggle('hidden',o!==id);}
 // ---------- leaderboard ----------
 async function boardData(){try{const r=await fetch('/karate-chicken/api/scores');return(await r.json()).top||[]}catch(e){return null}}
-async function showBoard(){
+let boardArch=false;
+async function showBoard(arch){
+  boardArch=!!arch;
   const msg=$('boardMsg'),list=$('boardList');
+  $('boardTitle').textContent=boardArch?'🏛️ HALL OF LEGENDS':'TOP DOJO';
+  $('btnArchive').textContent=boardArch?'🏆 LIVE BOARD':'🏛️ LEGENDS';
   show('board');msg.textContent='loading…';list.innerHTML='';
-  const top=await boardData();
+  let top=null;
+  if(boardArch){try{const r=await fetch('board-archive-1.json');top=(await r.json()).top||[]}catch(e){top=null}}
+  else top=await boardData();
   if(!top){msg.textContent='the dojo is offline — try again later';return;}
-  if(!top.length){msg.textContent='no scores yet — be the first!';return;}
+  if(!top.length){msg.textContent=boardArch?'no legends recorded':'no scores yet — be the first!';return;}
   msg.textContent='';
   const me=store.get('kc_name');
   list.innerHTML=top.map((r,i)=>`<li${me&&r.n===me?' class="me"':''}><span class="rk">${i+1}</span><span class="nm"></span><span class="bd">${beltFor(r.s).n} · x${r.c||0}</span><span class="sc">${(+r.s).toLocaleString()}</span></li>`).join('');
@@ -788,12 +794,13 @@ $('btnDaily').onclick=()=>start(lastMode='daily');
 $('btnEndless').onclick=()=>start(lastMode='endless');
 $('btnRematch').onclick=rematch;
 $('btnMute').onclick=()=>setMute(!MUTED);setMute(MUTED);
+$('btnArchive').onclick=()=>showBoard(!boardArch);
 $('btnHat').onclick=()=>{const h=store.get('kc_hat')||'auto';setHatMode(h==='auto'?'on':h==='on'?'off':'auto');};
 setHatMode(store.get('kc_hat')||'auto');
 $('btnAgain').onclick=()=>start(lastMode);
 $('btnMenu').onclick=toMenu;
 $('btnShare').onclick=share;
-$('btnBoard').onclick=showBoard;
+$('btnBoard').onclick=()=>showBoard(false);
 $('btnAch').onclick=showAch;
 $('btnAchBack').onclick=()=>show('menu');
 $('btnBack').onclick=()=>show(state==='over'?'over':'menu');

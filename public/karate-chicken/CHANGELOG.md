@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v57 — 2025-11-19
+- Leaderboard reset for the new games — old board preserved in 🏛️ HALL OF LEGENDS (toggle button inside the dojo board)
+- Meatballs are now rarer (~10% of spawn rolls instead of 25%)
+
 ## v56 — 2025-11-19
 - Laser Shark zap is now instant — every enemy vaporizes the moment you press it; the shark's swim across is a victory lap
 
