@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v50 — 2025-11-19
+- Password gate now speaks: "To enter my dojo, you need to know the password." — plays a `gate.*` recording if installed (new Sound Studio row), otherwise falls back to spoken TTS. Retries on first tap if autoplay blocks it
+
 ## v49 — 2025-11-19
 - **Laser sound**: the shark now blasts a proper descending laser zap when it fires (synth built-in, new `laser` row in Sound Studio to record your own)
 

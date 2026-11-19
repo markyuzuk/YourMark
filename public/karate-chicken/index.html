@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=49">
+<link rel="stylesheet" href="style.css?v=50">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
@@ -168,9 +168,21 @@ function tryGate(){
   if(v===atob('a2FyYXRlMjAyNg==')){sessionStorage.setItem('kc_auth','1');document.getElementById('gate').style.display='none';playWelcome()}
   else{document.getElementById('gateErr').textContent='Wrong password — try again';document.getElementById('gatePw').value=''}
 }
-if(sessionStorage.getItem('kc_auth')!=='1'){document.getElementById('gate').style.display='flex'}
+var gateSpoken=false;
+function gateTts(){
+  if(!('speechSynthesis' in window))return;
+  var u=new SpeechSynthesisUtterance('To enter my dojo, you need to know the password.');
+  u.rate=.95;u.onstart=function(){gateSpoken=true};speechSynthesis.speak(u);
+}
+function sayGate(){
+  if(gateSpoken)return;
+  var exts=['.m4a','.mp3','.wav','.webm','.ogg'];
+  (async function(){for(var i=0;i<exts.length;i++){try{var r=await fetch('assets/gate'+exts[i],{method:'HEAD'});
+    if(r.ok&&/(audio|video|octet-stream)/i.test(r.headers.get('content-type')||'')){var a=new Audio('assets/gate'+exts[i]);a.play().then(function(){gateSpoken=true}).catch(function(){gateTts()});return}}catch(e){}}gateTts()})();
+}
+if(sessionStorage.getItem('kc_auth')!=='1'){var g=document.getElementById('gate');g.style.display='flex';sayGate();g.addEventListener('pointerdown',sayGate)}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game.js?v=49"></script>
+<script src="game.js?v=50"></script>
 </body>
 </html>
