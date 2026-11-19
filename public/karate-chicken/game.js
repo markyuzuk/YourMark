@@ -218,7 +218,7 @@ function spawn(){
   let type='fox';const roll=r();
   if(!MOD.fox){
     if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
-    else if(G.score>=2000&&roll>.93)type='meatball';
+    else if(G.score>=2000&&roll>.5)type='meatball';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
