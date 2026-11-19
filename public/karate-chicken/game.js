@@ -157,7 +157,7 @@ function sfx(name,fallback){
 }
 function eggSound(){beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);}
 resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.display='block'});
-resolveSfx('caesar');resolveSfx('lucy');
+resolveSfx('caesar');resolveSfx('lucy');resolveSfx('gameover');
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
 function updateBest(){const b=store.get('kc_best'),st=curStreak(),ac=achCount();$('bestLine').textContent=(b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'')+(st>1?` · 🔥 ${st}-day streak`:'')+(ac?` · 🏅 ${ac}/${ACH.length}`:'');$('btnAch').textContent=`🏅 BADGES (${ac}/${ACH.length})`;}
 updateBest();

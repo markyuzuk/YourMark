@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v48 — 2025-11-19
+- Game-over audio: your recorded `gameover.webm` plays on death (preloaded at boot so the first game over gets it)
+
 ## v47 — 2025-11-19
 - Caesar now returns on a fixed schedule — every 5,000 pts (5k, 10k, 15k…) the field clears and he walks in. No more random repeat roll
 
