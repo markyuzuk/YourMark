@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v55 — 2025-11-19
+- Meatball cap: never more than 2 rolling meatballs on screen at once
+
 ## v54 — 2025-11-19
 - **New character: the iPhone 4 (2011)** — wanders onto the battlefield from time to time on tiny legs, does absolutely nothing, and wanders off. Faint marimba ding announces its arrival. Added to the Character Guide with a properly mocking backstory
 

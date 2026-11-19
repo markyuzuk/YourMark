@@ -223,7 +223,7 @@ function spawn(){
   if(!MOD.fox){
     if(G.score>=G.caesarNext){type='caesar';G.caesarNext+=5000;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // every 5k: field clears for Caesar's entrance
     else if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
-    else if(G.score>=2000&&roll>.75)type='meatball';
+    else if(G.score>=2000&&roll>.75&&G.enemies.filter(e=>e.type==='meatball'&&!e.dead).length<2)type='meatball'; // max 2 meatballs on the field
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
