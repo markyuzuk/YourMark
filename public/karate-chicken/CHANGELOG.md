@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v52 — 2025-11-19
+- THE STORY button now opens the Character Guide — portraits of every character (drawn with the game's real sprite code) plus official backstories. Now always visible on the menu
+
 ## v51 — 2025-11-19
 - Installed your recorded gate voice (`gate.webm`) and laser zap (`laser.webm`); new recordings added to service-worker precache for offline play
 
