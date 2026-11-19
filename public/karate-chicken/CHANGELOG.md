@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v39 — 2025-11-19
+- **Laser Shark**: after you beat Caesar, the Ki button turns into 🦈 SHARK. Full Ki summons a shark that flies across the dojo, head-mounted laser zapping every enemy in its path (75 pts each, ZAP! popups). HUD reads "LASER SHARK READY!"
+- Recorded voice installed: **caesar**; lucy re-recorded
+
 ## v38 — 2025-11-19
 - **Julius Caesar boss**: once past 5,000 pts, Caesar may appear — and only when the field is empty. He fights you alone (no other enemies spawn while he's up), hops side-to-side like a maniac, and pinwheel-flails his arms. 7 HP, toga + crimson sash + laurel wreath. "HERE COMES CAESAR!" / "ET TU, CHICKEN?!"
 - New `caesar` recording slot in Sound Studio — record your own entrance audio (Roman fanfare synth as fallback)
