@@ -67,6 +67,7 @@
     <div class="card"><canvas id="c-badger"></canvas><div class="cinfo"><h3>BADGER</h3><div class="tag">The Bruiser · 2 hearts</div><p>Two hearts of pure grudge and a cummerbund he won at badger prom, which he has been furious about ever since. Takes two clean hits before he yields. Respect.</p></div></div>
     <div class="card"><canvas id="c-weasel"></canvas><div class="cinfo"><h3>WEASEL</h3><div class="tag">The Flipper</div><p>The dojo's little chaos merchant. Mid-run he performs the weasel-flip, a forbidden gymnastics move, and arrives facing the wrong direction entirely. The red "!" is the only warning you'll get.</p></div></div>
     <div class="card"><canvas id="c-golden"></canvas><div class="cinfo"><h3>GOLDEN FOX</h3><div class="tag">The Jackpot · Rare</div><p>A fox dipped in pure jackpot. Appears rarely, flees never, and defeating him showers the dojo in points. Legend says he was a normal fox until he fell into the trophy cabinet.</p></div></div>
+    <div class="card"><canvas id="c-iphone"></canvas><div class="cinfo"><h3>iPHONE 4 (2011)</h3><div class="tag">Uninvited · 0 hearts</div><p>Walks in mid-battle, does absolutely nothing, walks out. Can't run this game, can't run iOS 8, can't hold a call if you hold it wrong. The dojo lets it stay because it's the only combatant older than Caesar's laurel wreath.</p></div></div>
   </div>
 </div>
 
@@ -273,6 +274,26 @@ function drawShark(){
   ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(x+6,GY+8);ctx.stroke();
   ctx.restore();
 }
+function drawIphone(x,y,ph){
+  const bob=Math.abs(Math.sin(ph*9))*-2;
+  ctx.save();ctx.translate(x,y+bob);ctx.rotate(Math.sin(ph*4)*.04);
+  ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(0,8-bob,14,3,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2;ctx.lineJoin='round';
+  ctx.fillStyle='#191919';rr(-11,-42,22,44,5);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#333';rr(-9,-40,18,40,3);ctx.fill();
+  ctx.fillStyle='#2e3438';rr(-8,-39,16,30,2);ctx.fill();
+  const ic=['#e2574c','#f2b632','#57a0d3','#6fbf4f','#b46dc9','#7fc8f8'];
+  for(let i=0;i<8;i++){ctx.fillStyle=ic[i%6];rr(-6+(i%3)*5.5,-36+Math.floor(i/3)*7,4.4,4.4,1);ctx.fill();}
+  ctx.strokeStyle='#666';ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(0,-4,3,0,Math.PI*2);ctx.stroke();
+  ctx.strokeStyle='#999';ctx.lineWidth=.9;rr(-1.4,-5.4,2.8,2.8,.6);ctx.stroke();
+  ctx.strokeStyle='#555';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(-3,-38.6);ctx.lineTo(3,-38.6);ctx.stroke();
+  ctx.fillStyle='#0b0b0b';ctx.beginPath();ctx.arc(-5.5,-38.6,1.1,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.13)';ctx.beginPath();ctx.moveTo(-8,-39);ctx.lineTo(-2,-39);ctx.lineTo(-6,-12);ctx.lineTo(-8,-12);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.2;ctx.lineCap='round';
+  const st=Math.sin(ph*12)*3;
+  ctx.beginPath();ctx.moveTo(-5,-1);ctx.lineTo(-5-st,5);ctx.moveTo(5,-1);ctx.lineTo(5+st,5);ctx.stroke();
+  ctx.restore();
+}
 // --- render each portrait ---
 const PORTRAITS={
   fox:{type:'fox',hp:1},
@@ -296,6 +317,15 @@ function renderEnemy(id,cfg){
   drawEnemy(e);
 }
 for(const [id,cfg] of Object.entries(PORTRAITS))renderEnemy(id,cfg);
+(function(){
+  const c=document.getElementById('c-iphone');
+  c.width=560;c.height=448;
+  ctx=c.getContext('2d');ctx.scale(2,2);
+  ctx.fillStyle='#efe3c8';ctx.fillRect(0,0,280,224);
+  ctx.fillStyle='#8a5a33';ctx.fillRect(0,168,280,6);
+  ctx.fillStyle='#a06a38';ctx.fillRect(0,174,280,50);
+  drawIphone(140,146,1.4);
+})();
 (function(){
   const c=document.getElementById('c-shark');
   c.width=560;c.height=448;

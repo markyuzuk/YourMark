@@ -590,6 +590,33 @@ function drawShark(){
   ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(x+6,GY+8);ctx.stroke();
   ctx.restore();
 }
+function drawIphone(){
+  const p=G.iphone,x=p.dir>0?-40+p.t*(W+80)/7:W+40-p.t*(W+80)/7,y=GY-22;
+  const bob=Math.abs(Math.sin(p.t*9))*-2;
+  ctx.save();ctx.translate(x,y+bob);ctx.rotate(Math.sin(p.t*4)*.04*p.dir);
+  ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(0,8-bob,14,3,0,0,Math.PI*2);ctx.fill();
+  // black slab body
+  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2;ctx.lineJoin='round';
+  ctx.fillStyle='#191919';rr(-11,-42,22,44,5);ctx.fill();ctx.stroke();
+  // bezel + screen
+  ctx.fillStyle='#333';rr(-9,-40,18,40,3);ctx.fill();
+  ctx.fillStyle='#2e3438';rr(-8,-39,16,30,2);ctx.fill();
+  // app icon grid
+  const ic=['#e2574c','#f2b632','#57a0d3','#6fbf4f','#b46dc9','#7fc8f8'];
+  for(let i=0;i<8;i++){ctx.fillStyle=ic[i%6];rr(-6+(i%3)*5.5,-36+Math.floor(i/3)*7,4.4,4.4,1);ctx.fill();}
+  // home button + speaker slit + camera dot
+  ctx.strokeStyle='#666';ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(0,-4,3,0,Math.PI*2);ctx.stroke();
+  ctx.strokeStyle='#999';ctx.lineWidth=.9;rr(-1.4,-5.4,2.8,2.8,.6);ctx.stroke();
+  ctx.strokeStyle='#555';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(-3,-38.6);ctx.lineTo(3,-38.6);ctx.stroke();
+  ctx.fillStyle='#0b0b0b';ctx.beginPath();ctx.arc(-5.5,-38.6,1.1,0,Math.PI*2);ctx.fill();
+  // glass gloss
+  ctx.fillStyle='rgba(255,255,255,.13)';ctx.beginPath();ctx.moveTo(-8,-39);ctx.lineTo(-2,-39);ctx.lineTo(-6,-12);ctx.lineTo(-8,-12);ctx.closePath();ctx.fill();
+  // tiny useless legs that carry it across the floor doing nothing
+  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.2;ctx.lineCap='round';
+  const st=Math.sin(p.t*12)*3;
+  ctx.beginPath();ctx.moveTo(-5,-1);ctx.lineTo(-5-st,5);ctx.moveTo(5,-1);ctx.lineTo(5+st,5);ctx.stroke();
+  ctx.restore();
+}
 function drawHUD(){
   const k=HUDK;
   ctx.save();
@@ -615,6 +642,7 @@ function draw(){
   if(G&&G.shake>0)ctx.translate((Math.random()-.5)*G.shake,(Math.random()-.5)*G.shake);
   drawBG();
   if(G)for(const e of G.enemies)drawEnemy(e);
+  if(G&&G.iphone)drawIphone();
   drawChickens();
   if(G&&G.shark)drawShark();
   if(G){

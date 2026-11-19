@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v54 — 2025-11-19
+- **New character: the iPhone 4 (2011)** — wanders onto the battlefield from time to time on tiny legs, does absolutely nothing, and wanders off. Faint marimba ding announces its arrival. Added to the Character Guide with a properly mocking backstory
+
 ## v53 — 2025-11-19
 - Laser Shark now vaporizes the whole field at once — one simultaneous zap when the beam crosses center, instead of sweeping enemies one by one
 - Menu button renamed: 📖 CHARACTER GUIDE
