@@ -218,14 +218,16 @@ function spawn(){
   let type='fox';const roll=r();
   if(!MOD.fox){
     if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
+    else if(G.score>=5000&&roll>.93)type='meatball';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
   }
-  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
+  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='meatball'?.42:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
-  G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
+  else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#a0532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
+  G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='meatball'?8:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});
   G.spawnT=Math.max(.36,1.05-G.t*.011)*(.75+r()*.5);
@@ -239,7 +241,7 @@ function strike(side){
   let best=null;
   for(const e of G.enemies){if(e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
   if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
-  const boss=best.type==='cav'||best.type==='phrag',golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
+  const boss=best.type==='cav'||best.type==='phrag'||best.type==='meatball',golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
   if(boss){G.score+=200*mult;G.ki=Math.min(100,G.ki+10*KIK);seg().g++;addText(ex,GY-130,'HIT!','#b03a1f',24);sfx('kick',()=>thwack(1));buzz(12);}
   else if(golden){G.score+=500*mult;G.ki=Math.min(100,G.ki+18*KIK);G.jackpots++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'JACKPOT!','#f2b632',28);sfx('jackpot',()=>beep(1568,.15,'triangle',.09));buzz(20);}
   else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18*KIK);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.3;}
@@ -247,8 +249,8 @@ function strike(side){
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
   if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>beep(1046,.09,'triangle',.055));addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
   if(best.zoneT)G.rts.push(G.t-best.zoneT);
-  best.hp--;burst(ex,GY-40,best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
-  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
+  best.hp--;burst(ex,GY-40,best.type==='meatball'?'#a0532a':best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
+  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='meatball'?'MEATBALL DOWN!':best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
   else{best.d+=boss?100:150;best.hurt=.2;best.zoneT=0;}
   G.enemies=G.enemies.filter(e=>!e.dead);
   G.shake=Math.max(G.shake,perfect?5:3);
@@ -439,6 +441,26 @@ function drawEnemy(e){
     ctx.strokeStyle='#1a1a1a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-12,-46);ctx.lineTo(-3,-42);ctx.moveTo(12,-46);ctx.lineTo(3,-42);ctx.stroke();
     ctx.restore();
     ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-112);
+    return;
+  }
+  if(e.type==='meatball'){
+    // giant rolling meatball boss: speckles rotate with distance travelled
+    const rot=e.d*.035,R=52,cy=-R+4;
+    const g=ctx.createRadialGradient(-14,cy-16,8,0,cy,R);
+    g.addColorStop(0,'#a9713f');g.addColorStop(1,'#5d3418');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,cy,R,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=3;ctx.stroke();
+    ctx.fillStyle='rgba(42,29,20,.4)';
+    for(let i=0;i<8;i++){const a=rot+i*.79;ctx.beginPath();ctx.arc(Math.cos(a)*R*.55,cy+Math.sin(a)*R*.55,3.5+(i%3)*1.6,0,Math.PI*2);ctx.fill();}
+    ctx.fillStyle='rgba(255,255,255,.22)';ctx.beginPath();ctx.arc(-16,cy-20,7,0,Math.PI*2);ctx.fill();
+    // angry face
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-14,cy-6,7,0,Math.PI*2);ctx.arc(10,cy-6,7,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(-13,cy-6,3.4,0,Math.PI*2);ctx.arc(11,cy-6,3.4,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=3;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(-23,cy-19);ctx.lineTo(-6,cy-14);ctx.moveTo(19,cy-19);ctx.lineTo(2,cy-14);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-16,cy+13);ctx.quadraticCurveTo(-2,cy+5,14,cy+11);ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-120);
     return;
   }
   ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
