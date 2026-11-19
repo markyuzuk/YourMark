@@ -66,8 +66,6 @@ function bumpStreak(mode){
 function curStreak(){try{const st=JSON.parse(store.get('kc_streak')||'null');return st&&st.d===today.toISOString().slice(0,10)?st.n:0}catch(e){return 0}}
 async function champLine(){try{const j=await(await fetch('/karate-chicken/api/scores')).json();const c=j.champ;$('champLine').textContent=(c?`👑 Dojo Champ: ${c.n} — ${(+c.s).toLocaleString()} pts this week`:'')+(j.played?` · ${j.played} visits today`:'');}catch(e){}}
 champLine();
-resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.display='block'});
-resolveSfx('caesar');resolveSfx('lucy');
 // ---------- mute ----------
 let MUTED=store.get('kc_muted')==='1';
 function setMute(on){MUTED=on;store.set('kc_muted',on?'1':'0');$('btnMute').textContent=on?'🔇':'🔊';if(on&&'speechSynthesis'in window)speechSynthesis.cancel();}
@@ -158,6 +156,8 @@ function sfx(name,fallback){
   try{const a=new Audio(audioSrcs[name]);if(G&&G.slow>0)a.playbackRate=.55;const p=a.play();if(p&&p.catch)p.catch(()=>fallback());}catch(e){fallback();}
 }
 function eggSound(){beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);}
+resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.display='block'});
+resolveSfx('caesar');resolveSfx('lucy');
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
 function updateBest(){const b=store.get('kc_best'),st=curStreak(),ac=achCount();$('bestLine').textContent=(b?`Your best: ${(+b).toLocaleString()} (${beltFor(+b).n} Belt)`:'')+(st>1?` · 🔥 ${st}-day streak`:'')+(ac?` · 🏅 ${ac}/${ACH.length}`:'');$('btnAch').textContent=`🏅 BADGES (${ac}/${ACH.length})`;}
 updateBest();

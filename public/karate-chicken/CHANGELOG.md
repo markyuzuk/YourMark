@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v43 — 2025-11-19
+- **Fix:** recording preload calls ran before the sfx code's `const`s existed (TDZ error) — `caesar`/`lucy`/`welcome` resolve never actually fired, so the recording never played. Moved below the audio block; Caesar's voice now plays on every spawn
+
 ## v42 — 2025-11-19
 - "HERE COMES CAESAR!" now holds a full 2 seconds — Caesar enters right as it fades
 
