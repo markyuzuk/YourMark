@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v51 — 2025-11-19
+- Installed your recorded gate voice (`gate.webm`) and laser zap (`laser.webm`); new recordings added to service-worker precache for offline play
+
 ## v50 — 2025-11-19
 - Password gate now speaks: "To enter my dojo, you need to know the password." — plays a `gate.*` recording if installed (new Sound Studio row), otherwise falls back to spoken TTS. Retries on first tap if autoplay blocks it
 
