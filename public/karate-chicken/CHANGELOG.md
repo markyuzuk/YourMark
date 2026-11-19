@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v46 — 2025-11-19
+- Game over now names your killer: "VENI. VIDI. VICI." (Caesar), "MEATBALLED!", "LUCY GOT YOU!", "OUT-WEASELED!", "BADGERED TO DEATH!", "TANGLED IN THE PHRAGMITES!", "GREED KILLS!" — plus a 🦈 Laser Shark unlocked callout when you've beaten Caesar
+
 ## v45 — 2025-11-19
 - 5,000 pts now triggers a proper boss entrance: whatever's on screen clears in a burst, then "HERE COMES CAESAR!" + recording play, then he walks in. No waiting for the field to empty
 

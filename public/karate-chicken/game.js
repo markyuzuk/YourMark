@@ -687,11 +687,12 @@ function endGame(survived){
   if(state!=='play')return;state='over';setPlaying(false);
   const b=beltFor(G.score),best=+(store.get('kc_best')||0);
   if(G.score>best)store.set('kc_best',G.score);
-  $('overTitle').textContent=survived?'Kata Complete!':'Feathers Ruffled!';
+  const KO={caesar:'VENI. VIDI. VICI.',meatball:'MEATBALLED!',cav:'LUCY GOT YOU!',phrag:'TANGLED IN THE PHRAGMITES!',weasel:'OUT-WEASELED!',badger:'BADGERED TO DEATH!',golden:'GREED KILLS!',fox:'FEATHERS RUFFLED!'};
+  $('overTitle').textContent=survived?'Kata Complete!':(KO[G.killer]||'Feathers Ruffled!');
   const tot=G.perfects+G.goods+G.misses,acc=tot?Math.round(100*G.perfects/tot):0;
   const stN=bumpStreak(G.mode),beatVs=vs&&G.score>vs.score;
   const ach=checkAch(survived),rt=G.rts.length?(G.rts.reduce((a,x)=>a+x)/G.rts.length).toFixed(2):0;
-  $('overStats').innerHTML=`<b>${G.score.toLocaleString()}</b> pts · <b>${b.n} Belt</b><br>Perfect rate ${acc}% · best combo ${G.maxCombo}${rt?` · ⚡ ${rt}s reflexes`:''}${G.score>best?' · <b>new best!</b>':''}${stN>1?` · 🔥 ${stN}-day streak`:''}${vs?`<br>${beatVs?'🎉 You beat '+vs.name+'!':vs.name+' keeps the crown… this time'}`:''}${ach.fresh.length?`<br>🏅 ${ach.fresh.map(a=>a[1]).join(' · ')}`:''}`;
+  $('overStats').innerHTML=`<b>${G.score.toLocaleString()}</b> pts · <b>${b.n} Belt</b><br>Perfect rate ${acc}% · best combo ${G.maxCombo}${rt?` · ⚡ ${rt}s reflexes`:''}${G.score>best?' · <b>new best!</b>':''}${G.caesarDown?' · 🦈 Laser Shark unlocked':''}${stN>1?` · 🔥 ${stN}-day streak`:''}${vs?`<br>${beatVs?'🎉 You beat '+vs.name+'!':vs.name+' keeps the crown… this time'}`:''}${ach.fresh.length?`<br>🏅 ${ach.fresh.map(a=>a[1]).join(' · ')}`:''}`;
   if(!survived)sfx('gameover',()=>{});
   $('btnRematch').style.display=beatVs?'':'none';
   const n=G.mode==='daily'?10:Math.min(10,Math.max(1,Math.ceil(G.t/6)));
