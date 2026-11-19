@@ -218,7 +218,7 @@ function spawn(){
   let type='fox';const roll=r();
   if(!MOD.fox){
     if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
-    else if(G.score>=2000&&roll>.5)type='meatball';
+    else if(G.score>=2000&&roll>.75)type='meatball';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
@@ -251,7 +251,7 @@ function strike(side){
   if(best.zoneT)G.rts.push(G.t-best.zoneT);
   best.hp--;burst(ex,GY-40,best.type==='meatball'?'#a0532a':best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
   if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='meatball'?'MEATBALL DOWN!':best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
-  else{best.d+=boss?100:150;best.hurt=.2;best.zoneT=0;}
+  else{best.d+=best.type==='meatball'?220:boss?100:150;best.hurt=.2;best.zoneT=0;}
   G.enemies=G.enemies.filter(e=>!e.dead);
   G.shake=Math.max(G.shake,perfect?5:3);
 }

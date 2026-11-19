@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v37 — 2025-11-19
+- Meatball tuned down per feedback: spawns ~25% of the time (was ~50%), and each hit rolls it much farther back (220 vs 100) so you get more time to react
+
 ## v36 — 2025-11-18
 - **Giant Meatball boss**: once you pass 2,000 pts, a huge 8-HP rolling meatball (~50% of spawns) lumbers in at ~40% speed. Angry face, rotating speckles, low growl. "HERE COMES THE MEATBALL!" / "MEATBALL DOWN!" slow-mo payoff
 
