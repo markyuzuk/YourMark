@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v38 — 2025-11-19
+- **Julius Caesar boss**: once past 5,000 pts, Caesar may appear — and only when the field is empty. He fights you alone (no other enemies spawn while he's up), hops side-to-side like a maniac, and pinwheel-flails his arms. 7 HP, toga + crimson sash + laurel wreath. "HERE COMES CAESAR!" / "ET TU, CHICKEN?!"
+- New `caesar` recording slot in Sound Studio — record your own entrance audio (Roman fanfare synth as fallback)
+
 ## v37 — 2025-11-19
 - Meatball tuned down per feedback: spawns ~25% of the time (was ~50%), and each hit rolls it much farther back (220 vs 100) so you get more time to react
 

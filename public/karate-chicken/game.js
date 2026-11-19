@@ -213,21 +213,24 @@ const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
 
 function spawn(){
   const r=G.rand;
+  if(G.enemies.some(e=>e.type==='caesar')){G.spawnT=.5;return;} // Caesar demands a solo duel
   let side=r()<.5?-1:1;
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox';const roll=r();
   if(!MOD.fox){
-    if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
+    if(G.score>=5000&&!G.enemies.length&&roll<.4)type='caesar';
+    else if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
     else if(G.score>=2000&&roll>.75)type='meatball';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
   }
-  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='meatball'?.42:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
+  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='meatball'?.42:type==='caesar'?.58:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
   else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#a0532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
-  G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='meatball'?8:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
+  else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',34);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
+  G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});
   G.spawnT=Math.max(.36,1.05-G.t*.011)*(.75+r()*.5);
@@ -241,7 +244,7 @@ function strike(side){
   let best=null;
   for(const e of G.enemies){if(e.jump>0||e.side!==side||e.d>REACH)continue;if(!best||e.d<best.d)best=e;}
   if(!best){G.stagger=.26;G.combo=0;seg().w++;addText(CX+side*90,GY-140,'whiff','#7a6553',18);sfx('whiff',()=>thwack(0));return;}
-  const boss=best.type==='cav'||best.type==='phrag'||best.type==='meatball',golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
+  const boss=best.type==='cav'||best.type==='phrag'||best.type==='meatball'||best.type==='caesar',golden=best.type==='golden',perfect=Math.abs(best.d-RING)<=PERF,mult=1+Math.floor(G.combo/10),ex=CX+side*best.d;
   if(boss){G.score+=200*mult;G.ki=Math.min(100,G.ki+10*KIK);seg().g++;addText(ex,GY-130,'HIT!','#b03a1f',24);sfx('kick',()=>thwack(1));buzz(12);}
   else if(golden){G.score+=500*mult;G.ki=Math.min(100,G.ki+18*KIK);G.jackpots++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'JACKPOT!','#f2b632',28);sfx('jackpot',()=>beep(1568,.15,'triangle',.09));buzz(20);}
   else if(perfect){G.score+=100*mult;G.ki=Math.min(100,G.ki+18*KIK);G.perfects++;seg().p++;G.hitstop=.05;addText(ex,GY-130,'PERFECT!','#d6342b',26);sfx('perfect',()=>thwack(2));beep(880,.09,'triangle',.05);beep(1320,.07,'triangle',.035);buzz(18);G.slow=.3;}
@@ -249,8 +252,8 @@ function strike(side){
   G.combo++;G.maxCombo=Math.max(G.maxCombo,G.combo);
   if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>beep(1046,.09,'triangle',.055));addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
   if(best.zoneT)G.rts.push(G.t-best.zoneT);
-  best.hp--;burst(ex,GY-40,best.type==='meatball'?'#a0532a':best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
-  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='meatball'?'MEATBALL DOWN!':best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
+  best.hp--;burst(ex,GY-40,best.type==='caesar'?'#d6342b':best.type==='meatball'?'#a0532a':best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
+  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='caesar'?'ET TU, CHICKEN?!':best.type==='meatball'?'MEATBALL DOWN!':best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
   else{best.d+=best.type==='meatball'?220:boss?100:150;best.hurt=.2;best.zoneT=0;}
   G.enemies=G.enemies.filter(e=>!e.dead);
   G.shake=Math.max(G.shake,perfect?5:3);
@@ -282,6 +285,7 @@ function update(dt){
     e.d-=e.speed*SPEEDK*dt;
     if(!e.zoneT&&e.d<=REACH)e.zoneT=G.t;
     if(e.type==='weasel'&&!e.flipped&&e.d<=e.flipAt){e.flipped=true;e.jump=1;beep(990,.05,'square',.03);}
+    if(e.type==='caesar'&&e.jump<=0&&G.rand()<dt*.8){e.jump=1;beep(620+Math.random()*260,.07,'square',.025);}
     if(e.d<=HITBOX){e.dead=true;hurt(e);if(state!=='play')return;}
   }
   G.enemies=G.enemies.filter(e=>!e.dead);
@@ -461,6 +465,52 @@ function drawEnemy(e){
     ctx.beginPath();ctx.moveTo(-16,cy+13);ctx.quadraticCurveTo(-2,cy+5,14,cy+11);ctx.stroke();
     ctx.restore();
     ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-120);
+    return;
+  }
+  if(e.type==='caesar'){
+    // Julius Caesar: toga, laurel wreath, sandals — flails his arms wildly
+    const armL=Math.sin(e.wob*1.6)*11,armR=Math.sin(e.wob*1.6+Math.PI)*11;
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;ctx.lineJoin='round';
+    // sandals
+    ctx.fillStyle='#8a5a33';
+    ctx.beginPath();ctx.ellipse(-9,15,7,3,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(10,15,7,3,0,0,Math.PI*2);ctx.fill();
+    // legs
+    ctx.strokeStyle='#eab98f';ctx.lineWidth=5;
+    ctx.beginPath();ctx.moveTo(-8,-6);ctx.lineTo(-8,13);ctx.moveTo(9,-6);ctx.lineTo(9,13);ctx.stroke();
+    // toga robe
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.fillStyle='#f5f0e6';
+    ctx.beginPath();ctx.moveTo(-14,-8);ctx.lineTo(-19,-50);ctx.quadraticCurveTo(0,-62,17,-50);ctx.lineTo(14,-8);ctx.closePath();ctx.fill();ctx.stroke();
+    // robe folds
+    ctx.strokeStyle='rgba(90,60,40,.45)';ctx.lineWidth=1.6;
+    for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-11+i*10,-14);ctx.quadraticCurveTo(-9+i*10,-30,-13+i*10,-44);ctx.stroke();}
+    // crimson sash
+    ctx.strokeStyle='#a91f2c';ctx.lineWidth=6;
+    ctx.beginPath();ctx.moveTo(-14,-20);ctx.quadraticCurveTo(1,-34,17,-48);ctx.stroke();
+    // flailing arms (opposite phase pinwheel)
+    ctx.strokeStyle='#eab98f';ctx.lineWidth=5;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(-14,-47);ctx.lineTo(-28-armL,-62-armL*.5);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(14,-47);ctx.lineTo(28+armR,-62-armR*.5);ctx.stroke();
+    ctx.fillStyle='#eab98f';
+    ctx.beginPath();ctx.arc(-28-armL,-62-armL*.5,4,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(28+armR,-62-armR*.5,4,0,Math.PI*2);ctx.fill();
+    // head
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.fillStyle='#eab98f';ctx.beginPath();ctx.ellipse(0,-66,13,14,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    // laurel wreath over the crown
+    ctx.fillStyle='#3f7a2b';
+    for(let i=0;i<7;i++){const a=Math.PI*.12+i*Math.PI*.13;ctx.beginPath();ctx.ellipse(Math.cos(a)*13,-66-Math.sin(a)*13,4,2.4,a-Math.PI/2,0,Math.PI*2);ctx.fill();}
+    // face: stern brows, eyes, nose, thin mouth
+    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(-5,-68,2.2,0,Math.PI*2);ctx.arc(5,-68,2.2,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1.8;
+    ctx.beginPath();ctx.moveTo(-9,-74);ctx.lineTo(-2,-71);ctx.moveTo(9,-74);ctx.lineTo(2,-71);ctx.stroke();
+    ctx.strokeStyle='#8a5a33';ctx.lineWidth=1.6;
+    ctx.beginPath();ctx.moveTo(0,-66);ctx.lineTo(-1,-62);ctx.stroke();
+    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1.6;
+    ctx.beginPath();ctx.moveTo(-4,-58);ctx.quadraticCurveTo(0,-57,4,-58);ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-96);
     return;
   }
   ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
