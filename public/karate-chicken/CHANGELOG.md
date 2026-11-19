@@ -2,8 +2,8 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
-## v34 — 2025-11-18
-- **Giant Meatball boss**: once you pass 5,000 pts, a huge 8-HP rolling meatball (~7% of spawns) lumbers in at ~40% speed. Angry face, rotating speckles, low growl. "HERE COMES THE MEATBALL!" / "MEATBALL DOWN!" slow-mo payoff
+## v35 — 2025-11-18
+- **Giant Meatball boss**: once you pass 2,000 pts, a huge 8-HP rolling meatball (~7% of spawns) lumbers in at ~40% speed. Angry face, rotating speckles, low growl. "HERE COMES THE MEATBALL!" / "MEATBALL DOWN!" slow-mo payoff
 
 ## v33 — 2025-11-18
 - Recorded voices installed: **lucy** (HERE COMES LUCY!), **jackpot**, **gameover**
