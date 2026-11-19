@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v42 — 2025-11-19
+- "HERE COMES CAESAR!" now holds a full 2 seconds — Caesar enters right as it fades
+
 ## v41 — 2025-11-19
 - Caesar's entrance now plays out fully before he walks in: "HERE COMES CAESAR!" + your recording, then ~1.4s later he appears (pause-safe)
 

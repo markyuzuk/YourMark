@@ -232,15 +232,15 @@ function spawn(){
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
   else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#08532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
-  else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',48);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
+  else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',48,2);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
   const hp=type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1;
-  if(type==='caesar'){G.pending={side,speed:base,type,hp,t:1.4};} // entrance audio leads, then he walks in
+  if(type==='caesar'){G.pending={side,speed:base,type,hp,t:2};} // entrance audio + 2s hold, then he walks in
   else G.enemies.push({side,d:SPAWN_D,speed:base,type,hp,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});
   G.spawnT=Math.max(.36,1.05-G.t*.011)*(.75+r()*.5);
 }
-function addText(x,y,s,c,size=22){G.texts.push({x,y,s,c,size,life:.8});}
+function addText(x,y,s,c,size=22,life=.8){G.texts.push({x,y,s,c,size,life});}
 function burst(x,y,c,n=10,feather=false){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=80+Math.random()*220;G.parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-120,life:.6+Math.random()*.5,c,feather});}}
 
 function strike(side){
