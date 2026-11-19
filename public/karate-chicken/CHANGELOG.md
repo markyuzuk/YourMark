@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v53 — 2025-11-19
+- Laser Shark now vaporizes the whole field at once — one simultaneous zap when the beam crosses center, instead of sweeping enemies one by one
+- Menu button renamed: 📖 CHARACTER GUIDE
+
 ## v52 — 2025-11-19
 - THE STORY button now opens the Character Guide — portraits of every character (drawn with the game's real sprite code) plus official backstories. Now always visible on the menu
 

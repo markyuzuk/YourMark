@@ -296,8 +296,10 @@ function update(dt){
     if(e.d<=HITBOX){e.dead=true;hurt(e);if(state!=='play')return;}
   }
   if(G.shark){const sh=G.shark;sh.t+=dt;sh.x=-140+sh.t*(W+280)/1.5;
-    for(const e of G.enemies){if(!e.dead&&CX+e.side*e.d<=sh.x){e.dead=true;G.score+=75;burst(CX+e.side*e.d,GY-50,'#4fc3f7',14);addText(CX+e.side*e.d,GY-90,'ZAP!','#4fc3f7',22);beep(1600+Math.random()*500,.05,'square',.035);}}
-    if(sh.x>W+140){for(const e of G.enemies){if(!e.dead){e.dead=true;G.score+=75;}}G.shark=null;}
+    if(sh.x>=CX&&!sh.fired){sh.fired=true;G.flash=Math.max(G.flash,.5);G.shake=Math.max(G.shake,10);
+      for(const e of G.enemies){if(!e.dead){e.dead=true;G.score+=75;burst(CX+e.side*e.d,GY-50,'#4fc3f7',14);addText(CX+e.side*e.d,GY-90,'ZAP!','#4fc3f7',22);}}
+      beep(1400,.18,'sawtooth',.07);beep(1600+Math.random()*300,.08,'square',.05);}
+    if(sh.x>W+140)G.shark=null;
   }
   G.enemies=G.enemies.filter(e=>!e.dead);
   tickFx(dt);
