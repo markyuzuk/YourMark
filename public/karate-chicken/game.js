@@ -221,8 +221,7 @@ function spawn(){
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox';const roll=r();
   if(!MOD.fox){
-    if(G.score>=5000&&!G.caesarSeen){type='caesar';for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // 5k: field clears for Caesar's entrance
-    else if(G.score>=5000&&!G.enemies.length&&roll<.4)type='caesar';
+    if(G.score>=G.caesarNext){type='caesar';G.caesarNext+=5000;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // every 5k: field clears for Caesar's entrance
     else if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
     else if(G.score>=2000&&roll>.75)type='meatball';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
