@@ -209,7 +209,7 @@ function newGame(mode){
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
      slow:0,rts:[],jackpots:0,eggUsed:false,deathCam:0,deathX:0,dur:mode==='daily'?DAILY_SECONDS:Infinity,
-     caesarDown:false,caesarSeen:false,shark:null,pending:null};
+     caesarDown:false,caesarNext:5000,shark:null,pending:null,killer:null};
   $('padKi').innerHTML='🥚<span>EGG</span>';
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
@@ -235,7 +235,7 @@ function spawn(){
   else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#08532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
   else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',48,2);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
   const hp=type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1;
-  if(type==='caesar'){G.caesarSeen=true;G.pending={side,speed:base,type,hp,t:2};} // entrance audio + 2s hold, then he walks in
+  if(type==='caesar'){G.pending={side,speed:base,type,hp,t:2};} // entrance audio + 2s hold, then he walks in
   else G.enemies.push({side,d:SPAWN_D,speed:base,type,hp,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});

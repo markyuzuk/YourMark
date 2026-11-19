@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v47 — 2025-11-19
+- Caesar now returns on a fixed schedule — every 5,000 pts (5k, 10k, 15k…) the field clears and he walks in. No more random repeat roll
+
 ## v46 — 2025-11-19
 - Game over now names your killer: "VENI. VIDI. VICI." (Caesar), "MEATBALLED!", "LUCY GOT YOU!", "OUT-WEASELED!", "BADGERED TO DEATH!", "TANGLED IN THE PHRAGMITES!", "GREED KILLS!" — plus a 🦈 Laser Shark unlocked callout when you've beaten Caesar
 
