@@ -67,6 +67,7 @@ function curStreak(){try{const st=JSON.parse(store.get('kc_streak')||'null');ret
 async function champLine(){try{const j=await(await fetch('/karate-chicken/api/scores')).json();const c=j.champ;$('champLine').textContent=(c?`👑 Dojo Champ: ${c.n} — ${(+c.s).toLocaleString()} pts this week`:'')+(j.played?` · ${j.played} visits today`:'');}catch(e){}}
 champLine();
 resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.display='block'});
+resolveSfx('caesar');resolveSfx('lucy');
 // ---------- mute ----------
 let MUTED=store.get('kc_muted')==='1';
 function setMute(on){MUTED=on;store.set('kc_muted',on?'1':'0');$('btnMute').textContent=on?'🔇':'🔊';if(on&&'speechSynthesis'in window)speechSynthesis.cancel();}
@@ -230,7 +231,7 @@ function spawn(){
   const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='meatball'?.42:type==='caesar'?.58:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
-  else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#a0532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
+  else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#08532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
   else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',34);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
   G.enemies.push({side,d:SPAWN_D,speed:base,type,hp:type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,

@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v40 — 2025-11-19
+- Caesar's recorded entrance now preloads at boot (first spawn no longer falls back to synth), and his warning is full-size 48px "HERE COMES CAESAR!" like Lucy's
+
 ## v39 — 2025-11-19
 - **Laser Shark**: after you beat Caesar, the Ki button turns into 🦈 SHARK. Full Ki summons a shark that flies across the dojo, head-mounted laser zapping every enemy in its path (75 pts each, ZAP! popups). HUD reads "LASER SHARK READY!"
 - Recorded voice installed: **caesar**; lucy re-recorded
