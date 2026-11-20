@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=58">
+<link rel="stylesheet" href="style.css?v=59">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
@@ -34,6 +34,12 @@
   .gate-box button{width:100%;padding:13px;border:none;border-radius:10px;background:#f5c93a;color:#1c1410;font-family:Bungee,cursive;font-size:15px;letter-spacing:1px;cursor:pointer}
   .gate-box button:hover{background:#ffd95e}
   .gate-err{color:#ff6b5e;font-size:12px;margin-top:10px;min-height:15px}
+  .gate-news{margin-top:18px;padding-top:14px;border-top:1px solid #4a3626;text-align:left}
+  .gate-news-title{font-family:Bungee,cursive;font-size:11px;color:#b8a58f;letter-spacing:1.5px;text-align:center;margin-bottom:9px}
+  .gate-news ul{list-style:none;margin:0;padding:0}
+  .gate-news li{font-size:11.5px;color:#c9b8a2;line-height:1.45;margin-bottom:7px;display:flex;gap:7px}
+  .gate-news li:last-child{margin-bottom:0}
+  .gate-news b{color:#f5c93a;flex:0 0 24px;font-weight:800}
 </style>
 </head>
 <body>
@@ -45,6 +51,14 @@
     <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
     <button onclick="tryGate()">ENTER THE DOJO</button>
     <div class="gate-err" id="gateErr"></div>
+    <div class="gate-news">
+      <div class="gate-news-title">— FRESH FROM THE DOJO —</div>
+      <ul>
+        <li><b>v58</b><span>🦈 Laser Shark volley — the cannon fires a beam at every enemy at once</span></li>
+        <li><b>v57</b><span>🏛️ Hall of Legends — archived leaderboard + a fresh board for new scores</span></li>
+        <li><b>v57</b><span>🍝 Meatballs roll in less often now</span></li>
+      </ul>
+    </div>
   </div>
 </div>
 <div id="app">
@@ -183,6 +197,6 @@ function sayGate(){
 if(sessionStorage.getItem('kc_auth')!=='1'){var g=document.getElementById('gate');g.style.display='flex';sayGate();g.addEventListener('pointerdown',sayGate)}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game.js?v=58"></script>
+<script src="game.js?v=59"></script>
 </body>
 </html>

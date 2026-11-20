@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v59 — 2025-11-20
+- Password gate now shows FRESH FROM THE DOJO — a running list of the 3 latest updates
+
 ## v58 — 2025-11-19
 - Laser Shark volley: the cannon fires one beam at every enemy on screen simultaneously — all struck at once, each with its own zap, while the main beam keeps sweeping
 
