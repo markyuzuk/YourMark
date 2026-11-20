@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v58 — 2025-11-19
+- Laser Shark volley: the cannon fires one beam at every enemy on screen simultaneously — all struck at once, each with its own zap, while the main beam keeps sweeping
+
 ## v57 — 2025-11-19
 - Leaderboard reset for the new games — old board preserved in 🏛️ HALL OF LEGENDS (toggle button inside the dojo board)
 - Meatballs are now rarer (~10% of spawn rolls instead of 25%)

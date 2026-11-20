@@ -266,7 +266,7 @@ function strike(side){
 function goldenEgg(){
   if(state!=='play'||G.ki<100)return;
   G.ki=0;G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
-  if(G.caesarDown){G.shark={t:0,x:-140};addText(CX,GY-HERO_H-30,'LASER SHARK!','#4fc3f7',36);sfx('laser',laserSound);
+  if(G.caesarDown){G.shark={t:0,x:-140,beams:G.enemies.map(e=>({x:CX+e.side*e.d,y:GY-40}))};addText(CX,GY-HERO_H-30,'LASER SHARK!','#4fc3f7',36);sfx('laser',laserSound);
     for(const e of G.enemies){e.dead=true;G.score+=75;burst(CX+e.side*e.d,GY-50,'#4fc3f7',14);addText(CX+e.side*e.d,GY-90,'ZAP!','#4fc3f7',22);} // beam hits everything at once
     beep(1400,.18,'sawtooth',.07);return;}
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
@@ -579,14 +579,20 @@ function drawShark(){
   ctx.fillStyle='#444';ctx.strokeStyle='#2a1d14';
   rr(4,-22,16,8,3);ctx.fill();ctx.stroke();
   ctx.restore();
-  // laser beam from head cannon down to the ground, zapping as it sweeps
+  // laser beam(s) from head cannon — volley: one beam per enemy, all struck at once, then the main beam keeps sweeping
   ctx.save();ctx.globalCompositeOperation='lighter';
-  const lg=ctx.createLinearGradient(x+6,y-18,x+6,GY+8);
-  lg.addColorStop(0,'#d1f1ff');lg.addColorStop(1,'#4fc3f7');
-  ctx.strokeStyle=lg;ctx.lineWidth=8;ctx.shadowColor='#4fc3f7';ctx.shadowBlur=16;
-  ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(x+6+(Math.random()-.5)*6,GY+8);ctx.stroke();
-  ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(x+6,GY+8);ctx.stroke();
+  const fade=sh.beams?Math.max(0,1-sh.t/.9):0;
+  const volley=fade>0&&sh.beams&&sh.beams.length?sh.beams:null;
+  const beams=(volley||[{x:x+6,y:GY+8}]).concat([{x:x+6,y:GY+8}]);
+  beams.forEach((t,bi)=>{
+    ctx.globalAlpha=volley&&bi<volley.length?fade:1;
+    const lg=ctx.createLinearGradient(x+6,y-18,t.x,t.y);
+    lg.addColorStop(0,'#d1f1ff');lg.addColorStop(1,'#4fc3f7');
+    ctx.strokeStyle=lg;ctx.lineWidth=8;ctx.shadowColor='#4fc3f7';ctx.shadowBlur=16;
+    ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(t.x+(Math.random()-.5)*6,t.y);ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(t.x,t.y);ctx.stroke();
+  });
   ctx.restore();
 }
 function drawIphone(){
