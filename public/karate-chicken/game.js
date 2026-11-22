@@ -209,21 +209,21 @@ function newGame(mode){
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
      slow:0,rts:[],jackpots:0,eggUsed:false,deathCam:0,deathX:0,dur:mode==='daily'?DAILY_SECONDS:Infinity,
-     caesarDown:false,caesarNext:5000,shark:null,pending:null,killer:null};
+     caesarNext:5000,mbNext:10000,pending:null,killer:null};
   $('padKi').innerHTML='🥚<span>EGG</span>';
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
 
 function spawn(){
   const r=G.rand;
-  if(G.pending||G.enemies.some(e=>e.type==='caesar')){G.spawnT=.5;return;} // Caesar demands a solo duel
+  if(G.pending||G.enemies.some(e=>e.type==='caesar'||e.type==='meatball')){G.spawnT=.5;return;} // Caesar demands a solo duel
   let side=r()<.5?-1:1;
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox';const roll=r();
   if(!MOD.fox){
-    if(G.score>=G.caesarNext){type='caesar';G.caesarNext+=5000;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // every 5k: field clears for Caesar's entrance
+    if(G.score>=G.caesarNext){type='caesar';G.caesarNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // 5k: field clears — Caesar, exactly once
+    else if(G.score>=G.mbNext){type='meatball';G.mbNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a0532a',12);G.enemies.length=0;} // 10k: one giant meatball boss, exactly once
     else if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
-    else if(G.score>=2000&&roll>.9&&G.enemies.filter(e=>e.type==='meatball'&&!e.dead).length<2)type='meatball'; // rare, max 2 meatballs on the field
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
@@ -258,7 +258,7 @@ function strike(side){
   if(G.combo%5===0){const big=G.combo%10===0;sfx(big?'yumyum':'yum',()=>beep(1046,.09,'triangle',.055));addText(CX,GY-HERO_H-45,big?'YUM YUM!':'YUM!','#f2b632',big?28:24);}
   if(best.zoneT)G.rts.push(G.t-best.zoneT);
   best.hp--;burst(ex,GY-40,best.type==='caesar'?'#d6342b':best.type==='meatball'?'#a0532a':best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
-  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='caesar'?'ET TU, CHICKEN?!':best.type==='meatball'?'MEATBALL DOWN!':best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;if(best.type==='caesar'){G.caesarDown=true;$('padKi').innerHTML='🦈<span>SHARK</span>';}}}
+  if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='caesar'?'ET TU, CHICKEN?!':best.type==='meatball'?'MEATBALL DOWN!':best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
   else{best.d+=best.type==='meatball'?220:boss?100:150;best.hurt=.2;best.zoneT=0;}
   G.enemies=G.enemies.filter(e=>!e.dead);
   G.shake=Math.max(G.shake,perfect?5:3);
@@ -266,9 +266,6 @@ function strike(side){
 function goldenEgg(){
   if(state!=='play'||G.ki<100)return;
   G.ki=0;G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
-  if(G.caesarDown){G.shark={t:0,x:-140,beams:G.enemies.map(e=>({x:CX+e.side*e.d,y:GY-40}))};addText(CX,GY-HERO_H-30,'LASER SHARK!','#4fc3f7',36);sfx('laser',laserSound);
-    for(const e of G.enemies){e.dead=true;G.score+=75;burst(CX+e.side*e.d,GY-50,'#4fc3f7',14);addText(CX+e.side*e.d,GY-90,'ZAP!','#4fc3f7',22);} // beam hits everything at once
-    beep(1400,.18,'sawtooth',.07);return;}
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
   G.score+=G.enemies.length*75;G.enemies=[];
   addText(CX,GY-HERO_H-30,'GOLDEN EGG!','#f2b632',34);
@@ -297,7 +294,6 @@ function update(dt){
     if(e.type==='caesar'&&e.jump<=0&&G.rand()<dt*.8){e.jump=1;beep(620+Math.random()*260,.07,'square',.025);}
     if(e.d<=HITBOX){e.dead=true;hurt(e);if(state!=='play')return;}
   }
-  if(G.shark){const sh=G.shark;sh.t+=dt;sh.x=-140+sh.t*(W+280)/1.5;if(sh.x>W+140)G.shark=null;} // kill happens at summon; sweep is the victory lap
   if(G.iphone){G.iphone.t+=dt;if(G.iphone.t>7)G.iphone=null;} // the iPhone 4 (2011): shows up, does nothing, leaves
   else if(G.t>15&&G.rand()<dt*.018){G.iphone={t:0,dir:G.rand()<.5?-1:1};beep(1568,.09,'triangle',.025);setTimeout(()=>beep(1975,.12,'triangle',.02),110);} // faint marimba ding
   G.enemies=G.enemies.filter(e=>!e.dead);
@@ -555,46 +551,6 @@ function drawEnemy(e){
   }
   if(e.type==='badger'){ctx.fillStyle='#2a1d14';ctx.font='bold 12px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-58);}
 }
-function drawShark(){
-  const sh=G.shark,x=sh.x,y=GY-180+Math.sin(sh.t*9)*14;
-  ctx.save();ctx.translate(x,y);
-  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;ctx.lineJoin='round';
-  // body
-  ctx.fillStyle='#8fa3b8';
-  ctx.beginPath();ctx.moveTo(-44,0);ctx.quadraticCurveTo(-20,-20,26,-12);ctx.quadraticCurveTo(48,-6,50,0);ctx.quadraticCurveTo(48,6,26,12);ctx.quadraticCurveTo(-20,20,-44,0);ctx.fill();ctx.stroke();
-  // belly
-  ctx.fillStyle='#e8eef4';ctx.beginPath();ctx.ellipse(4,8,30,7,0,0,Math.PI);ctx.fill();
-  // dorsal fin + tail
-  ctx.fillStyle='#7c8ea3';
-  ctx.beginPath();ctx.moveTo(-4,-14);ctx.quadraticCurveTo(4,-34,14,-16);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.beginPath();ctx.moveTo(-44,0);ctx.lineTo(-60,-16);ctx.lineTo(-54,0);ctx.lineTo(-60,16);ctx.closePath();ctx.fill();ctx.stroke();
-  // gills
-  ctx.strokeStyle='rgba(42,29,20,.5)';ctx.lineWidth=1.6;
-  for(let i=0;i<3;i++){ctx.beginPath();ctx.arc(18-i*4,0,5,-1,1);ctx.stroke();}
-  // eye + grin
-  ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(38,-4,3,0,Math.PI*2);ctx.fill();
-  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(30,4);ctx.quadraticCurveTo(40,10,50,3);ctx.stroke();
-  // head-mounted laser cannon
-  ctx.fillStyle='#444';ctx.strokeStyle='#2a1d14';
-  rr(4,-22,16,8,3);ctx.fill();ctx.stroke();
-  ctx.restore();
-  // laser beam(s) from head cannon — volley: one beam per enemy, all struck at once, then the main beam keeps sweeping
-  ctx.save();ctx.globalCompositeOperation='lighter';
-  const fade=sh.beams?Math.max(0,1-sh.t/.9):0;
-  const volley=fade>0&&sh.beams&&sh.beams.length?sh.beams:null;
-  const beams=(volley||[{x:x+6,y:GY+8}]).concat([{x:x+6,y:GY+8}]);
-  beams.forEach((t,bi)=>{
-    ctx.globalAlpha=volley&&bi<volley.length?fade:1;
-    const lg=ctx.createLinearGradient(x+6,y-18,t.x,t.y);
-    lg.addColorStop(0,'#d1f1ff');lg.addColorStop(1,'#4fc3f7');
-    ctx.strokeStyle=lg;ctx.lineWidth=8;ctx.shadowColor='#4fc3f7';ctx.shadowBlur=16;
-    ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(t.x+(Math.random()-.5)*6,t.y);ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2.5;
-    ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(t.x,t.y);ctx.stroke();
-  });
-  ctx.restore();
-}
 function drawIphone(){
   const p=G.iphone,x=p.dir>0?-40+p.t*(W+80)/7:W+40-p.t*(W+80)/7,y=GY-22;
   const bob=Math.abs(Math.sin(p.t*9))*-2;
@@ -637,7 +593,7 @@ function drawHUD(){
   const kw=150*k,kx=W-14-kw,ky=64*k;
   ctx.fillStyle='rgba(42,29,20,.25)';rr(kx,ky,kw,11*k,5);ctx.fill();
   ctx.fillStyle=G.ki>=100?`hsl(${(performance.now()/5)%360},90%,55%)`:'#f2b632';rr(kx,ky,Math.max(10,kw*G.ki/100),11*k,5);ctx.fill();
-  ctx.fillStyle='#2a1d14';ctx.font=`600 ${11*k}px Inter, sans-serif`;ctx.fillText(G.ki>=100?(G.caesarDown?'LASER SHARK READY!':'GOLDEN EGG READY!'):'KI',W-14,ky+26*k);
+  ctx.fillStyle='#2a1d14';ctx.font=`600 ${11*k}px Inter, sans-serif`;ctx.fillText(G.ki>=100?'GOLDEN EGG READY!':'KI',W-14,ky+26*k);
   ctx.restore();
 }
 function draw(){
@@ -649,7 +605,6 @@ function draw(){
   if(G)for(const e of G.enemies)drawEnemy(e);
   if(G&&G.iphone)drawIphone();
   drawChickens();
-  if(G&&G.shark)drawShark();
   if(G){
     for(const p of G.parts){ctx.globalAlpha=Math.min(1,p.life*2);ctx.fillStyle=p.c;
       if(p.feather){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.life*6);ctx.beginPath();ctx.ellipse(0,0,8,3,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#aaa';ctx.lineWidth=1;ctx.stroke();ctx.restore();}
@@ -732,7 +687,7 @@ function endGame(survived){
   const tot=G.perfects+G.goods+G.misses,acc=tot?Math.round(100*G.perfects/tot):0;
   const stN=bumpStreak(G.mode),beatVs=vs&&G.score>vs.score;
   const ach=checkAch(survived),rt=G.rts.length?(G.rts.reduce((a,x)=>a+x)/G.rts.length).toFixed(2):0;
-  $('overStats').innerHTML=`<b>${G.score.toLocaleString()}</b> pts · <b>${b.n} Belt</b><br>Perfect rate ${acc}% · best combo ${G.maxCombo}${rt?` · ⚡ ${rt}s reflexes`:''}${G.score>best?' · <b>new best!</b>':''}${G.caesarDown?' · 🦈 Laser Shark unlocked':''}${stN>1?` · 🔥 ${stN}-day streak`:''}${vs?`<br>${beatVs?'🎉 You beat '+vs.name+'!':vs.name+' keeps the crown… this time'}`:''}${ach.fresh.length?`<br>🏅 ${ach.fresh.map(a=>a[1]).join(' · ')}`:''}`;
+  $('overStats').innerHTML=`<b>${G.score.toLocaleString()}</b> pts · <b>${b.n} Belt</b><br>Perfect rate ${acc}% · best combo ${G.maxCombo}${rt?` · ⚡ ${rt}s reflexes`:''}${G.score>best?' · <b>new best!</b>':''}${stN>1?` · 🔥 ${stN}-day streak`:''}${vs?`<br>${beatVs?'🎉 You beat '+vs.name+'!':vs.name+' keeps the crown… this time'}`:''}${ach.fresh.length?`<br>🏅 ${ach.fresh.map(a=>a[1]).join(' · ')}`:''}`;
   if(!survived)sfx('gameover',()=>{});
   $('btnRematch').style.display=beatVs?'':'none';
   const n=G.mode==='daily'?10:Math.min(10,Math.max(1,Math.ceil(G.t/6)));
@@ -810,6 +765,8 @@ $('btnBoard').onclick=()=>showBoard(false);
 $('btnAch').onclick=showAch;
 $('btnAchBack').onclick=()=>show('menu');
 $('btnBack').onclick=()=>show(state==='over'?'over':'menu');
+$('btnNotice').onclick=()=>{store.set('kc_notice60','1');show('menu');};
+if(!store.get('kc_notice60'))show('notice');
 $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
 $('btnCard').onclick=shareCard;

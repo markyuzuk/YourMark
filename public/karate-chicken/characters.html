@@ -247,33 +247,6 @@ function drawEnemy(e){
   }
   if(e.type==='badger'){ctx.fillStyle='#2a1d14';ctx.font='bold 12px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-58);}
 }
-function drawShark(){
-  const sh=G.shark,x=sh.x,y=GY-180+Math.sin(sh.t*9)*14;
-  ctx.save();ctx.translate(x,y);
-  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;ctx.lineJoin='round';
-  ctx.fillStyle='#8fa3b8';
-  ctx.beginPath();ctx.moveTo(-44,0);ctx.quadraticCurveTo(-20,-20,26,-12);ctx.quadraticCurveTo(48,-6,50,0);ctx.quadraticCurveTo(48,6,26,12);ctx.quadraticCurveTo(-20,20,-44,0);ctx.fill();ctx.stroke();
-  ctx.fillStyle='#e8eef4';ctx.beginPath();ctx.ellipse(4,8,30,7,0,0,Math.PI);ctx.fill();
-  ctx.fillStyle='#7c8ea3';
-  ctx.beginPath();ctx.moveTo(-4,-14);ctx.quadraticCurveTo(4,-34,14,-16);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.beginPath();ctx.moveTo(-44,0);ctx.lineTo(-60,-16);ctx.lineTo(-54,0);ctx.lineTo(-60,16);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.strokeStyle='rgba(42,29,20,.5)';ctx.lineWidth=1.6;
-  for(let i=0;i<3;i++){ctx.beginPath();ctx.arc(18-i*4,0,5,-1,1);ctx.stroke();}
-  ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(38,-4,3,0,Math.PI*2);ctx.fill();
-  ctx.strokeStyle='#2a1d14';ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(30,4);ctx.quadraticCurveTo(40,10,50,3);ctx.stroke();
-  ctx.fillStyle='#444';ctx.strokeStyle='#2a1d14';
-  rr(4,-22,16,8,3);ctx.fill();ctx.stroke();
-  ctx.restore();
-  ctx.save();ctx.globalCompositeOperation='lighter';
-  const lg=ctx.createLinearGradient(x+6,y-18,x+6,GY+8);
-  lg.addColorStop(0,'#d1f1ff');lg.addColorStop(1,'#4fc3f7');
-  ctx.strokeStyle=lg;ctx.lineWidth=8;ctx.shadowColor='#4fc3f7';ctx.shadowBlur=16;
-  ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(x+6+2,GY+8);ctx.stroke();
-  ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.moveTo(x+6,y-18);ctx.lineTo(x+6,GY+8);ctx.stroke();
-  ctx.restore();
-}
 function drawIphone(x,y,ph){
   const bob=Math.abs(Math.sin(ph*9))*-2;
   ctx.save();ctx.translate(x,y+bob);ctx.rotate(Math.sin(ph*4)*.04);
@@ -325,16 +298,6 @@ for(const [id,cfg] of Object.entries(PORTRAITS))renderEnemy(id,cfg);
   ctx.fillStyle='#8a5a33';ctx.fillRect(0,168,280,6);
   ctx.fillStyle='#a06a38';ctx.fillRect(0,174,280,50);
   drawIphone(140,146,1.4);
-})();
-(function(){
-  const c=document.getElementById('c-shark');
-  c.width=560;c.height=448;
-  ctx=c.getContext('2d');ctx.scale(2,2);
-  ctx.fillStyle='#efe3c8';ctx.fillRect(0,0,280,224);
-  ctx.fillStyle='#8a5a33';ctx.fillRect(0,168,280,6);
-  ctx.fillStyle='#a06a38';ctx.fillRect(0,174,280,50);
-  CX=140;GY=200;G={shark:{t:.4,x:150}};
-  drawShark();
 })();
 </script>
 </body>

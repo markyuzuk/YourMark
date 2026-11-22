@@ -2,6 +2,12 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v60 — 2025-11-22
+- Due to popular demand: the Laser Shark is completely removed — the Golden Egg clears the screen every time
+- Meatballs no longer spawn randomly — one giant Meatball boss appears at 10,000 pts (solo duel, like Caesar)
+- Caesar still arrives at 5,000 but only once per game
+- New DOJO NEWS popup on the landing page announcing the shark's departure
+
 ## v59 — 2025-11-20
 - Password gate now shows FRESH FROM THE DOJO — a running list of the 3 latest updates
 
