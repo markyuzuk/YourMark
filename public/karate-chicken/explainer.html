@@ -8,7 +8,9 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:radial-gradient(ellipse at 50% 30%,#2b1f17,#1c1410);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd}
-  #stage{width:min(920px,96vw);aspect-ratio:16/9;border:3px solid #4a3626;border-radius:16px;overflow:hidden;background:#1c1410}
+  #stage{width:min(920px,96vw);aspect-ratio:16/9;border:3px solid #4a3626;border-radius:16px;overflow:hidden;background:#1c1410;position:relative}
+  #play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(28,20,16,.82);cursor:pointer;border:none;color:#f5c93a;font-family:Bungee,cursive;font-size:clamp(18px,4vw,34px)}
+  #play:hover{filter:brightness(1.15)}
   canvas{width:100%;height:100%;display:block}
   .row{margin-top:12px;font-size:12.5px;color:#b8a58f;display:flex;gap:18px;align-items:center}
   a{color:#f5c93a;text-decoration:none}
@@ -18,7 +20,8 @@
 </style>
 </head>
 <body>
-<div id="stage"><canvas id="cv"></canvas></div>
+<div id="stage"><canvas id="cv"></canvas><button id="play">▶ TAP TO PLAY</button></div>
+<audio id="voice" src="assets/explainer-voice.webm" preload="auto"></audio>
 <div class="row"><span id="loop"><span id="dot"></span>15-second loop</span><a href="./">← back to the game</a></div>
 <canvas style="display:none"></canvas>
 <script>
@@ -130,6 +133,9 @@ function draw(ms){
     big('KARATE CHICKEN',150,52,'#f5c93a');
     txt('how long can you last?',CX,190,22,'#b8a58f');
   }
+  // restart voice each loop
+  if(t<.12&&lastT>.1){try{voice.currentTime=0;voice.play();}catch(e){}}
+  lastT=t;
   // progress ticks
   ctx.fillStyle='rgba(246,238,221,.25)';
   for(let i=0;i<15;i++)ctx.fillRect(12+i*9,H-14,6,4);
@@ -137,7 +143,11 @@ function draw(ms){
   for(let i=0;i<Math.floor(t);i++)ctx.fillRect(12+i*9,H-14,6,4);
   requestAnimationFrame(draw);
 }
-requestAnimationFrame(draw);
+let t0=null,lastT=0;const voice=document.getElementById('voice');
+document.getElementById('play').addEventListener('click',function(){
+  this.style.display='none';voice.play().catch(()=>{});t0=performance.now();
+  requestAnimationFrame(function loop(ms){draw(ms-t0);});
+});
 </script>
 </body>
 </html>

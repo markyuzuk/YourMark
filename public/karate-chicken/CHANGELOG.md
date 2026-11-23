@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v79 — 2025-11-22
+- Explainer video now plays the recorded voiceover — tap to play, voice restarts each 15s loop
+
 ## v78 — 2025-11-22
 - Menu gains "🎬 HOW TO PLAY — 15s" → animated explainer page
 - Sound Studio can now record a voiceover while the explainer loops
