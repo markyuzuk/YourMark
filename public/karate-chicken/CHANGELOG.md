@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v75 — 2025-11-22
+- Gate news list refreshed: anytime egg, Mega Meatball, meatball squad
+
 ## v74 — 2025-11-22
 - Mega Meatball now retracts on every hit (knockback 40 → 200)
 
