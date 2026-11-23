@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v81 — 2025-11-22
+- GOD MODE: secret gate button + second password drops you straight into a boss gauntlet — Caesar, meatball squad, Mega, Joker, on repeat
+
 ## v80 — 2025-11-22
 - THE JOKER: new boss at 20,000 pts — 20 hearts, flips sides mid-approach, WHY SO SERIOUS?! voice
 - Karate Chicken dons the bat cowl while the Joker is on the field

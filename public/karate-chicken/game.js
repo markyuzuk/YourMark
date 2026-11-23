@@ -220,7 +220,7 @@ function newGame(mode){
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
      slow:0,rts:[],jackpots:0,eggUsed:false,deathCam:0,deathX:0,dur:mode==='daily'?DAILY_SECONDS:Infinity,
      caesarNext:5000,mbNext:10000,megaNext:15000,jokerNext:20000,pending:null,killer:null,
-     freeEgg:achCount()>=ACH.length?1:0}; // all badges → one anytime egg per game
+     freeEgg:achCount()>=ACH.length?1:0,bossCycle:0}; // all badges → one anytime egg per game
   $('padKi').innerHTML='🥚<span>EGG</span>';
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
@@ -231,7 +231,11 @@ function spawn(){
   let side=r()<.5?-1:1;
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
   let type='fox',wave=false;const roll=r();
-  if(!MOD.fox){
+  if(G.mode==='god'){
+    const cyc=['caesar','meatball','mega','joker'];
+    type=cyc[G.bossCycle++%4];if(type==='meatball')wave=true; // boss gauntlet, round and round
+  }
+  else if(!MOD.fox){
     if(G.score>=G.caesarNext){type='caesar';G.caesarNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // 5k: field clears — Caesar, exactly once
     else if(G.score>=G.mbNext){type='meatball';wave=true;G.mbNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a0532a',12);G.enemies.length=0;} // 10k: four-meatball squad, exactly once
     else if(G.score>=G.megaNext){type='mega';G.megaNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#7a3a12',14);G.enemies.length=0;} // 15k: the Mega Meatball, exactly once
@@ -668,7 +672,7 @@ function drawHUD(){
   ctx.textAlign='right';ctx.font=`${24*k}px serif`;ctx.fillStyle='#2a1d14';
   ctx.fillText('🪶'.repeat(Math.max(0,G.lives))+' ·'.repeat(3-Math.max(0,G.lives)),W-14,34*k);
   ctx.font=`600 ${14*k}px Inter, sans-serif`;
-  ctx.fillText(G.mode==='daily'?`Kata #${dayNo} · ${Math.max(0,Math.ceil(G.dur-G.t))}s`:`Endless · ${Math.floor(G.t)}s`,W-14,56*k);
+  ctx.fillText(G.mode==='daily'?`Kata #${dayNo} · ${Math.max(0,Math.ceil(G.dur-G.t))}s`:G.mode==='god'?`GOD MODE · ${Math.floor(G.t)}s`:`Endless · ${Math.floor(G.t)}s`,W-14,56*k);
   const kw=150*k,kx=W-14-kw,ky=64*k;
   ctx.fillStyle='rgba(42,29,20,.25)';rr(kx,ky,kw,11*k,5);ctx.fill();
   ctx.fillStyle=G.ki>=100?`hsl(${(performance.now()/5)%360},90%,55%)`:'#f2b632';rr(kx,ky,Math.max(10,kw*G.ki/100),11*k,5);ctx.fill();
@@ -771,7 +775,7 @@ function endGame(survived){
   $('btnRematch').style.display=beatVs?'':'none';
   const n=G.mode==='daily'?10:Math.min(10,Math.max(1,Math.ceil(G.t/6)));
   const grid=G.segs.slice(0,n).map((s,i)=>i*6>=G.t?'⬛':s.d?'🟥':(s.g+s.w>s.p?'🟨':'🟩')).join('');
-  const head=G.mode==='daily'?`🐔🥋 Karate Chicken #${dayNo}`:`🐔🥋 Karate Chicken · Endless ${Math.floor(G.t)}s`;
+  const head=G.mode==='daily'?`🐔🥋 Karate Chicken #${dayNo}`:G.mode==='god'?`🐔🥋 Karate Chicken · GOD MODE ${Math.floor(G.t)}s`:`🐔🥋 Karate Chicken · Endless ${Math.floor(G.t)}s`;
   $('shareText').textContent=`${head}${beatVs?' — beat '+vs.name+'!':''}\n${b.n} Belt · ${G.score.toLocaleString()} pts${stN>1?` · 🔥 ${stN}-day streak`:''}\n${grid}\nbest combo ${G.maxCombo}`;
   $('padKi').disabled=true;updateBest();
   const sr=$('saveRow');sr.style.display=G.score>0?'flex':'none';
@@ -851,6 +855,7 @@ $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferr
 $('btnCard').onclick=shareCard;
 $('storyBtn').onclick=()=>{location.href='characters.html';};
 $('btnExplain').onclick=()=>{location.href='explainer.html';};
+if(sessionStorage.getItem('kc_god')){sessionStorage.removeItem('kc_god');start('god');}
 $('btnSelfie').onclick=openCam;
 $('btnSnap').onclick=snap;
 $('btnCamCancel').onclick=closeCam;
