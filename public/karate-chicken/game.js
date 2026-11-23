@@ -273,7 +273,7 @@ function strike(side){
   best.hp--;burst(ex,GY-40,best.type==='caesar'?'#d6342b':best.type==='meatball'?'#a0532a':best.type==='phrag'?'#5d8f3a':boss?'#b03a1f':best.type==='golden'?'#f2b632':best.type==='badger'?'#888':'#f08a24',8);
   if(best.hp<=0){best.dead=true;if(boss){addText(ex,GY-175,best.type==='caesar'?'ET TU, CHICKEN?!':best.type==='mega'?'MEGA MEATBALL DOWN!':best.type==='meatball'?'MEATBALL DOWN!':best.type==='phrag'?'PHRAG DOWN!':'LUCY DOWN!','#f2b632',34);G.slow=.45;}}
   else{if(best.type==='mega'&&best.hp<=8&&!best.flipped){best.flipped=true;best.side=-best.side;best.d=SPAWN_D+40;addText(CX,GY-HERO_H-45,'NOW FROM THE OTHER SIDE!','#7a3a12',28);megaVoice();}
-    best.d+=best.type==='mega'?40:best.type==='meatball'?220:boss?100:150;best.hurt=.2;best.zoneT=0;}
+    best.d+=best.type==='mega'?200:best.type==='meatball'?220:boss?100:150;best.hurt=.2;best.zoneT=0;}
   G.enemies=G.enemies.filter(e=>!e.dead);
   G.shake=Math.max(G.shake,perfect?5:3);
 }

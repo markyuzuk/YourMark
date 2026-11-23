@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v74 — 2025-11-22
+- Mega Meatball now retracts on every hit (knockback 40 → 200)
+
 ## v73 — 2025-11-22
 - Dedicated badge changed: was "5 days in a row" → now "play 5× a day, 3 days in a row" (daily play counts tracked)
 
