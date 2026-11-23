@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v87 — 2025-11-22
+- God mode now verifies the game engine is current before opening boss-select — stale caches get a refresh prompt instead of a broken run
+- Old service-worker caches are purged on load
+
 ## v86 — 2025-11-22
 - Fix boss-select buttons: a stale cached game.js could leave the pick screen covering the game — buttons now close it directly
 
