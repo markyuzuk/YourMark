@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v83 — 2025-11-22
+- God mode accepts "taco" directly at the gate — the 🕶 button is now optional
+
 ## v82 — 2025-11-22
 - Fix god mode: the load-time check ran before the password existed — now starts straight from the gate
 
