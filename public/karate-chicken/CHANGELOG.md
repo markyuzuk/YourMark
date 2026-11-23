@@ -2,6 +2,13 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v64 — 2025-11-22
+- Fixed: pressing Enter in the password field launched a game instead of showing the menu
+- DOJO NEWS popup now appears right after the password, before the menu
+
+## v61–v63 — 2025-11-22
+- Fixed frozen game for players on stale cached files (null-safe overlay logic)
+
 ## v60 — 2025-11-22
 - Due to popular demand: the Laser Shark is completely removed — the Golden Egg clears the screen every time
 - Meatballs no longer spawn randomly — one giant Meatball boss appears at 10,000 pts (solo duel, like Caesar)
