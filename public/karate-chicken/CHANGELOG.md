@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v69 — 2025-11-22
+- Voices for the meatball squad ("HERE COME THE MEATBALLS!") and Mega Meatball — real audio files with TTS fallback
+
 ## v68 — 2025-11-22
 - Meatball squad speed .8 → .6 (a little slower)
 

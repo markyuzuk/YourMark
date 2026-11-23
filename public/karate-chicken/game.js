@@ -155,7 +155,9 @@ function sfx(name,fallback){
   if(!audioSrcs[name]){fallback();return;}
   try{const a=new Audio(audioSrcs[name]);if(G&&G.slow>0)a.playbackRate=.55;const p=a.play();if(p&&p.catch)p.catch(()=>fallback());}catch(e){fallback();}
 }
-function megaVoice(){sfx('mega',()=>{if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance('Mega meatball!');u.rate=.8;u.pitch=.45;speechSynthesis.speak(u);}});}
+function bossVoice(name,text){sfx(name,()=>{if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(text);u.rate=.8;u.pitch=.45;speechSynthesis.speak(u);}});}
+function megaVoice(){bossVoice('mega','Mega meatball!');}
+function meatballsVoice(){bossVoice('meatballs','Here come the meatballs!');}
 function eggSound(){beep(523,.15,'triangle',.08);setTimeout(()=>beep(784,.2,'triangle',.08),90);setTimeout(()=>beep(1046,.3,'triangle',.08),180);}
 resolveSfx('welcome').then(()=>{if(audioSrcs['welcome'])$('storyBtn').style.display='block'});
 resolveSfx('caesar');resolveSfx('lucy');resolveSfx('gameover');
@@ -233,7 +235,7 @@ function spawn(){
   const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='mega'?.65:type==='meatball'?.6:type==='caesar'?1.15:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
-  else if(type==='meatball'){addText(CX,GY-HERO_H-40,wave?'HERE COME THE MEATBALLS!':'HERE COMES THE MEATBALL!','#08532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
+  else if(type==='meatball'){addText(CX,GY-HERO_H-40,wave?'HERE COME THE MEATBALLS!':'HERE COMES THE MEATBALL!','#08532a',30);meatballsVoice();beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
   else if(type==='mega'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEGA MEATBALL!','#7a3a12',34);megaVoice();beep(65,.5,'sawtooth',.07);}
   else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',48,2);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
   const hp=type==='mega'?15:type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1;

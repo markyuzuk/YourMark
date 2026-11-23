@@ -1,5 +1,5 @@
 // Bump CACHE whenever you change any file in /public so players get the update.
-const CACHE = 'karate-chicken-v68';
+const CACHE = 'karate-chicken-v69';
 const ASSETS = [
   './', './index.html', './style.css', './game.js', './manifest.webmanifest',
   './assets/karate-chicken.png', './assets/icon-192.png', './assets/icon-512.png',
@@ -7,7 +7,7 @@ const ASSETS = [
   './assets/kick.webm', './assets/perfect.webm', './assets/whiff.webm',
   './assets/yum.webm', './assets/yumyum.webm', './assets/egg.webm', './assets/squawk.webm',
   './assets/welcome.webm', './assets/caesar.webm', './assets/lucy.webm',
-  './assets/jackpot.webm', './assets/gameover.webm', './assets/gate.webm', './assets/mega.m4a',
+  './assets/jackpot.webm', './assets/gameover.webm', './assets/gate.webm', './assets/mega.m4a', './assets/meatballs.m4a',
   './characters.html', './board-archive-1.json'
 ];
 self.addEventListener('install', e => {
