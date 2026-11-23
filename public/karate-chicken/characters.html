@@ -71,6 +71,7 @@
     <div class="card"><canvas id="c-cav"></canvas><div class="cinfo"><h3>LUCY</h3><div class="tag">Cavalier King Charles · 5 hearts</div><p>A ruby Cavalier in a tactical harness. Those silky ears are not decorative — they detect a distracted chicken at forty yards. Five hearts of relentless, cuddle-powered assault. HERE COMES LUCY!</p></div></div>
     <div class="card"><canvas id="c-phrag"></canvas><div class="cinfo"><h3>THE PHRAGMITES</h3><div class="tag">Sentient Marsh Grass · 6 hearts</div><p>A towering clump of phragmites with a grudge. Nobody remembers what the dojo did to the wetlands — but the wetlands remember. Slow, looming, six hearts of fibrous fury. Do not garden.</p></div></div>
     <div class="card"><canvas id="c-meatball"></canvas><div class="cinfo"><h3>THE MEATBALL</h3><div class="tag">Rolling Bosses · 8 hearts each · squad of 4 at 10,000 pts</div><p>Giant. Rolling. Seasoned. Some say the dojo kitchen produced them during the Great Spaghetti Surplus of '09; others say they willed themselves into existence. Either way: four meatballs roll in at once — two from each side — eight hearts of marinara-fueled menace apiece.</p></div></div>
+    <div class="card"><canvas id="c-mega"></canvas><div class="cinfo"><h3>THE MEGA MEATBALL</h3><div class="tag">Final Boss · 15 hearts · arrives at 15,000 pts</div><p>Twice the size of Karate Chicken herself. The kitchen's magnum opus. It rolls in from one side — take seven hearts off it and it storms back in from the other. MEGA MEATBALL!</p></div></div>
     <div class="card"><canvas id="c-caesar"></canvas><div class="cinfo"><h3>JULIUS CAESAR</h3><div class="tag">Emperor of the Dojo · 7 hearts · fast</div><p>Marches in once, fast, at 5,000 points to conquer the dojo, laurel wreath and all. VENI, VIDI, VICI — right up until a certain chicken made him cry ET TU, CHICKEN?!</p></div></div>
   </div>
   <div class="end" style="padding-top:.4in">
@@ -157,22 +158,22 @@ function drawEnemy(e){
     ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-112);
     return;
   }
-  if(e.type==='meatball'){
-    const rot=e.d*.035,R=52,cy=-R+4;
-    const g=ctx.createRadialGradient(-14,cy-16,8,0,cy,R);
+  if(e.type==='meatball'||e.type==='mega'){
+    const S=e.type==='mega'?2:1,rot=e.d*.035/S,R=52*S,cy=-R+4*S;
+    const g=ctx.createRadialGradient(-14*S,cy-16*S,8*S,0,cy,R);
     g.addColorStop(0,'#a9713f');g.addColorStop(1,'#5d3418');
     ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,cy,R,0,Math.PI*2);ctx.fill();
-    ctx.strokeStyle='#2a1d14';ctx.lineWidth=3;ctx.stroke();
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=3*S;ctx.stroke();
     ctx.fillStyle='rgba(42,29,20,.4)';
-    for(let i=0;i<8;i++){const a=rot+i*.79;ctx.beginPath();ctx.arc(Math.cos(a)*R*.55,cy+Math.sin(a)*R*.55,3.5+(i%3)*1.6,0,Math.PI*2);ctx.fill();}
-    ctx.fillStyle='rgba(255,255,255,.22)';ctx.beginPath();ctx.arc(-16,cy-20,7,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-14,cy-6,7,0,Math.PI*2);ctx.arc(10,cy-6,7,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(-13,cy-6,3.4,0,Math.PI*2);ctx.arc(11,cy-6,3.4,0,Math.PI*2);ctx.fill();
-    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=3;ctx.lineCap='round';
-    ctx.beginPath();ctx.moveTo(-23,cy-19);ctx.lineTo(-6,cy-14);ctx.moveTo(19,cy-19);ctx.lineTo(2,cy-14);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-16,cy+13);ctx.quadraticCurveTo(-2,cy+5,14,cy+11);ctx.stroke();
+    for(let i=0;i<8;i++){const a=rot+i*.79;ctx.beginPath();ctx.arc(Math.cos(a)*R*.55,cy+Math.sin(a)*R*.55,(3.5+(i%3)*1.6)*S,0,Math.PI*2);ctx.fill();}
+    ctx.fillStyle='rgba(255,255,255,.22)';ctx.beginPath();ctx.arc(-16*S,cy-20*S,7*S,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-14*S,cy-6*S,7*S,0,Math.PI*2);ctx.arc(10*S,cy-6*S,7*S,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(-13*S,cy-6*S,3.4*S,0,Math.PI*2);ctx.arc(11*S,cy-6*S,3.4*S,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=3*S;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(-23*S,cy-19*S);ctx.lineTo(-6*S,cy-14*S);ctx.moveTo(19*S,cy-19*S);ctx.lineTo(2*S,cy-14*S);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-16*S,cy+13*S);ctx.quadraticCurveTo(-2*S,cy+5*S,14*S,cy+11*S);ctx.stroke();
     ctx.restore();
-    ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-120);
+    ctx.fillStyle='#f2b632';ctx.font=`bold ${16*S}px Inter, sans-serif`;ctx.textAlign='center';ctx.fillText(e.type==='mega'?'♥ '+e.hp:'♥'.repeat(e.hp),x,y-118*S);
     return;
   }
   if(e.type==='caesar'){
@@ -270,6 +271,7 @@ const PORTRAITS={
   cav:{type:'cav',hp:5},
   phrag:{type:'phrag',hp:6},
   meatball:{type:'meatball',hp:8,d:14},
+  mega:{type:'mega',hp:15,d:34},
   caesar:{type:'caesar',hp:7}
 };
 function renderEnemy(id,cfg){

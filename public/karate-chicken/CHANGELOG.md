@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v67 — 2025-11-22
+- THE MEGA MEATBALL: final boss at 15,000 pts — 15 hearts, twice Karate Chicken's size, storms back in from the other side after 7 hearts fall, with its own voice
+
 ## v66 — 2025-11-22
 - Meatball squad speed .42 → .8 (medium)
 
