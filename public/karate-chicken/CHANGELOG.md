@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v70 — 2025-11-22
+- Real recorded voices for the meatball squad and Mega Meatball replace the synth placeholders
+
 ## v69 — 2025-11-22
 - Voices for the meatball squad ("HERE COME THE MEATBALLS!") and Mega Meatball — real audio files with TTS fallback
 
