@@ -886,4 +886,6 @@ document.addEventListener('gesturestart',e=>e.preventDefault()); // iOS pinch
 if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
   window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
+// the gate calls these from index.html — the IIFE keeps everything else private
+window.start=start;window.show=show;window.newGame=newGame;
 })();

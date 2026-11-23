@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v90 — 2025-11-22
+- ROOT-CAUSE FIX: game.js wraps everything in an IIFE — start/show/newGame were never global, so every gate call silently errored. They are now exported; renamed to game-v90.js so the fix can never be trapped by cache
+
 ## v89 — 2025-11-22
 - Nuclear cache-bust: game.js renamed to game-v89.js — every stale service-worker cache is bypassed by the new filename
 
