@@ -214,13 +214,13 @@ loadSelfie();
 
 // ---------- game state ----------
 let G=null,state='menu',last=0;
-function newGame(mode){
+function newGame(mode,boss){
   G={mode,rand:mode==='daily'?mulberry32(seed):Math.random,t:0,score:0,combo:0,maxCombo:0,lives:3,ki:0,
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
      slow:0,rts:[],jackpots:0,eggUsed:false,deathCam:0,deathX:0,dur:mode==='daily'?DAILY_SECONDS:Infinity,
      caesarNext:5000,mbNext:10000,megaNext:15000,jokerNext:20000,pending:null,killer:null,
-     freeEgg:achCount()>=ACH.length?1:0,bossCycle:0}; // all badges → one anytime egg per game
+     freeEgg:achCount()>=ACH.length?1:0,bossCycle:0,soloBoss:boss||null}; // all badges → one anytime egg per game
   $('padKi').innerHTML='🥚<span>EGG</span>';
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
@@ -233,7 +233,7 @@ function spawn(){
   let type='fox',wave=false;const roll=r();
   if(G.mode==='god'){
     const cyc=['caesar','meatball','mega','joker'];
-    type=cyc[G.bossCycle++%4];if(type==='meatball')wave=true; // boss gauntlet, round and round
+    type=G.soloBoss||cyc[G.bossCycle++%4];if(type==='meatball')wave=true; // picked boss on repeat, or the full gauntlet
   }
   else if(!MOD.fox){
     if(G.score>=G.caesarNext){type='caesar';G.caesarNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // 5k: field clears — Caesar, exactly once
@@ -721,7 +721,7 @@ function loop(ts){
 requestAnimationFrame(loop);
 
 // ---------- flow ----------
-function show(id){for(const o of['menu','paused','over','board','cardView','achView','selfieView','notice']){const el=$(o);if(el)el.classList.toggle('hidden',o!==id);}}
+function show(id){for(const o of['menu','paused','over','board','cardView','achView','selfieView','notice','godSel']){const el=$(o);if(el)el.classList.toggle('hidden',o!==id);}}
 // ---------- leaderboard ----------
 async function boardData(){try{const r=await fetch('/karate-chicken/api/scores');return(await r.json()).top||[]}catch(e){return null}}
 let boardArch=false;
@@ -756,7 +756,7 @@ async function saveScore(){
   }catch(e){btn.textContent='offline?';btn.disabled=false;}
 }
 function setPlaying(on){document.body.classList.toggle('playing',on);}
-function start(mode){initAudio();newGame(mode);G.cnt=3.6;state='count';show(null);setPlaying(true);$('copyMsg').textContent='';layout();
+function start(mode,boss){initAudio();newGame(mode,boss);G.cnt=3.6;state='count';show(null);setPlaying(true);$('copyMsg').textContent='';layout();
   fetch('/karate-chicken/api/ping',{method:'POST'}).catch(()=>{});}
 function pause(){if(state!=='play')return;state='paused';show('paused');}
 function resume(){if(state!=='paused')return;initAudio();state='play';show(null);last=performance.now();}

@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v84 — 2025-11-22
+- God mode reworked: gate button removed — "taco" opens a boss-select screen; pick Caesar, Meatball Squad, Mega Meatball, or the Joker and fight it on repeat
+
 ## v83 — 2025-11-22
 - God mode accepts "taco" directly at the gate — the 🕶 button is now optional
 
