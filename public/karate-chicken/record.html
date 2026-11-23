@@ -36,6 +36,17 @@
 
   <div class="card" id="list"></div>
 
+  <div class="card">
+    <div class="nm" style="margin-bottom:8px"><b>explainer-voice</b> <small>narrate over the 15-second video</small></div>
+    <iframe id="expFrame" src="explainer.html" title="explainer" style="width:100%;aspect-ratio:16/9;border:2px solid #4a3626;border-radius:10px;background:#1c1410;display:block"></iframe>
+    <div class="snd" style="border:none;padding-bottom:0">
+      <button id="voRec" class="rec">● REC VOICEOVER</button>
+      <button id="voPlay" class="play" disabled>▶</button>
+      <button id="voDl" class="dl" disabled>↓ Download</button>
+    </div>
+    <div style="font-size:11px;color:#b8a58f;margin-top:6px">The video loops — hit REC and narrate. Sends as <code>explainer-voice</code>.</div>
+  </div>
+
   <div class="card howto">
     <b>How to use:</b><br>
     1. Tap <b>REC</b> next to a sound → make the noise → tap <b>STOP</b><br>
@@ -96,6 +107,28 @@ for(const [name,desc] of SOUNDS){
     mr.start();recB.classList.add('on');recB.textContent='■ STOP';
   };
 }
+// ---------- voiceover recorder ----------
+const voRec=document.getElementById('voRec'),voPlay=document.getElementById('voPlay'),voDl=document.getElementById('voDl'),frame=document.getElementById('expFrame');
+let vmr=null,vchunks=[],vblob=null;
+voRec.onclick=async()=>{
+  if(vmr&&vmr.state==='recording'){vmr.stop();return;}
+  try{stream=stream||await navigator.mediaDevices.getUserMedia({audio:true});}catch(e){alert('Microphone blocked — allow mic access and retry.');return;}
+  frame.src=frame.src; // restart the loop so narration starts at 0:00
+  setTimeout(()=>{
+    vchunks=[];vmr=new MediaRecorder(stream);
+    vmr.ondataavailable=e=>{if(e.data.size)vchunks.push(e.data)};
+    vmr.onstop=()=>{
+      const mime=vmr.mimeType||'';
+      const ext=Object.keys(EXT).find(x=>EXT[x].test(mime))||'.webm';
+      vblob=new Blob(vchunks,{type:mime||'audio/webm'});
+      voPlay.disabled=voDl.disabled=false;
+      voDl.onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(vblob);a.download='explainer-voice'+ext;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);};
+      voPlay.onclick=()=>new Audio(URL.createObjectURL(vblob)).play();
+      voRec.classList.remove('on');voRec.textContent='● REC VOICEOVER';vmr=null;
+    };
+    vmr.start();voRec.classList.add('on');voRec.textContent='■ STOP';
+  },450);
+};
 </script>
 </body>
 </html>

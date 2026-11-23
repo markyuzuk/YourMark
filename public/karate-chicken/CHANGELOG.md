@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v78 — 2025-11-22
+- Menu gains "🎬 HOW TO PLAY — 15s" → animated explainer page
+- Sound Studio can now record a voiceover while the explainer loops
+
 ## v77 — 2025-11-22
 - Password screen now summarizes all recent changes (6-item list)
 

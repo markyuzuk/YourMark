@@ -792,6 +792,7 @@ $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
 $('btnCard').onclick=shareCard;
 $('storyBtn').onclick=()=>{location.href='characters.html';};
+$('btnExplain').onclick=()=>{location.href='explainer.html';};
 $('btnSelfie').onclick=openCam;
 $('btnSnap').onclick=snap;
 $('btnCamCancel').onclick=closeCam;
