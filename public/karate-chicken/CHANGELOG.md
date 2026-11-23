@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v92 — 2025-11-22
+- Fixed the one-enemy bug: the Monday "Fox Frenzy" modifier had a fox-only flag that suppressed every other enemy type. Full roster back every day — foxes, badgers, weasels, golden foxes, Lucy + phragmites — with bosses at 5k / 10k / 15k / 20k as before
+
 ## v91 — 2025-11-22
 - Bat cowl polish: seasonal hat is hidden while the Joker is on the field, and the mask now sits lower so the eye slits cover the chicken's eyes
 

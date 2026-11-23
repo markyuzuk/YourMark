@@ -97,7 +97,7 @@ const ACH=[
 // ---------- day-of-week modifiers ----------
 const MODS=[
   {n:'Lazy Sunday',sp:.92},
-  {n:'Fox Frenzy',sp:1.05,fox:1},
+  {n:'Fox Frenzy',sp:1.05},
   {n:'Iron Tuesday',bad:.28},
   {n:'Weasel Wednesday',wea:.34},
   {n:'Ki Thursday',ki:1.6},
@@ -235,7 +235,7 @@ function spawn(){
     const cyc=['caesar','meatball','mega','joker'];
     type=G.soloBoss||cyc[G.bossCycle++%4];if(type==='meatball')wave=true; // picked boss on repeat, or the full gauntlet
   }
-  else if(!MOD.fox){
+  else{
     if(G.score>=G.caesarNext){type='caesar';G.caesarNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // 5k: field clears — Caesar, exactly once
     else if(G.score>=G.mbNext){type='meatball';wave=true;G.mbNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a0532a',12);G.enemies.length=0;} // 10k: four-meatball squad, exactly once
     else if(G.score>=G.megaNext){type='mega';G.megaNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#7a3a12',14);G.enemies.length=0;} // 15k: the Mega Meatball, exactly once
