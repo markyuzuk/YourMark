@@ -638,7 +638,7 @@ function loop(ts){
 requestAnimationFrame(loop);
 
 // ---------- flow ----------
-function show(id){for(const o of['menu','paused','over','board','cardView','achView','selfieView'])$(o).classList.toggle('hidden',o!==id);}
+function show(id){for(const o of['menu','paused','over','board','cardView','achView','selfieView','notice']){const el=$(o);if(el)el.classList.toggle('hidden',o!==id);}}
 // ---------- leaderboard ----------
 async function boardData(){try{const r=await fetch('/karate-chicken/api/scores');return(await r.json()).top||[]}catch(e){return null}}
 let boardArch=false;
@@ -765,8 +765,7 @@ $('btnBoard').onclick=()=>showBoard(false);
 $('btnAch').onclick=showAch;
 $('btnAchBack').onclick=()=>show('menu');
 $('btnBack').onclick=()=>show(state==='over'?'over':'menu');
-$('btnNotice').onclick=()=>{store.set('kc_notice60','1');show('menu');};
-if(!store.get('kc_notice60'))show('notice');
+if($('btnNotice')){$('btnNotice').onclick=()=>{store.set('kc_notice60','1');show('menu');};if(!store.get('kc_notice60'))show('notice');}
 $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
 $('btnCard').onclick=shareCard;
