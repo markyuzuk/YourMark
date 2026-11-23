@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v85 — 2025-11-22
+- Fix taco flow: boss-select now toggles overlays directly at the gate (menu is default-visible, so a stale game.js could strand you on it)
+
 ## v84 — 2025-11-22
 - God mode reworked: gate button removed — "taco" opens a boss-select screen; pick Caesar, Meatball Squad, Mega Meatball, or the Joker and fight it on repeat
 
