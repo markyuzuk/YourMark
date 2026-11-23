@@ -765,7 +765,7 @@ $('btnBoard').onclick=()=>showBoard(false);
 $('btnAch').onclick=showAch;
 $('btnAchBack').onclick=()=>show('menu');
 $('btnBack').onclick=()=>show(state==='over'?'over':'menu');
-if($('btnNotice')){$('btnNotice').onclick=()=>{store.set('kc_notice60','1');show('menu');};if(!store.get('kc_notice60'))show('notice');}
+if($('btnNotice')){$('btnNotice').onclick=()=>{store.set('kc_notice62','1');show('menu');};if(!store.get('kc_notice62'))show('notice');}
 $('btnSave').onclick=saveScore;
 $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(()=>$('btnInstall').style.display='none');deferredInstall=null;}else $('copyMsg')&&alert('iOS: tap Share → “Add to Home Screen”');};
 $('btnCard').onclick=shareCard;
