@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v66 — 2025-11-22
+- Meatball squad speed .42 → .8 (medium)
+
 ## v65 — 2025-11-22
 - Caesar is now fast (1.15× — quickest enemy in the dojo) for his once-per-game 5k duel
 - The 10k boss is now a squad: four meatballs roll in at once, two from each side, 8 hearts each
