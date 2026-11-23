@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karate Chicken — 15-Second Explainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:radial-gradient(ellipse at 50% 30%,#2b1f17,#1c1410);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Inter,system-ui,sans-serif;color:#f6eedd}
+  #stage{width:min(920px,96vw);aspect-ratio:16/9;border:3px solid #4a3626;border-radius:16px;overflow:hidden;background:#1c1410}
+  canvas{width:100%;height:100%;display:block}
+  .row{margin-top:12px;font-size:12.5px;color:#b8a58f;display:flex;gap:18px;align-items:center}
+  a{color:#f5c93a;text-decoration:none}
+  #loop{display:inline-flex;align-items:center;gap:6px}
+  #dot{width:9px;height:9px;border-radius:50%;background:#d6342b;animation:p 1s infinite}
+  @keyframes p{50%{opacity:.25}}
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="cv"></canvas></div>
+<div class="row"><span id="loop"><span id="dot"></span>15-second loop</span><a href="./">← back to the game</a></div>
+<canvas style="display:none"></canvas>
+<script>
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const W=920,H=518;cv.width=W;cv.height=H;
+const CX=W/2,GY=H-96;
+const hero=new Image();hero.src='assets/karate-chicken.png';
+const D=15000; // 15 seconds, loops
+
+function bg(){
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#2b1f17');g.addColorStop(1,'#1c1410');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#8a5a33';ctx.fillRect(0,GY+24,W,6);
+  ctx.fillStyle='#a06a38';ctx.fillRect(0,GY+30,W,H-GY-30);
+  // dojo posts
+  ctx.fillStyle='rgba(74,54,38,.5)';
+  ctx.fillRect(60,40,18,GY+24-40);ctx.fillRect(W-78,40,18,GY+24-40);
+  ctx.fillRect(0,40,W,14);
+}
+function txt(s,x,y,size,c=' #f6eedd'.trim(),font='800'){ctx.fillStyle=c;ctx.font=`${font} ${size}px Inter, sans-serif`;ctx.textAlign='center';ctx.fillText(s,x,y);}
+function big(s,y,size=44,c='#f5c93a'){ctx.fillStyle=c;ctx.font=`${size}px Bungee, 'Arial Black', sans-serif`;ctx.textAlign='center';
+  ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=10;ctx.fillText(s,CX,y);ctx.shadowBlur=0;}
+function chicken(pose=0,scale=1){
+  const h=130*scale,w=h*.58;
+  if(hero.complete&&hero.naturalWidth){
+    ctx.save();ctx.translate(CX,GY);
+    if(pose)ctx.scale(pose,1);
+    ctx.drawImage(hero,-w/2,-h,w,h);ctx.restore();
+  }else txt('🐔',CX,GY-10,90*scale);
+}
+function foe(e,x,y,s=1){txt(e,x,y,64*s);}
+function strikeFlash(x,y,r){
+  ctx.save();ctx.globalAlpha=.9;
+  for(let i=0;i<8;i++){const a=i/8*Math.PI*2;
+    ctx.strokeStyle='#f5c93a';ctx.lineWidth=4;
+    ctx.beginPath();ctx.moveTo(x+Math.cos(a)*r*.4,y+Math.sin(a)*r*.4);
+    ctx.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r);ctx.stroke();}
+  ctx.restore();
+}
+// eased position helpers
+const lerp=(a,b,t)=>a+(b-a)*t;
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const prog=(t,a,b)=>Math.max(0,Math.min(1,(t-a)/(b-a)));
+
+function draw(ms){
+  const t=(ms%D)/1000;
+  bg();
+  // ---------- SCENE 1: 0–3s — enemies from both sides ----------
+  if(t<3.2){
+    const p=ease(prog(t,0,2.2));
+    foe('🦊',lerp(-60,CX-160,p),GY);
+    foe('🦡',lerp(W+60,CX+160,p),GY);
+    foe('🦊',lerp(-140,CX-230,p),GY+14,.8);
+    chicken();
+    big('ENEMIES ATTACK',76,44);big('FROM BOTH SIDES',126,44);
+  }
+  // ---------- SCENE 2: 3–6.4s — strike left / right ----------
+  else if(t<6.4){
+    const k=t-3.2,L=prog(k,.2,.55),R=prog(k,1.2,1.55),L2=prog(k,2.2,2.55);
+    chicken(k>1.2&&k<1.7?1:k>.2&&k<.7?-1:0);
+    if(L<1)foe('🦊',CX-160-L*220,GY-L*60-L*L*140,1-L*.3);
+    if(k>.2&&k<.55)strikeFlash(CX-120,GY-60,70);
+    if(R<1)foe('🦡',CX+160-R*240,GY-R*50-R*R*150,1-R*.3);
+    if(k>1.2&&k<1.55)strikeFlash(CX+120,GY-60,70);
+    if(L2<1)foe('🦊',CX-190-L2*240,GY-L2*60-L2*L2*150,1-L2*.3);
+    if(k>2.2&&k<2.55)strikeFlash(CX-150,GY-70,80);
+    if(k>.2&&k<.6)txt('POW!',CX-150,GY-140,36,'#f5c93a','800');
+    if(k>1.2&&k<1.6)txt('BAM!',CX+150,GY-140,36,'#f5c93a','800');
+    if(k>2.2&&k<2.6)txt('KIAI!',CX-180,GY-160,40,'#d6342b','800');
+    big('STRIKE LEFT — STRIKE RIGHT',76,40);
+  }
+  // ---------- SCENE 3: 6.4–9.4s — fill your KI ----------
+  else if(t<9.4){
+    const k=t-6.4,p=ease(prog(k,.3,2.4));
+    chicken();
+    // ki bar
+    const bw=420,bx=CX-bw/2,by=GY+52;
+    ctx.fillStyle='#3b2a1e';ctx.fillRect(bx,by,bw,26);
+    ctx.fillStyle='#f5c93a';ctx.fillRect(bx,by,bw*p,26);
+    ctx.strokeStyle='#4a3626';ctx.lineWidth=3;ctx.strokeRect(bx,by,bw,26);
+    txt('KI '+Math.round(p*100)+'%',CX,by-10,20,'#f5c93a');
+    const combo=1+Math.floor(prog(k,.3,2.4)*18);
+    txt(combo+'-HIT COMBO!',CX,GY-140,30,'#f6eedd','800');
+    big('CHAIN HITS TO FILL YOUR KI',76,40);
+  }
+  // ---------- SCENE 4: 9.4–11.6s — GOLDEN EGG ----------
+  else if(t<11.6){
+    const k=t-9.4;
+    if(k<.7){const f=Math.sin(k*30)*.5+.5;
+      ctx.fillStyle=`rgba(245,201,58,${.15+f*.35})`;ctx.fillRect(0,0,W,H);}
+    chicken();
+    txt('🥚',CX,GY-90-k*30,90);
+    const es=['🦊','🦡','🦊','🦡','🦊','🦊'];
+    es.forEach((e,i)=>{const p=prog(k,.4,.9),a=(i/es.length)*Math.PI*2;
+      ctx.globalAlpha=1-p;foe(e,CX+Math.cos(a)*(120+p*420),GY-40+Math.sin(a)*(60+p*180));ctx.globalAlpha=1;});
+    if(k>.4)strikeFlash(CX,GY-90,140+k*60);
+    big(k>.4?'GOLDEN EGG — SCREEN CLEARED!':'GOLDEN EGG!',110,42);
+  }
+  // ---------- SCENE 5: 11.6–15s — bosses + title ----------
+  else{
+    const k=t-11.6,p=ease(prog(k,0,1.2));
+    chicken(0,.9);
+    const roll=-140+p*(W+280);
+    foe('👑',roll*.6,GY-6,.9);
+    foe('🍝',roll*.8-80,GY+8,.75);foe('🍝',roll*.8-160,GY+8,.75);
+    txt('🍝',roll*.5+60,GY-40,120);
+    big('BOSSES AT 5K · 10K · 15K',70,38);
+    big('KARATE CHICKEN',150,52,'#f5c93a');
+    txt('how long can you last?',CX,190,22,'#b8a58f');
+  }
+  // progress ticks
+  ctx.fillStyle='rgba(246,238,221,.25)';
+  for(let i=0;i<15;i++)ctx.fillRect(12+i*9,H-14,6,4);
+  ctx.fillStyle='#f5c93a';
+  for(let i=0;i<Math.floor(t);i++)ctx.fillRect(12+i*9,H-14,6,4);
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
