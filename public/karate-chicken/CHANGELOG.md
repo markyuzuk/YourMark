@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v89 — 2025-11-22
+- Nuclear cache-bust: game.js renamed to game-v89.js — every stale service-worker cache is bypassed by the new filename
+
 ## v88 — 2025-11-22
 - Stale-engine self-repair: if an old game.js is detected on load, the page purges caches, unregisters the service worker, and reloads once automatically
 
