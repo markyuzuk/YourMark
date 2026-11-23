@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v72 — 2025-11-22
+- Earn every badge → the ANYTIME GOLDEN EGG: one free egg per game, usable with empty Ki
+
 ## v71 — 2025-11-22
 - Golden Egg deals only half damage to the Mega Meatball — it survives and keeps rolling
 

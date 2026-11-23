@@ -101,7 +101,7 @@ const MOD=MODS[today.getDay()],KIK=MOD.ki||1;
 $('modLine').textContent='📅 '+MOD.n;
 function showAch(){
   let got;try{got=new Set(JSON.parse(store.get('kc_ach')||'[]'))}catch(e){got=new Set()}
-  $('achList').innerHTML=ACH.map(a=>`<li class="ach${got.has(a[0])?' got':''}"><span class="ic">${got.has(a[0])?a[4]:'🔒'}</span><b>${a[1]}</b><small>${a[3]}</small></li>`).join('');
+  $('achList').innerHTML=ACH.map(a=>`<li class="ach${got.has(a[0])?' got':''}"><span class="ic">${got.has(a[0])?a[4]:'🔒'}</span><b>${a[1]}</b><small>${a[3]}</small></li>`).join('')+(got.size>=ACH.length?`<li class="ach got"><span class="ic">🥚</span><b>ANYTIME GOLDEN EGG</b><small>All badges earned — one free egg per game, no Ki needed</small></li>`:'');
   show('achView');
 }
 function checkAch(sv){let got;try{got=JSON.parse(store.get('kc_ach')||'[]')}catch(e){got=[]}
@@ -212,7 +212,8 @@ function newGame(mode){
      enemies:[],parts:[],texts:[],spawnT:.8,pose:0,poseT:0,stagger:0,shake:0,hitstop:0,flash:0,
      perfects:0,goods:0,misses:0,segs:Array.from({length:10},()=>({p:0,g:0,d:0,w:0})),
      slow:0,rts:[],jackpots:0,eggUsed:false,deathCam:0,deathX:0,dur:mode==='daily'?DAILY_SECONDS:Infinity,
-     caesarNext:5000,mbNext:10000,megaNext:15000,pending:null,killer:null};
+     caesarNext:5000,mbNext:10000,megaNext:15000,pending:null,killer:null,
+     freeEgg:achCount()>=ACH.length?1:0}; // all badges → one anytime egg per game
   $('padKi').innerHTML='🥚<span>EGG</span>';
 }
 const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
@@ -271,13 +272,16 @@ function strike(side){
   G.shake=Math.max(G.shake,perfect?5:3);
 }
 function goldenEgg(){
-  if(state!=='play'||G.ki<100)return;
-  G.ki=0;G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
+  if(state!=='play')return;
+  const free=G.ki<100&&G.freeEgg>0;
+  if(G.ki<100&&!free)return;
+  if(free)G.freeEgg--;else G.ki=0;
+  G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
   const cleared=G.enemies.filter(e=>e.type!=='mega');
   for(const e of G.enemies)if(e.type==='mega'){e.hp=Math.ceil(e.hp/2);e.hurt=.3;addText(CX+e.side*e.d,GY-130,'STILL ROLLING!','#f2b632',24);}
   G.score+=cleared.length*75;G.enemies=G.enemies.filter(e=>e.type==='mega'); // mega tanks it — half damage
-  addText(CX,GY-HERO_H-30,'GOLDEN EGG!','#f2b632',34);
+  addText(CX,GY-HERO_H-30,free?'ANYTIME GOLDEN EGG!':'GOLDEN EGG!','#f2b632',34);
   sfx('egg',eggSound);
 }
 function hurt(e){
@@ -307,7 +311,9 @@ function update(dt){
   else if(G.t>15&&G.rand()<dt*.018){G.iphone={t:0,dir:G.rand()<.5?-1:1};beep(1568,.09,'triangle',.025);setTimeout(()=>beep(1975,.12,'triangle',.02),110);} // faint marimba ding
   G.enemies=G.enemies.filter(e=>!e.dead);
   tickFx(dt);
-  $('padKi').disabled=G.ki<100;
+  $('padKi').disabled=G.ki<100&&!G.freeEgg;
+  const kl=G.freeEgg&&G.ki<100?'\ud83e\udd5a<span>FREE</span>':'\ud83e\udd5a<span>EGG</span>';
+  if($('padKi')._kl!==kl){$('padKi').innerHTML=kl;$('padKi')._kl=kl;}
 }
 function tickFx(dt){
   for(const p of G.parts){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=(p.feather?120:600)*dt;if(p.feather)p.vx*=.97;}
