@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v88 — 2025-11-22
+- Stale-engine self-repair: if an old game.js is detected on load, the page purges caches, unregisters the service worker, and reloads once automatically
+
 ## v87 — 2025-11-22
 - God mode now verifies the game engine is current before opening boss-select — stale caches get a refresh prompt instead of a broken run
 - Old service-worker caches are purged on load
