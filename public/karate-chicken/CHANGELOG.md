@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v76 — 2025-11-22
+- After the Mega Meatball, regular enemies move ~18% slower (post-boss cooldown)
+
 ## v75 — 2025-11-22
 - Gate news list refreshed: anytime egg, Mega Meatball, meatball squad
 
