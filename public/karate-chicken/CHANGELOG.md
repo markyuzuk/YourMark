@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v77 — 2025-11-22
+- Password screen now summarizes all recent changes (6-item list)
+
 ## v76 — 2025-11-22
 - After the Mega Meatball, regular enemies move ~18% slower (post-boss cooldown)
 
