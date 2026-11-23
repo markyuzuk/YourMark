@@ -2,6 +2,11 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v80 — 2025-11-22
+- THE JOKER: new boss at 20,000 pts — 20 hearts, flips sides mid-approach, WHY SO SERIOUS?! voice
+- Karate Chicken dons the bat cowl while the Joker is on the field
+- Joker added to guide, record page, and gate news
+
 ## v79 — 2025-11-22
 - Explainer video now plays the recorded voiceover — tap to play, voice restarts each 15s loop
 
