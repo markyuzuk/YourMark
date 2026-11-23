@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v91 — 2025-11-22
+- Bat cowl polish: seasonal hat is hidden while the Joker is on the field, and the mask now sits lower so the eye slits cover the chicken's eyes
+
 ## v90 — 2025-11-22
 - ROOT-CAUSE FIX: game.js wraps everything in an IIFE — start/show/newGame were never global, so every gate call silently errored. They are now exported; renamed to game-v90.js so the fix can never be trapped by cache
 

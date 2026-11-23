@@ -388,19 +388,20 @@ function drawOne(P,x0){
     ctx.drawImage(selfieImg,-hr,hy-hr,hr*2,hr*2);ctx.restore();
     ctx.strokeStyle='#d6342b';ctx.lineWidth=4;ctx.beginPath();ctx.arc(0,hy,hr,0,Math.PI*2);ctx.stroke();
     ctx.beginPath();ctx.moveTo(-hr*.95,hy-hr*.15);ctx.lineTo(-hr-16,hy-hr*.4);ctx.moveTo(-hr*.95,hy-hr*.15);ctx.lineTo(-hr-20,hy-hr*.05);ctx.stroke();}
-  const hat=hatType();
+  const bat=G&&G.enemies&&G.enemies.some(en=>en.type==='joker');
+  const hat=bat?null:hatType(); // Gotham's cowl replaces the seasonal hat
   if(hat==='santa'){ctx.fillStyle='#d6342b';ctx.beginPath();ctx.moveTo(-HW*.24,-HH*.9);ctx.quadraticCurveTo(0,-HH*1.32,HW*.26,-HH*.86);ctx.quadraticCurveTo(0,-HH*1,-HW*.24,-HH*.9);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(0,-HH*.9,HW*.25,HH*.05,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(HW*.24,-HH*.86,HW*.05,0,Math.PI*2);ctx.fill();}
   else if(hat==='pilgrim'){ctx.fillStyle='#1a1a1a';ctx.fillRect(-HW*.21,-HH*1.26,HW*.42,HH*.32);ctx.fillStyle='#f2b632';ctx.fillRect(-HW*.08,-HH*1.12,HW*.16,HH*.12);ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.ellipse(0,-HH*.93,HW*.35,HH*.07,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#6b4224';ctx.lineWidth=1.5;ctx.stroke();}
-  if(G&&G.enemies&&G.enemies.some(en=>en.type==='joker')){
-    // Gotham needs a hero — bat cowl while the Joker's on the field
+  if(bat){
+    // Gotham needs a hero — bat cowl sits over the eyes while the Joker's on the field
     ctx.fillStyle='#23272e';
-    ctx.beginPath();ctx.moveTo(-HW*.3,-HH*.68);ctx.quadraticCurveTo(0,-HH*.58,HW*.3,-HH*.68);
-    ctx.quadraticCurveTo(HW*.36,-HH*.95,0,-HH*.96);ctx.quadraticCurveTo(-HW*.36,-HH*.95,-HW*.3,-HH*.68);ctx.closePath();ctx.fill();
-    ctx.beginPath();ctx.moveTo(-HW*.26,-HH*.88);ctx.lineTo(-HW*.3,-HH*1.2);ctx.lineTo(-HW*.1,-HH*.94);ctx.closePath();ctx.fill();
-    ctx.beginPath();ctx.moveTo(HW*.26,-HH*.88);ctx.lineTo(HW*.3,-HH*1.2);ctx.lineTo(HW*.1,-HH*.94);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(-HW*.3,-HH*.58);ctx.quadraticCurveTo(0,-HH*.48,HW*.3,-HH*.58);
+    ctx.quadraticCurveTo(HW*.36,-HH*.85,0,-HH*.86);ctx.quadraticCurveTo(-HW*.36,-HH*.85,-HW*.3,-HH*.58);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(-HW*.26,-HH*.78);ctx.lineTo(-HW*.3,-HH*1.12);ctx.lineTo(-HW*.1,-HH*.84);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(HW*.26,-HH*.78);ctx.lineTo(HW*.3,-HH*1.12);ctx.lineTo(HW*.1,-HH*.84);ctx.closePath();ctx.fill();
     ctx.fillStyle='#fff';
-    ctx.beginPath();ctx.moveTo(-HW*.2,-HH*.78);ctx.lineTo(-HW*.04,-HH*.8);ctx.lineTo(-HW*.06,-HH*.72);ctx.lineTo(-HW*.18,-HH*.72);ctx.closePath();ctx.fill();
-    ctx.beginPath();ctx.moveTo(HW*.2,-HH*.78);ctx.lineTo(HW*.04,-HH*.8);ctx.lineTo(HW*.06,-HH*.72);ctx.lineTo(HW*.18,-HH*.72);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(-HW*.2,-HH*.68);ctx.lineTo(-HW*.04,-HH*.7);ctx.lineTo(-HW*.06,-HH*.62);ctx.lineTo(-HW*.18,-HH*.62);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(HW*.2,-HH*.68);ctx.lineTo(HW*.04,-HH*.7);ctx.lineTo(HW*.06,-HH*.62);ctx.lineTo(HW*.18,-HH*.62);ctx.closePath();ctx.fill();
   }
   ctx.restore();
   if(pose){ctx.font='bold 20px Bungee, Impact, sans-serif';ctx.textAlign='center';ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.fillStyle='#2a1d14';
