@@ -216,25 +216,26 @@ const seg=()=>G.segs[Math.min(9,Math.floor(G.t/6))];
 
 function spawn(){
   const r=G.rand;
-  if(G.pending||G.enemies.some(e=>e.type==='caesar'||e.type==='meatball')){G.spawnT=.5;return;} // Caesar demands a solo duel
+  if(G.pending||G.enemies.some(e=>e.type==='caesar'||e.type==='meatball')){G.spawnT=.5;return;} // bosses get the field to themselves
   let side=r()<.5?-1:1;
   if(G.enemies.find(e=>e.side===side&&e.d>SPAWN_D-90))side=-side;
-  let type='fox';const roll=r();
+  let type='fox',wave=false;const roll=r();
   if(!MOD.fox){
     if(G.score>=G.caesarNext){type='caesar';G.caesarNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a91f2c',12);G.enemies.length=0;} // 5k: field clears — Caesar, exactly once
-    else if(G.score>=G.mbNext){type='meatball';G.mbNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a0532a',12);G.enemies.length=0;} // 10k: one giant meatball boss, exactly once
+    else if(G.score>=G.mbNext){type='meatball';wave=true;G.mbNext=1/0;for(const e of G.enemies)burst(CX+e.side*e.d,GY-50,'#a0532a',12);G.enemies.length=0;} // 10k: four-meatball squad, exactly once
     else if(G.t>12&&roll<.03)type=r()<.5?'cav':'phrag';
     else if(G.t>10&&roll<(MOD.gold||.05))type='golden';
     else if(G.t>25&&roll<(MOD.wea||.17))type='weasel';
     else if(G.t>14&&roll<(MOD.bad||.38))type='badger';
   }
-  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='meatball'?.42:type==='caesar'?.58:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
+  const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='meatball'?.42:type==='caesar'?1.15:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1);
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
   else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
-  else if(type==='meatball'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEATBALL!','#08532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
+  else if(type==='meatball'){addText(CX,GY-HERO_H-40,wave?'HERE COME THE MEATBALLS!':'HERE COMES THE MEATBALL!','#08532a',30);beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
   else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',48,2);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
   const hp=type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1;
   if(type==='caesar'){G.pending={side,speed:base,type,hp,t:2};} // entrance audio + 2s hold, then he walks in
+  else if(wave){for(let i=0;i<4;i++)G.enemies.push({side:i<2?-1:1,d:SPAWN_D+(i%2)*170,speed:base*(1+r()*.12),type,hp,flipAt:0,flipped:false,jump:0,wob:r()*6,hurt:0,zoneT:0});} // 2 per side, staggered
   else G.enemies.push({side,d:SPAWN_D,speed:base,type,hp,
     flipAt:type==='weasel'?190+r()*80:0,flipped:false,jump:0,wob:r()*6,hurt:0,
     zoneT:0});
