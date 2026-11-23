@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v71 — 2025-11-22
+- Golden Egg deals only half damage to the Mega Meatball — it survives and keeps rolling
+
 ## v70 — 2025-11-22
 - Real recorded voices for the meatball squad and Mega Meatball replace the synth placeholders
 

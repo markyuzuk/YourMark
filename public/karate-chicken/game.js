@@ -274,7 +274,9 @@ function goldenEgg(){
   if(state!=='play'||G.ki<100)return;
   G.ki=0;G.eggUsed=true;G.flash=.5;G.shake=12;buzz([30,40,60]);
   for(const e of G.enemies)burst(CX+(e.jump>0?0:e.side*e.d),GY-50,'#f2b632',12);
-  G.score+=G.enemies.length*75;G.enemies=[];
+  const cleared=G.enemies.filter(e=>e.type!=='mega');
+  for(const e of G.enemies)if(e.type==='mega'){e.hp=Math.ceil(e.hp/2);e.hurt=.3;addText(CX+e.side*e.d,GY-130,'STILL ROLLING!','#f2b632',24);}
+  G.score+=cleared.length*75;G.enemies=G.enemies.filter(e=>e.type==='mega'); // mega tanks it — half damage
   addText(CX,GY-HERO_H-30,'GOLDEN EGG!','#f2b632',34);
   sfx('egg',eggSound);
 }
