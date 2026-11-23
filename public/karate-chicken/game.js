@@ -64,6 +64,12 @@ function bumpStreak(mode){
   return st.n;
 }
 function curStreak(){try{const st=JSON.parse(store.get('kc_streak')||'null');return st&&st.d===today.toISOString().slice(0,10)?st.n:0}catch(e){return 0}}
+function bumpPlays(){let m;try{m=JSON.parse(store.get('kc_plays')||'{}')}catch(e){m={}}
+  const d=today.toISOString().slice(0,10);m[d]=(m[d]||0)+1;
+  const cut=new Date(today.getTime()-7*864e5).toISOString().slice(0,10),out={};
+  for(const k of Object.keys(m))if(k>=cut)out[k]=m[k];
+  store.set('kc_plays',JSON.stringify(out));}
+function playsOn(i){try{const m=JSON.parse(store.get('kc_plays')||'{}');return m[new Date(today.getTime()-i*864e5).toISOString().slice(0,10)]||0}catch(e){return 0}}
 async function champLine(){try{const j=await(await fetch('/karate-chicken/api/scores')).json();const c=j.champ;$('champLine').textContent=(c?`👑 Dojo Champ: ${c.n} — ${(+c.s).toLocaleString()} pts this week`:'')+(j.played?` · ${j.played} visits today`:'');}catch(e){}}
 champLine();
 // ---------- mute ----------
@@ -87,7 +93,7 @@ const ACH=[
   ['c20','Chain Master',G=>G.maxCombo>=20,'reach a 20-hit combo','⛓️'],
   ['egg','Egg-splosion',G=>G.eggUsed,'unleash the Golden Egg','🥚'],
   ['jack','Jackpot!',G=>G.jackpots>0,'defeat a golden fox','🦊'],
-  ['streak','Dedicated',()=>curStreak()>=5,'play 5 days in a row','🔥']];
+  ['streak','Dedicated',()=>[0,1,2].every(i=>playsOn(i)>=5),'play 5× a day, 3 days in a row','🔥']];
 // ---------- day-of-week modifiers ----------
 const MODS=[
   {n:'Lazy Sunday',sp:.92},
@@ -700,7 +706,7 @@ function endGame(survived){
   const KO={caesar:'VENI. VIDI. VICI.',mega:'MEGA MEATBALLED!',meatball:'MEATBALLED!',cav:'LUCY GOT YOU!',phrag:'TANGLED IN THE PHRAGMITES!',weasel:'OUT-WEASELED!',badger:'BADGERED TO DEATH!',golden:'GREED KILLS!',fox:'FEATHERS RUFFLED!'};
   $('overTitle').textContent=survived?'Kata Complete!':(KO[G.killer]||'Feathers Ruffled!');
   const tot=G.perfects+G.goods+G.misses,acc=tot?Math.round(100*G.perfects/tot):0;
-  const stN=bumpStreak(G.mode),beatVs=vs&&G.score>vs.score;
+  bumpPlays();const stN=bumpStreak(G.mode),beatVs=vs&&G.score>vs.score;
   const ach=checkAch(survived),rt=G.rts.length?(G.rts.reduce((a,x)=>a+x)/G.rts.length).toFixed(2):0;
   $('overStats').innerHTML=`<b>${G.score.toLocaleString()}</b> pts · <b>${b.n} Belt</b><br>Perfect rate ${acc}% · best combo ${G.maxCombo}${rt?` · ⚡ ${rt}s reflexes`:''}${G.score>best?' · <b>new best!</b>':''}${stN>1?` · 🔥 ${stN}-day streak`:''}${vs?`<br>${beatVs?'🎉 You beat '+vs.name+'!':vs.name+' keeps the crown… this time'}`:''}${ach.fresh.length?`<br>🏅 ${ach.fresh.map(a=>a[1]).join(' · ')}`:''}`;
   if(!survived)sfx('gameover',()=>{});

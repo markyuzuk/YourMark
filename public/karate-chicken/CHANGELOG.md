@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v73 — 2025-11-22
+- Dedicated badge changed: was "5 days in a row" → now "play 5× a day, 3 days in a row" (daily play counts tracked)
+
 ## v72 — 2025-11-22
 - Earn every badge → the ANYTIME GOLDEN EGG: one free egg per game, usable with empty Ki
 
