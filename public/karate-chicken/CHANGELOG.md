@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v86 — 2025-11-22
+- Fix boss-select buttons: a stale cached game.js could leave the pick screen covering the game — buttons now close it directly
+
 ## v85 — 2025-11-22
 - Fix taco flow: boss-select now toggles overlays directly at the gate (menu is default-visible, so a stale game.js could strand you on it)
 

@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=85">
+<link rel="stylesheet" href="style.css?v=86">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
@@ -61,7 +61,7 @@
         <li><b>🥚</b><span>Earn every badge → ANYTIME GOLDEN EGG, no Ki needed</span></li>
         <li><b>🔥</b><span>Dedicated badge: play 5× a day, 3 days in a row</span></li>
       </ul>
-      <div style="text-align:center;font-size:10px;color:#a08a6e;margin-top:8px">v85</div>
+      <div style="text-align:center;font-size:10px;color:#a08a6e;margin-top:8px">v86</div>
     </div>
   </div>
 </div>
@@ -115,9 +115,9 @@
       <div class="card">
         <h2>GOD MODE</h2>
         <p>Pick your boss &#8212; fight it on repeat.</p>
-        <div class="btns"><button onclick="start('god','caesar')">&#x1F451; JULIUS CAESAR</button><button class="alt" onclick="start('god','meatball')">&#x1F35D; MEATBALL SQUAD</button></div>
-        <div class="btns"><button onclick="start('god','mega')">&#x1F35D;&#x26A1; MEGA MEATBALL</button><button class="alt" onclick="start('god','joker')">&#x1F0CF; THE JOKER</button></div>
-        <div class="btns"><button class="alt" onclick="show('menu')">&#8592; Back</button></div>
+        <div class="btns"><button onclick="document.getElementById('godSel').classList.add('hidden');start('god','caesar')">&#x1F451; JULIUS CAESAR</button><button class="alt" onclick="document.getElementById('godSel').classList.add('hidden');start('god','meatball')">&#x1F35D; MEATBALL SQUAD</button></div>
+        <div class="btns"><button onclick="document.getElementById('godSel').classList.add('hidden');start('god','mega')">&#x1F35D;&#x26A1; MEGA MEATBALL</button><button class="alt" onclick="document.getElementById('godSel').classList.add('hidden');start('god','joker')">&#x1F0CF; THE JOKER</button></div>
+        <div class="btns"><button class="alt" onclick="document.getElementById('godSel').classList.add('hidden');document.getElementById('menu').classList.remove('hidden')">&#8592; Back</button></div>
       </div>
     </div>
     <div class="overlay hidden" id="over">
@@ -221,6 +221,6 @@ function sayGate(){
 if(sessionStorage.getItem('kc_auth')!=='1'){var g=document.getElementById('gate');g.style.display='flex';sayGate();g.addEventListener('pointerdown',sayGate)}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game.js?v=85"></script>
+<script src="game.js?v=86"></script>
 </body>
 </html>
