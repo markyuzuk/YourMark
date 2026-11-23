@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v82 — 2025-11-22
+- Fix god mode: the load-time check ran before the password existed — now starts straight from the gate
+
 ## v81 — 2025-11-22
 - GOD MODE: secret gate button + second password drops you straight into a boss gauntlet — Caesar, meatball squad, Mega, Joker, on repeat
 

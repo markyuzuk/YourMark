@@ -855,7 +855,6 @@ $('btnInstall').onclick=()=>{if(deferredInstall){deferredInstall.prompt();deferr
 $('btnCard').onclick=shareCard;
 $('storyBtn').onclick=()=>{location.href='characters.html';};
 $('btnExplain').onclick=()=>{location.href='explainer.html';};
-if(sessionStorage.getItem('kc_god')){sessionStorage.removeItem('kc_god');start('god');}
 $('btnSelfie').onclick=openCam;
 $('btnSnap').onclick=snap;
 $('btnCamCancel').onclick=closeCam;
