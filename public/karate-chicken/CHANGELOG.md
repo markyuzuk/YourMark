@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v95 — 2025-11-26
+- Gate now greets players with a Happy Thanksgiving message instead of the release news
+
 ## v94 — 2025-11-26
 - THANKSGIVING TAKEOVER: every regular enemy reskinned for the holiday — Turkey (fox), Pilgrim Hunter (badger), bouncing Football (weasel — he still flips sides), Golden Turkey jackpot, Lucy in a pilgrim hat, and the Corn Stalks
 - New KO lines: FUMBLED! / DINNER IS SERVED! / HUSKED BY THE CORN!
