@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v96 — 2025-11-26
+- The gate chicken wears a pilgrim hat for Thanksgiving
+
 ## v95 — 2025-11-26
 - Gate now greets players with a Happy Thanksgiving message instead of the release news
 

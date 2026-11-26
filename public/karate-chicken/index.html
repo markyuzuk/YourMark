@@ -21,12 +21,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=95">
+<link rel="stylesheet" href="style.css?v=96">
 <style>
   /* password gate */
   #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
   .gate-box{background:#2a1f18;border:2px solid #4a3626;border-radius:18px;padding:36px 34px;width:340px;max-width:88vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
   .gate-box img{width:110px;margin-bottom:10px}
+  .gate-chicken{position:relative;display:inline-block}
+  .p-hat{position:absolute;top:-9px;left:50%;transform:translateX(-52%) rotate(-9deg);pointer-events:none}
+  .p-crown{width:32px;height:22px;background:#1a1a1a;border:2px solid #2a1d14;border-bottom:none;border-radius:3px 3px 0 0;margin:0 auto}
+  .p-buckle{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:9px;height:7px;background:#f5c93a;border:1.5px solid #2a1d14}
+  .p-brim{width:52px;height:8px;background:#1a1a1a;border:2px solid #2a1d14;border-radius:5px;margin:0 auto}
   .gate-box h2{font-family:Bungee,cursive;font-size:22px;color:#f5c93a;margin:0 0 4px;letter-spacing:.5px}
   .gate-box p{font-size:12.5px;color:#b8a58f;margin:0 0 18px}
   .gate-box input{width:100%;padding:12px 14px;border:2px solid #4a3626;border-radius:10px;background:#1c1410;color:#f5c93a;font-size:15px;text-align:center;margin-bottom:12px;outline:none}
@@ -45,7 +50,10 @@
 <body>
 <div id="gate">
   <div class="gate-box">
-    <img src="assets/karate-chicken.png" alt="Karate Chicken">
+    <div class="gate-chicken">
+      <img src="assets/karate-chicken.png" alt="Karate Chicken">
+      <div class="p-hat"><div class="p-crown"></div><div class="p-buckle"></div><div class="p-brim"></div></div>
+    </div>
     <h2>KARATE CHICKEN</h2>
     <p>Members only &middot; Enter the dojo password</p>
     <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
@@ -59,7 +67,7 @@
         <li><b>🏈</b><span>Watch for the football — it bounces. Corn stalks loom. Lucy dressed up</span></li>
         <li><b>�</b><span>Grateful for you, our favorite chicken. Now go earn that feast</span></li>
       </ul>
-      <div style="text-align:center;font-size:10px;color:#a08a6e;margin-top:8px">v95</div>
+      <div style="text-align:center;font-size:10px;color:#a08a6e;margin-top:8px">v96</div>
     </div>
   </div>
 </div>
