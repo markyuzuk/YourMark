@@ -252,7 +252,7 @@ function spawn(){
   else if(type==='mega'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEGA MEATBALL!','#7a3a12',34);megaVoice();beep(65,.5,'sawtooth',.07);}
   else if(type==='joker'){addText(CX,GY-HERO_H-40,'WHY SO SERIOUS?!','#6b3fa0',36);jokerVoice();beep(196,.12,'square',.05);setTimeout(()=>beep(165,.16,'square',.05),130);setTimeout(()=>beep(131,.22,'square',.06),280);} // cackle cadence
   else if(type==='caesar'){addText(CX,GY-HERO_H-40,'HERE COMES CAESAR!','#a91f2c',48,2);sfx('caesar',()=>{beep(392,.16,'sawtooth',.06);setTimeout(()=>beep(523,.16,'sawtooth',.06),150);setTimeout(()=>beep(659,.28,'sawtooth',.07),300);});}
-  const hp=type==='joker'?20:type==='mega'?15:type==='meatball'?8:type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1;
+  const hp=type==='joker'?20:type==='mega'?15:type==='meatball'?(wave?2:8):type==='caesar'?7:type==='phrag'?6:type==='cav'?5:type==='badger'?2:1; // squad members share the load — 8hp was tuned for a single meatball
   if(type==='caesar'){G.pending={side,speed:base,type,hp,t:2};} // entrance audio + 2s hold, then he walks in
   else if(wave){for(let i=0;i<4;i++)G.enemies.push({side:i<2?-1:1,d:SPAWN_D+(i%2)*170,speed:base*(1+r()*.12),type,hp,flipAt:0,flipped:false,jump:0,wob:r()*6,hurt:0,zoneT:0});} // 2 per side, staggered
   else G.enemies.push({side,d:SPAWN_D,speed:base,type,hp,

@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v93 — 2025-11-26
+- Fixed mass deaths at 10k: squad meatballs were carrying the 8hp tuned for the original SINGLE meatball boss — 32 hearts total, mathematically unsurvivable. Squad members now have 2 hearts each (8 total, same as intended)
+
 ## v92 — 2025-11-22
 - Fixed the one-enemy bug: the Monday "Fox Frenzy" modifier had a fox-only flag that suppressed every other enemy type. Full roster back every day — foxes, badgers, weasels, golden foxes, Lucy + phragmites — with bosses at 5k / 10k / 15k / 20k as before
 
