@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v97 — 2025-11-26
+- Gate chicken's pilgrim hat doubled in size; password screen background now light orange
+- Fixed two corrupted emoji in the Thanksgiving gate message
+
 ## v96 — 2025-11-26
 - The gate chicken wears a pilgrim hat for Thanksgiving
 
