@@ -776,7 +776,7 @@ async function showBoard(arch){
   $('btnArchive').textContent=boardArch?'🏆 LIVE BOARD':'🏛️ LEGENDS';
   show('board');msg.textContent='loading…';list.innerHTML='';
   let top=null;
-  if(boardArch){try{const r=await fetch('board-archive-1.json');top=(await r.json()).top||[]}catch(e){top=null}}
+  if(boardArch){try{const r=await fetch('board-archive-1.json?v=100');const rows=(await r.json()).top||[];const best={};for(const x of rows){const k=' '.join((x.n||'').split()).toLowerCase();if(!best[k]||x.s>best[k].s)best[k]=x;}top=Object.values(best).sort((a,b)=>b.s-a.s);}catch(e){top=null}}
   else top=await boardData();
   if(!top){msg.textContent='the dojo is offline — try again later';return;}
   if(!top.length){msg.textContent=boardArch?'no legends recorded':'no scores yet — be the first!';return;}

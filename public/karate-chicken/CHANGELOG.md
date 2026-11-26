@@ -2,6 +2,10 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v100 — 2025-11-26
+- Leaderboard reset for a fresh start — all existing scores moved to the Hall of Legends
+- Legends now list each player exactly once, with their personal best (deduped in the data AND in the game)
+
 ## v99 — 2025-11-26
 - Password screen is now fully light orange behind the chicken — card, backdrop, and contrast-adjusted brown text
 
