@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v99 — 2025-11-26
+- Password screen is now fully light orange behind the chicken — card, backdrop, and contrast-adjusted brown text
+
 ## v98 — 2025-11-26
 - Gate background reverted to dark; the dojo wall — the game's main backdrop — is now light orange for the holiday
 
