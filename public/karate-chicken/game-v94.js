@@ -247,7 +247,7 @@ function spawn(){
   }
   const base=Math.min(560,235+G.t*3.6)*(type==='badger'?.85:type==='weasel'?1.05:type==='joker'?.7:type==='mega'?.65:type==='meatball'?.6:type==='caesar'?1.15:type==='cav'?.72:type==='phrag'?.5:1)*(.92+r()*.16)*(MOD.sp||1)*(G.megaNext===Infinity?.82:1); // post-mega cooldown
   if(type==='cav'){addText(CX,GY-HERO_H-40,'HERE COMES LUCY!','#8a4a20',48);sfx('lucy',()=>{beep(880,.07,'square',.05);setTimeout(()=>beep(1046,.08,'square',.05),110);});}
-  else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COMES THE PHRAGMITES!','#3f7a2b',24);
+  else if(type==='phrag')addText(CX,GY-HERO_H-40,'HERE COME THE CORN STALKS!','#3f7a2b',24);
   else if(type==='meatball'){addText(CX,GY-HERO_H-40,wave?'HERE COME THE MEATBALLS!':'HERE COMES THE MEATBALL!','#08532a',30);meatballsVoice();beep(110,.3,'sawtooth',.06);setTimeout(()=>beep(82,.35,'sawtooth',.05),150);}
   else if(type==='mega'){addText(CX,GY-HERO_H-40,'HERE COMES THE MEGA MEATBALL!','#7a3a12',34);megaVoice();beep(65,.5,'sawtooth',.07);}
   else if(type==='joker'){addText(CX,GY-HERO_H-40,'WHY SO SERIOUS?!','#6b3fa0',36);jokerVoice();beep(196,.12,'square',.05);setTimeout(()=>beep(165,.16,'square',.05),130);setTimeout(()=>beep(131,.22,'square',.06),280);} // cackle cadence
@@ -472,6 +472,10 @@ function drawEnemy(e){
     // big round eyes set closer together, gentle look
     ctx.fillStyle='#241309';ctx.beginPath();ctx.arc(-38,-46,5,0,Math.PI*2);ctx.arc(-27,-46,4.6,0,Math.PI*2);ctx.fill();
     ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-39,-48,1.7,0,Math.PI*2);ctx.arc(-28,-48,1.5,0,Math.PI*2);ctx.fill();
+    // pilgrim hat — Lucy's here for the feast
+    ctx.fillStyle='#1a1a1a';ctx.fillRect(-44,-82,20,13);ctx.strokeRect(-44,-82,20,13);
+    ctx.fillStyle='#f2b632';ctx.fillRect(-38,-76,8,5);
+    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.ellipse(-34,-69,15,3.2,0,0,Math.PI*2);ctx.fill();ctx.stroke();
     ctx.restore();
     ctx.fillStyle='#f2b632';ctx.font='bold 16px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-78);
     return;
@@ -483,10 +487,16 @@ function drawEnemy(e){
       ctx.strokeStyle=i%2?'#4e7a2f':'#3d6325';ctx.lineWidth=4.5;
       ctx.beginPath();ctx.moveTo(i*9,20);ctx.quadraticCurveTo(i*9+lean*.4,20-h*.55,i*9+lean,20-h);ctx.stroke();
       const px=i*9+lean,py=20-h;
-      ctx.strokeStyle='#a8915f';ctx.lineWidth=3;
+      // golden corn tassel on top
+      ctx.strokeStyle='#d9b84a';ctx.lineWidth=2.5;
       for(let f=-1;f<=1;f++){ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px+f*7-lean*.3,py-13-Math.abs(f)*3);ctx.stroke();}
-      ctx.strokeStyle='#c9b083';ctx.lineWidth=2;
-      for(let f=-1;f<=1;f++){ctx.beginPath();ctx.moveTo(px,py+2);ctx.lineTo(px+f*9-lean*.3,py-15-Math.abs(f)*3);ctx.stroke();}
+      // corn ear in its husk, mid-stalk
+      const ex2=i*9+lean*.45+5,ey2=20-h*.45;
+      ctx.fillStyle='#f2c632';ctx.beginPath();ctx.ellipse(ex2,ey2,5,11,-.4,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle='#b8922a';ctx.lineWidth=1.2;
+      for(let k2=-1;k2<=1;k2++){ctx.beginPath();ctx.moveTo(ex2-4,ey2+k2*6);ctx.quadraticCurveTo(ex2,ey2+k2*6+2,ex2+4,ey2+k2*6);ctx.stroke();}
+      ctx.strokeStyle='#3d6325';ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.moveTo(ex2-6,ey2+8);ctx.quadraticCurveTo(ex2-2,ey2-8,ex2+2,ey2-11);ctx.stroke();
     }
     ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-7,-38,5,0,Math.PI*2);ctx.arc(7,-38,5,0,Math.PI*2);ctx.fill();
     ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(-6,-38,2.4,0,Math.PI*2);ctx.arc(8,-38,2.4,0,Math.PI*2);ctx.fill();
@@ -606,34 +616,67 @@ function drawEnemy(e){
     return;
   }
   ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
-  let body,belly,s=1;
-  if(e.type==='fox'){body='#e57a2a';belly='#fff4e6';}
-  else if(e.type==='golden'){body='#f2b632';belly='#fff8d6';}
-  else if(e.type==='badger'){body='#6d6d72';belly='#eee';s=1.25;}
-  else{body='#8a5a8f';belly='#f0dff2';s=.9;}
-  ctx.scale(s,s);
-  ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(-22,0);ctx.quadraticCurveTo(-56,-10,-50,-30);ctx.quadraticCurveTo(-36,-10,-18,-8);ctx.fill();ctx.stroke();
-  if(e.type==='fox'||e.type==='golden'){ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-50,-28,6,0,Math.PI*2);ctx.fill();}
-  ctx.lineWidth=5;const l=Math.sin(e.wob)*6;
-  ctx.beginPath();ctx.moveTo(-10,10);ctx.lineTo(-10-l,26);ctx.moveTo(12,10);ctx.lineTo(12+l,26);ctx.stroke();
-  ctx.lineWidth=2.5;
-  ctx.fillStyle=body;ctx.beginPath();ctx.ellipse(0,0,28,18,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-  ctx.fillStyle=belly;ctx.beginPath();ctx.ellipse(6,6,14,9,0,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(18,-20);ctx.lineTo(24,-42);ctx.lineTo(32,-24);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.beginPath();ctx.moveTo(32,-22);ctx.lineTo(42,-40);ctx.lineTo(44,-20);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.beginPath();ctx.ellipse(32,-12,16,14,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-  ctx.beginPath();ctx.moveTo(42,-16);ctx.lineTo(58,-8);ctx.lineTo(42,-2);ctx.closePath();ctx.fill();ctx.stroke();
-  if(e.type==='badger'){ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(36,-18,12,3,-.2,0,Math.PI*2);ctx.fill();}
-  ctx.fillStyle='#2a1d14';ctx.beginPath();ctx.arc(57,-8,3,0,Math.PI*2);ctx.fill();
-  ctx.beginPath();ctx.arc(38,-14,2.6,0,Math.PI*2);ctx.fill();
-  ctx.beginPath();ctx.moveTo(32,-22);ctx.lineTo(44,-18);ctx.stroke();
-  if(e.type==='badger'&&e.hp>1){ctx.fillStyle='#b88a3a';rr(-18,-24,30,10,3);ctx.fill();ctx.stroke();}
-  ctx.restore();
+  if(e.type==='weasel'){
+    // Thanksgiving football — spirals in, then bounces to the other side mid-approach
+    ctx.rotate(e.d*.03);
+    ctx.fillStyle='#8a5530';ctx.beginPath();ctx.ellipse(0,-4,27,16,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.strokeStyle='#fff';ctx.lineWidth=3;
+    ctx.beginPath();ctx.moveTo(-17,-12);ctx.quadraticCurveTo(-20,-4,-17,4);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(17,-12);ctx.quadraticCurveTo(20,-4,17,4);ctx.stroke();
+    ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(-7,-4);ctx.lineTo(7,-4);ctx.stroke();
+    for(let i=-1;i<=1;i++){ctx.beginPath();ctx.moveTo(i*4,-7);ctx.lineTo(i*4,-1);ctx.stroke();}
+    ctx.restore();
+  }
+  else if(e.type==='badger'){
+    // pilgrim hunter — he wants the chicken FOR DINNER
+    ctx.scale(1.25,1.25);
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=4.5;const l=Math.sin(e.wob)*5;
+    ctx.beginPath();ctx.moveTo(-8,4);ctx.lineTo(-8-l,24);ctx.moveTo(8,4);ctx.lineTo(8+l,24);ctx.stroke();
+    ctx.lineWidth=2.5;
+    ctx.fillStyle='#4a3524';ctx.beginPath();ctx.moveTo(-13,-28);ctx.lineTo(13,-28);ctx.lineTo(11,6);ctx.lineTo(-11,6);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.fillStyle='#1a1a1a';ctx.fillRect(-12,-10,24,6);
+    ctx.fillStyle='#f2b632';ctx.fillRect(-4,-11,8,8);ctx.strokeRect(-4,-11,8,8);
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.moveTo(-9,-28);ctx.lineTo(0,-19);ctx.lineTo(9,-28);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.fillStyle='#eab98f';ctx.beginPath();ctx.arc(0,-38,11,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(3,-40,1.8,0,Math.PI*2);ctx.arc(-4,-40,1.8,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1.8;
+    ctx.beginPath();ctx.moveTo(-7,-45);ctx.lineTo(-1,-43);ctx.moveTo(7,-45);ctx.lineTo(1,-43);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-3,-32);ctx.quadraticCurveTo(0,-35,3,-32);ctx.stroke();
+    ctx.fillStyle='#1a1a1a';ctx.fillRect(-9,-64,18,16);ctx.strokeRect(-9,-64,18,16);
+    ctx.fillStyle='#f2b632';ctx.fillRect(-3,-56,6,5);
+    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.ellipse(0,-48,17,3.6,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle='#2a1d14';ctx.font='bold 12px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-88);
+  }
+  else{
+    // turkey — the fox is a brown turkey, the golden fox is the GOLDEN TURKEY jackpot
+    const gold=e.type==='golden';
+    const tBody=gold?'#f2b632':'#7a4a26',tTail=gold?'#ffd764':'#8a5a33',tTrim=gold?'#d9a91f':'#5d3418';
+    ctx.fillStyle=tTail;ctx.beginPath();ctx.moveTo(-14,2);ctx.arc(-14,2,34,Math.PI*.78,Math.PI*1.95);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.strokeStyle=tTrim;ctx.lineWidth=2;
+    for(let i=0;i<5;i++){const a=Math.PI*(.85+i*.26);ctx.beginPath();ctx.moveTo(-14,2);ctx.lineTo(-14+Math.cos(a)*32,2+Math.sin(a)*32);ctx.stroke();}
+    ctx.fillStyle=tTrim;ctx.beginPath();ctx.arc(-14,2,34,Math.PI*.78,Math.PI*1.95);ctx.arc(-14,2,27,Math.PI*1.95,Math.PI*.78,true);ctx.closePath();ctx.fill();
+    ctx.strokeStyle='#e8862a';ctx.lineWidth=3;const l=Math.sin(e.wob)*5;
+    ctx.beginPath();ctx.moveTo(-4,14);ctx.lineTo(-4-l,26);ctx.moveTo(8,14);ctx.lineTo(8+l,26);ctx.stroke();
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.fillStyle=tBody;ctx.beginPath();ctx.ellipse(0,0,24,19,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle=tTrim;ctx.beginPath();ctx.ellipse(-4,2,13,10,-.3,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle=tBody;ctx.lineWidth=7;
+    ctx.beginPath();ctx.moveTo(16,-8);ctx.quadraticCurveTo(24,-18,28,-24);ctx.stroke();
+    ctx.strokeStyle='#2a1d14';ctx.lineWidth=2.5;
+    ctx.fillStyle=tBody;ctx.beginPath();ctx.arc(29,-27,8,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#e8862a';ctx.beginPath();ctx.moveTo(35,-29);ctx.lineTo(44,-26);ctx.lineTo(35,-23);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.fillStyle='#c9293c';ctx.beginPath();ctx.ellipse(35,-20,3,6,.3,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(30,-29,1.9,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(26,-33);ctx.lineTo(32,-31);ctx.stroke();
+    if(gold){ctx.fillStyle='rgba(255,255,255,.5)';ctx.beginPath();ctx.arc(-8,-6,4,0,Math.PI*2);ctx.fill();}
+    ctx.restore();
+  }
   if(e.type==='weasel'&&!e.flipped&&e.d<e.flipAt+110&&e.jump<=0){
     ctx.fillStyle='#d6342b';ctx.font='bold 32px Bungee, Impact, sans-serif';ctx.textAlign='center';
     ctx.fillText('!',x,y-50+Math.sin(performance.now()/60)*3);
   }
-  if(e.type==='badger'){ctx.fillStyle='#2a1d14';ctx.font='bold 12px Inter, sans-serif';ctx.textAlign='center';ctx.fillText('♥'.repeat(e.hp),x,y-58);}
 }
 function drawIphone(){
   const p=G.iphone,x=p.dir>0?-40+p.t*(W+80)/7:W+40-p.t*(W+80)/7,y=GY-22;
@@ -766,7 +809,7 @@ function endGame(survived){
   if(state!=='play')return;state='over';setPlaying(false);
   const b=beltFor(G.score),best=+(store.get('kc_best')||0);
   if(G.score>best)store.set('kc_best',G.score);
-  const KO={joker:'THE JOKE\'S ON YOU!',caesar:'VENI. VIDI. VICI.',mega:'MEGA MEATBALLED!',meatball:'MEATBALLED!',cav:'LUCY GOT YOU!',phrag:'TANGLED IN THE PHRAGMITES!',weasel:'OUT-WEASELED!',badger:'BADGERED TO DEATH!',golden:'GREED KILLS!',fox:'FEATHERS RUFFLED!'};
+  const KO={joker:'THE JOKE\'S ON YOU!',caesar:'VENI. VIDI. VICI.',mega:'MEGA MEATBALLED!',meatball:'MEATBALLED!',cav:'LUCY GOT YOU!',phrag:'HUSKED BY THE CORN!',weasel:'FUMBLED!',badger:'DINNER IS SERVED!',golden:'GREED KILLS!',fox:'FEATHERS RUFFLED!'};
   $('overTitle').textContent=survived?'Kata Complete!':(KO[G.killer]||'Feathers Ruffled!');
   const tot=G.perfects+G.goods+G.misses,acc=tot?Math.round(100*G.perfects/tot):0;
   bumpPlays();const stN=bumpStreak(G.mode),beatVs=vs&&G.score>vs.score;

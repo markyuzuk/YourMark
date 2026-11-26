@@ -2,6 +2,11 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v94 — 2025-11-26
+- THANKSGIVING TAKEOVER: every regular enemy reskinned for the holiday — Turkey (fox), Pilgrim Hunter (badger), bouncing Football (weasel — he still flips sides), Golden Turkey jackpot, Lucy in a pilgrim hat, and the Corn Stalks
+- New KO lines: FUMBLED! / DINNER IS SERVED! / HUSKED BY THE CORN!
+- Guide updated with themed portraits + fixed the meatball card hearts count
+
 ## v93 — 2025-11-26
 - Fixed mass deaths at 10k: squad meatballs were carrying the 8hp tuned for the original SINGLE meatball boss — 32 hearts total, mathematically unsurvivable. Squad members now have 2 hearts each (8 total, same as intended)
 
