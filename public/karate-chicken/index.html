@@ -21,10 +21,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=97">
+<link rel="stylesheet" href="style.css?v=98">
 <style>
   /* password gate */
-  #gate{position:fixed;inset:0;background:#ffd9a0;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
+  #gate{position:fixed;inset:0;background:#1c1410;z-index:99;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif}
   .gate-box{background:#2a1f18;border:2px solid #4a3626;border-radius:18px;padding:36px 34px;width:340px;max-width:88vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
   .gate-box img{width:110px;margin-bottom:10px}
   .gate-chicken{position:relative;display:inline-block}
@@ -67,7 +67,7 @@
         <li><b>🏈</b><span>Watch for the football — it bounces. Corn stalks loom. Lucy dressed up</span></li>
         <li><b>&#x1F965;</b><span>Grateful for you, our favorite chicken. Now go earn that feast</span></li>
       </ul>
-      <div style="text-align:center;font-size:10px;color:#a08a6e;margin-top:8px">v97</div>
+      <div style="text-align:center;font-size:10px;color:#a08a6e;margin-top:8px">v98</div>
     </div>
   </div>
 </div>
@@ -241,6 +241,6 @@ function sayGate(){
 if(sessionStorage.getItem('kc_auth')!=='1'){var g=document.getElementById('gate');g.style.display='flex';sayGate();g.addEventListener('pointerdown',sayGate)}
 document.getElementById('gatePw').addEventListener('keydown',function(e){if(e.key==='Enter')tryGate()});
 </script>
-<script src="game-v94.js"></script>
+<script src="game-v98.js"></script>
 </body>
 </html>

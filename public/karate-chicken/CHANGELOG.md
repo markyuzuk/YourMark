@@ -2,6 +2,9 @@
 
 All notable releases. Version = service-worker cache + `?v=` asset version.
 
+## v98 — 2025-11-26
+- Gate background reverted to dark; the dojo wall — the game's main backdrop — is now light orange for the holiday
+
 ## v97 — 2025-11-26
 - Gate chicken's pilgrim hat doubled in size; password screen background now light orange
 - Fixed two corrupted emoji in the Thanksgiving gate message

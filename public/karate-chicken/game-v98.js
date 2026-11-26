@@ -339,7 +339,7 @@ function tickFx(dt){
 function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
 function drawBG(){
   const wallB=GY-40;
-  ctx.fillStyle='#efe3c8';ctx.fillRect(0,0,W,GY);
+  ctx.fillStyle='#ffd9a0';ctx.fillRect(0,0,W,GY);
   ctx.strokeStyle='#8a5a33';ctx.lineWidth=3;
   for(let x=CX%100;x<=W;x+=100){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,wallB);ctx.stroke();}
   ctx.lineWidth=1.5;ctx.strokeStyle='rgba(138,90,51,.5)';
